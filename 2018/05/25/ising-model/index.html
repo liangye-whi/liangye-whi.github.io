@@ -100,7 +100,7 @@
 
 
   <meta name="description" content="Ising模型是统计物理学最经典的模型之一，由Wilhelm Lenz在1920年提出。Ising模型属于点阵模型，最初被设计用于描述铁磁性相变，现在已经在各个领域都有广泛应用。其模拟技术简单、典型。 定义一个点阵系统的每个格点$i$有一个离散随机变量$s_i$，其值为$\pm 1$。这个变量在描述磁现象的问题中，即为格点的自旋。当每一个格点$i$都指定了确定的$s_i$，这样集合$s=\{s_i">
-<meta name="keywords" content="Statistics,Monte Carlo,Model,Ising Model,Lattice Model,Simulation">
+<meta name="keywords" content="Statistics,Model,Monte Carlo,Ising Model,Lattice Model,Simulation">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[模型]Ising模型的模拟技术">
 <meta property="og:url" content="https://www.liangye.site/2018/05/25/ising-model/index.html">
@@ -630,9 +630,9 @@ p=\min[1,\exp(-\beta \Delta E)]
           
             <a href="/tags/Statistics/" rel="tag"># Statistics</a>
           
-            <a href="/tags/Monte-Carlo/" rel="tag"># Monte Carlo</a>
-          
             <a href="/tags/Model/" rel="tag"># Model</a>
+          
+            <a href="/tags/Monte-Carlo/" rel="tag"># Monte Carlo</a>
           
             <a href="/tags/Ising-Model/" rel="tag"># Ising Model</a>
           
@@ -1252,6 +1252,22 @@ p=\min[1,\exp(-\beta \Delta E)]
   });
 </script>
 <script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: {
+          Macros: {
+            bm: ["\\boldsymbol{#1}",1],
+            brm: ["\\boldsymbol{\\mathrm{#1}}",1],
+            la: ["\\langle"],
+            ra: ["\\rangle"],
+            bx: ["\\brm{x}"],
+            br: ["\\brm{r}"],
+            pd: ["\\partial"],
+          }
+        }
+      });
+ </script>
 
     
   
