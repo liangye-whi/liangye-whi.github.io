@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="eIrqMncbRU">
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="量子力学中角动量的合成 角动量算符$\brm{J}_1,\brm{J}_2$各自的本征态为$|j_1m_1\ra,|j_2m_2\ra$，则其直积态为$|j_1m_1j_2m_2\ra$。 角动量算符通过加法可以定义新角动量算符：$\brm{J}=\brm{J}_1+\brm{J}_2$，其本征态为$|jm\ra$，在直积空间中表示为$|j_1j_2jm\ra$。 $|j_1m_1j_2m_2\r">
+<meta name="keywords" content="Quantum">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手动计算Clebsch-Gordan系数">
+<meta property="og:url" content="https://www.liangye.site/2018/05/03/clebsch-gordan-calculation/index.html">
+<meta property="og:site_name" content="Ye&#39;s Blog">
+<meta property="og:description" content="量子力学中角动量的合成 角动量算符$\brm{J}_1,\brm{J}_2$各自的本征态为$|j_1m_1\ra,|j_2m_2\ra$，则其直积态为$|j_1m_1j_2m_2\ra$。 角动量算符通过加法可以定义新角动量算符：$\brm{J}=\brm{J}_1+\brm{J}_2$，其本征态为$|jm\ra$，在直积空间中表示为$|j_1j_2jm\ra$。 $|j_1m_1j_2m_2\r">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.liangye.site/img/cg/cg.png">
+<meta property="og:updated_time" content="2019-05-21T23:18:46.666Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="手动计算Clebsch-Gordan系数">
+<meta name="twitter:description" content="量子力学中角动量的合成 角动量算符$\brm{J}_1,\brm{J}_2$各自的本征态为$|j_1m_1\ra,|j_2m_2\ra$，则其直积态为$|j_1m_1j_2m_2\ra$。 角动量算符通过加法可以定义新角动量算符：$\brm{J}=\brm{J}_1+\brm{J}_2$，其本征态为$|jm\ra$，在直积空间中表示为$|j_1j_2jm\ra$。 $|j_1m_1j_2m_2\r">
+<meta name="twitter:image" content="https://www.liangye.site/img/cg/cg.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.liangye.site/2018/05/03/clebsch-gordan-calculation/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>手动计算Clebsch-Gordan系数 | Ye's Blog</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4944b02c2f142cc6651487bf1307d2f7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ye's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.liangye.site/2018/05/03/clebsch-gordan-calculation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ye Liang">
+      <meta itemprop="description" content="So beautiful is the world.">
+      <meta itemprop="image" content="/images/avatar-ly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ye's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">手动计算Clebsch-Gordan系数
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-05-03 10:19:42" itemprop="dateCreated datePublished" datetime="2018-05-03T10:19:42-04:00">2018-05-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-21 19:18:46" itemprop="dateModified" datetime="2019-05-21T19:18:46-04:00">2019-05-21</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/quantum/" itemprop="url" rel="index"><span itemprop="name">quantum</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/05/03/clebsch-gordan-calculation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/03/clebsch-gordan-calculation/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2018/05/03/clebsch-gordan-calculation/" class="leancloud_visitors" data-flag-title="手动计算Clebsch-Gordan系数">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="量子力学中角动量的合成"><a href="#量子力学中角动量的合成" class="headerlink" title="量子力学中角动量的合成"></a>量子力学中角动量的合成</h1><ul>
+<li>角动量算符$\brm{J}_1,\brm{J}_2$各自的本征态为$|j_1m_1\ra,|j_2m_2\ra$，则其直积态为$|j_1m_1j_2m_2\ra$。</li>
+<li>角动量算符通过加法可以定义新角动量算符：$\brm{J}=\brm{J}_1+\brm{J}_2$，其本征态为$|jm\ra$，在直积空间中表示为$|j_1j_2jm\ra$。</li>
+<li>$|j_1m_1j_2m_2\ra$和$|j_1j_2jm\ra$为线性无关的两组基。Clebsch-Gordan系数（CG系数）是这两组基之间的变换矩阵，也就是说一组基在另一组基下的展开系数。</li>
+</ul>
+<p>本文Clebsch-Gordan系数（CG系数）记号为$\la j_1m_1j_2m_2|jm\ra$。若有负号则写在数字上方。</p>
+<h1 id="Clebsch-Gordan系数计算步骤"><a href="#Clebsch-Gordan系数计算步骤" class="headerlink" title="Clebsch-Gordan系数计算步骤"></a>Clebsch-Gordan系数计算步骤</h1><h2 id="参数取值范围"><a href="#参数取值范围" class="headerlink" title="参数取值范围"></a>参数取值范围</h2><p>在计算某一CG系数之前，首先判断其是否为零，了解该CG系数在图像中所处的位置。</p>
+<ul>
+<li>通常，$j_1,j_2\geqslant0$是给定值，可以取整数或者半整数。$j_1,j_2$是两组基共有的量子数，也就是说基组变换前后$j_1,j_2$不变。这也是记号中合成基一侧可以省略$j_1,j_2$的原因。</li>
+<li>$m_1,m_2$的取值为$0,\pm 1,…,\pm j_1,0,\pm 1,…,\pm j_2$。</li>
+<li>$j$的取值范围为$|j_1-j_2|,|j_1-j_2|+1,…,j_1+j_2$。</li>
+<li>$m$的取值只能为$m=m_1+m_2$且不能超出$\pm j$的范围。</li>
+</ul>
+<p>不满足此参数条件的CG系数都为零。</p>
+<h3 id="参数取值范围的图像"><a href="#参数取值范围的图像" class="headerlink" title="参数取值范围的图像"></a>参数取值范围的图像</h3><p>给定$j_1,j_2$后，可取的$(m_1,m_2)$构成了一个二维的矩形点阵。由于必有$m=m_1+m_2$，所以每一个点对应的$m$也是确定的。$m$值相同的点在同一条斜率为$-1$的直线上。</p>
+<p><img src="/img/cg/cg.png" alt="CG系数参数取值范围图像"></p>
+<center>图1：CG系数参数取值范围图像，描述$j_1=3,j_2=2$的计算过程。来源：[citizendium.org](http://en.citizendium.org/wiki/Angular_momentum_coupling)</center>
+
+<h3 id="CG系数为1的点：Condon–Shortley约定"><a href="#CG系数为1的点：Condon–Shortley约定" class="headerlink" title="CG系数为1的点：Condon–Shortley约定"></a>CG系数为1的点：Condon–Shortley约定</h3><p>约定$\la j_1j_1j_2j_2|jj\ra=1,\quad j=j_1+j_2$。这一点位于图像的右上角。这一点通常为CG系数迭代计算的起点。</p>
+<blockquote>
+<div class="spoiler collapsed"><div class="spoiler-title">原因</div><div class="spoiler-content"><p>因为$|m_1=j_1,m_2=j_2\ra$必须等于$|j=j_1+j_2,m=j_1+j_2\ra$，除了一个任意的相因子。这个相因子就被约定为1。</p>
+</div></div>
+</blockquote>
+<div class="note info">
+            <h4 id="Condon-Shortley约定"><a href="#Condon-Shortley约定" class="headerlink" title="Condon-Shortley约定"></a>Condon-Shortley约定</h4><p>$\la j_1j_1j_2(j-j_1)|jj\ra &gt;0$.</p>
+          </div>
+<h2 id="CG系数的迭代关系"><a href="#CG系数的迭代关系" class="headerlink" title="CG系数的迭代关系"></a>CG系数的迭代关系</h2><p>使用升降算符可以得出CG系数的迭代关系</p>
+<script type="math/tex; mode=display">\begin{align}
+\sqrt{(j-m)(j+m+1)}\la j_1m_1j_2m_2|jm+1\ra=\sqrt{(j_1+m_1)(j_1-m_1+1)}\la j_1m_1-1j_2m_2|jm\ra+\sqrt{(j_2+m_2)(j_2-m_2+1)}\la j_1j_2m_1m_2-1|jm\ra\newline
+\sqrt{(j+m)(j-m+1)}\la j_1m_1j_2m_2|jm-1\ra=\sqrt{(j_1-m_1)(j_1+m_1+1)}\la j_1m_1+1j_2m_2|jm\ra+\sqrt{(j_2-m_2)(j_2+m_2+1)}\la j_1j_2m_1m_2+1|jm\ra\label{eqn:2}\newline
+\end{align}</script><p>$J<em>+$对应的系数为$\sqrt{(j-m)(j+m+1)}$，$J</em>-$对应的系数为$\sqrt{(j+m)(j-m+1)}$。</p>
+<h3 id="j-取最大值时的计算"><a href="#j-取最大值时的计算" class="headerlink" title="$j$ 取最大值时的计算"></a>$j$ 取最大值时的计算</h3><p>利用迭代关系式$\eqref{eqn:2}$，从图像的右上角开始逐步计算$j=j_1+j_2$时不同$m_1,m_2$对应的CG系数。</p>
+<p>通常将已知的点代入式$\eqref{eqn:2}$的右侧，待求的点放在左侧。在图像中，上边缘的点只依赖于其右邻点，右边缘的点只依赖与其上邻点，中间的点则依赖于右邻点和上邻点。</p>
+<h3 id="j-取最大值减一时的计算"><a href="#j-取最大值减一时的计算" class="headerlink" title="$j$ 取最大值减一时的计算"></a>$j$ 取最大值减一时的计算</h3><p>$j=j_1+j_2-1$时，$m$的可取的范围在图像上缩小，即不再包含$m=\pm(j_1+j_2)$两个点。此时不能立刻使用CG系数为1的点，必须经过转化。<br>首先，计算$m$取最大值$j_1+j_2-1$。此时可以列出基组的变换：</p>
+<script type="math/tex; mode=display">\begin{align}
+|j=j_1+j_2,m=j_1+j_2-1\ra= A_{11}|m_1=j_1,m_2=j_2-1\ra+A_{12}|m_1=j_1-1,m_2=j_2\ra\label{eqn:3}\newline
+|j=j_1+j_2-1,m=j_1+j_2-1\ra= A_{21}|m_1=j_1,m_2=j_2-1\ra+A_{22}|m_1=j_1-1,m_2=j_2\ra\label{eqn:4}
+\end{align}</script><p>这两个矢量正交；其中$A<em>{ij}$都是CG系数，并且其中第一行的$A</em>{11},A<em>{12}$都是已知的。这样通过解方程可以得出第二行的$A</em>{21},A<em>{22}$。在归一化后，仍然有一个相因子的自由度，这个自由度由Condon-Shortley约定消除：规定$m$取最大值$j$、$m_1$取最大值$j_1$时的CG系数为正实数。这里即规定$A</em>{21}&gt;0$。这样CG系数都为确定值。</p>
+<p>在确定右上角两个值之后，再利用迭代关系可以求出$j=j_1+j_2-1$时其他的CG系数。</p>
+<h3 id="j-取一般非最大值时的计算"><a href="#j-取一般非最大值时的计算" class="headerlink" title="$j$ 取一般非最大值时的计算"></a>$j$ 取一般非最大值时的计算</h3><p>类比取最大值减一的方法，只是要列出三个、四个或更多的基组变换等式来求解，因为右上角斜边缘的点变成了三个、四个或更多。同时，相因子使用Condon-Shortley约定决定即可。</p>
+<h1 id="使用程序计算CG系数"><a href="#使用程序计算CG系数" class="headerlink" title="使用程序计算CG系数"></a>使用程序计算CG系数</h1><p>如<a href="http://reference.wolfram.com/language/ref/ClebschGordan.html" target="_blank" rel="noopener">Mathematica</a>，<a href="http://docs.sympy.org/latest/modules/physics/quantum/cg.html" target="_blank" rel="noopener">SymPy</a>等。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li>Sakurai &amp; Napolitano, Modern quantum mechanics (1994)</li>
+<li>Citizendium, <a href="http://en.citizendium.org/wiki/Angular_momentum_coupling" target="_blank" rel="noopener">Angular momentum coupling</a></li>
+</ol>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Quantum/" rel="tag"># Quantum</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/27/quantum-scattering/" rel="next" title="量子散射理论">
+                <i class="fa fa-chevron-left"></i> 量子散射理论
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/06/lattice-gas-diffusivity/" rel="prev" title="随机行走模拟求二维点阵气体模型的扩散系数">
+                随机行走模拟求二维点阵气体模型的扩散系数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar-ly.jpg" alt="Ye Liang">
+            
+              <p class="site-author-name" itemprop="name">Ye Liang</p>
+              <div class="site-description motion-element" itemprop="description">So beautiful is the world.</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/liangye-whi" title="GitHub &rarr; https://github.com/liangye-whi" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:liangye@hotmail.com" title="E-Mail &rarr; mailto:liangye@hotmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links of Likes
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://avnpc.com/" title="https://avnpc.com/" rel="noopener" target="_blank">AlloVince's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://reuixiy.github.io/" title="https://reuixiy.github.io/" rel="noopener" target="_blank">Reuixiy's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://idleworks.io/" title="http://idleworks.io/" rel="noopener" target="_blank">IdleWorks</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://zkeeer.space/" title="http://zkeeer.space/" rel="noopener" target="_blank">ZKeeer's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.raychase.net/" title="http://www.raychase.net/" rel="noopener" target="_blank">四火的唠叨</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/huang0925/" title="http://www.cnblogs.com/huang0925/" rel="noopener" target="_blank">无敌北瓜</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#量子力学中角动量的合成"><span class="nav-number">1.</span> <span class="nav-text">量子力学中角动量的合成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Clebsch-Gordan系数计算步骤"><span class="nav-number">2.</span> <span class="nav-text">Clebsch-Gordan系数计算步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参数取值范围"><span class="nav-number">2.1.</span> <span class="nav-text">参数取值范围</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数取值范围的图像"><span class="nav-number">2.1.1.</span> <span class="nav-text">参数取值范围的图像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CG系数为1的点：Condon–Shortley约定"><span class="nav-number">2.1.2.</span> <span class="nav-text">CG系数为1的点：Condon–Shortley约定</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CG系数的迭代关系"><span class="nav-number">2.2.</span> <span class="nav-text">CG系数的迭代关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#j-取最大值时的计算"><span class="nav-number">2.2.1.</span> <span class="nav-text">$j$ 取最大值时的计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#j-取最大值减一时的计算"><span class="nav-number">2.2.2.</span> <span class="nav-text">$j$ 取最大值减一时的计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#j-取一般非最大值时的计算"><span class="nav-number">2.2.3.</span> <span class="nav-text">$j$ 取一般非最大值时的计算</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用程序计算CG系数"><span class="nav-number">3.</span> <span class="nav-text">使用程序计算CG系数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ye Liang</span>
+
+  
+
+  
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+
+  
+    <span class="site-uv" title="总访客量">
+       &nbsp; <i class="fa fa-mouse-pointer"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>&nbsp;hits.
+    </span>
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Ok4C3rcmRwMgcOSk22nDDedw-gzGzoHsz',
+    appKey: 'zCaDpvj6GSOvR84lJ0b7iM83',
+    placeholder: 'Leave a comment?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '0LqLqPGW53nbdmfQYMwdaTbl-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '0LqLqPGW53nbdmfQYMwdaTbl-gzGzoHsz',
+                'X-LC-Key': 'vvGIT8AoBabby809gGAcVFBA',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="eIrqMncbRU">
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="假如你希望拥有自己独立的计算集群，而不是和课题组混用一个集群，并且你不希望在硬件购置、维护上花很多时间，你可以尝试AWS的云计算服务。AWS云计算比起中国国内的云计算服务更为完善高效，性能也相当不错，并且价格也完全可接受。本文讲解如何快速地在AWS上搭建完整的小型高性能计算集群。 准备首先注册亚马逊AWS账号。注册时需要提供VISA、MASTERCARD之类的美元信用卡信息。注册后可享受一年免费的">
+<meta name="keywords" content="HPC,AWS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于AWS云计算创建个人高性能计算集群">
+<meta property="og:url" content="https://www.liangye.site/2018/08/16/aws-cluster/index.html">
+<meta property="og:site_name" content="Ye&#39;s Blog">
+<meta property="og:description" content="假如你希望拥有自己独立的计算集群，而不是和课题组混用一个集群，并且你不希望在硬件购置、维护上花很多时间，你可以尝试AWS的云计算服务。AWS云计算比起中国国内的云计算服务更为完善高效，性能也相当不错，并且价格也完全可接受。本文讲解如何快速地在AWS上搭建完整的小型高性能计算集群。 准备首先注册亚马逊AWS账号。注册时需要提供VISA、MASTERCARD之类的美元信用卡信息。注册后可享受一年免费的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-21T23:18:17.110Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于AWS云计算创建个人高性能计算集群">
+<meta name="twitter:description" content="假如你希望拥有自己独立的计算集群，而不是和课题组混用一个集群，并且你不希望在硬件购置、维护上花很多时间，你可以尝试AWS的云计算服务。AWS云计算比起中国国内的云计算服务更为完善高效，性能也相当不错，并且价格也完全可接受。本文讲解如何快速地在AWS上搭建完整的小型高性能计算集群。 准备首先注册亚马逊AWS账号。注册时需要提供VISA、MASTERCARD之类的美元信用卡信息。注册后可享受一年免费的">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.liangye.site/2018/08/16/aws-cluster/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>基于AWS云计算创建个人高性能计算集群 | Ye's Blog</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4944b02c2f142cc6651487bf1307d2f7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ye's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.liangye.site/2018/08/16/aws-cluster/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ye Liang">
+      <meta itemprop="description" content="So beautiful is the world.">
+      <meta itemprop="image" content="/images/avatar-ly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ye's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">基于AWS云计算创建个人高性能计算集群
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-16 09:37:08" itemprop="dateCreated datePublished" datetime="2018-08-16T09:37:08-04:00">2018-08-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-21 19:18:17" itemprop="dateModified" datetime="2019-05-21T19:18:17-04:00">2019-05-21</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/HPC/" itemprop="url" rel="index"><span itemprop="name">HPC</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/08/16/aws-cluster/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/16/aws-cluster/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2018/08/16/aws-cluster/" class="leancloud_visitors" data-flag-title="基于AWS云计算创建个人高性能计算集群">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>假如你希望拥有自己独立的计算集群，而不是和课题组混用一个集群，并且你不希望在硬件购置、维护上花很多时间，你可以尝试AWS的云计算服务。AWS云计算比起中国国内的云计算服务更为完善高效，性能也相当不错，并且价格也完全可接受。本文讲解如何快速地在AWS上搭建完整的小型高性能计算集群。</p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>首先注册亚马逊AWS账号。注册时需要提供VISA、MASTERCARD之类的美元信用卡信息。注册后可享受一年免费的初级服务，包括最低级别的服务器和存储空间等。</p>
+<h1 id="创建密钥对"><a href="#创建密钥对" class="headerlink" title="创建密钥对"></a>创建密钥对</h1><p>参考官方文档<a href="https://aws.amazon.com/cn/getting-started/use-cases/hpc/" target="_blank" rel="noopener">https://aws.amazon.com/cn/getting-started/use-cases/hpc/</a>的这一部分的讲解。密钥文件将用于免密ssh登录到控制节点。</p>
+<h1 id="安装配置CfnCluster"><a href="#安装配置CfnCluster" class="headerlink" title="安装配置CfnCluster"></a>安装配置CfnCluster</h1><p>CfnCluster是一个命令行下管理计算集群的工具。安装和设置参见<a href="https://d0.awsstatic.com/Projects/P4114756/deploy-elastic-hpc-cluster_project.pdf" target="_blank" rel="noopener">https://d0.awsstatic.com/Projects/P4114756/deploy-elastic-hpc-cluster_project.pdf</a>。本文大部分内容也基于此文档，只是在细节上略有调整。</p>
+<p>关于CfnCluster的config文件，我的略作修改后的配置是<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[aws]</span></span><br><span class="line"><span class="attr">aws_region_name</span> = us-east-<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="section">[cluster default]</span></span><br><span class="line"><span class="attr">key_name</span> = xxxxx</span><br><span class="line"><span class="attr">vpc_settings</span> = public</span><br><span class="line"><span class="attr">initial_queue_size</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">max_queue_size</span> = <span class="number">2</span></span><br><span class="line"><span class="attr">compute_instance_type</span> = c4.<span class="number">2</span>xlarge</span><br><span class="line"><span class="attr">cluster_type</span> = spot</span><br><span class="line"><span class="attr">spot_price</span> = <span class="number">0.075</span></span><br><span class="line"></span><br><span class="line"><span class="section">[vpc public]</span></span><br><span class="line"><span class="attr">vpc_id</span> = vpc-xxxxxxxe</span><br><span class="line"><span class="attr">master_subnet_id</span> = subnet-xxxxxxxx</span><br><span class="line"></span><br><span class="line"><span class="section">[global]</span></span><br><span class="line"><span class="attr">cluster_template</span> = default</span><br><span class="line"><span class="attr">update_check</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">sanity_check</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>这里xxx代表的需要根据自己AWS上的配置改写的。关于计算节点实例的选择，其实很灵活的，根据自己的计算需求选择就可以了。一般的小任务（需要不超过十个核心、时间小于半天）使用c4.2xlarge类型就足够了。注意这类计算优化节点不免费。</p>
+<p><code>cluster_type</code>设置为spot类型，能够极大节省计算费用。<code>spot_price</code>指定你可接受的价格上限。关于平均价格，可以在AWS控制台中找spot实例的历史价格查看。这个价格指的是假如当前市场价格没有高过这个价格，则可以正常启动、运行；假如高过，则停止实例运行（大致如此）。当然你也可以直接设置默认取市场价为价格上限，这样就绝对不会被中断了。然而目前的使用体验是对于小任务，完全不需要担心被中断的问题。从来没有遇到过被AWS中断。</p>
+<p><code>initial_queue_size</code>指的是创建集群时的节点数量，<code>max_queue</code>是最大节点数量。最小节点数量不设置的话默认为零。所以创建集群后你将看到一个控制节点和<code>initial_queue</code>个计算节点。如果你不提交任务，过一分钟左右计算节点的数目将被清零，只留下t2.micro一个控制节点（第一年t2.micro每月免费750小时）。当在控制节点上提交任务时，约两分钟计算节点将被扩展，扩展节点数量视任务数量、最大节点数设置和Alarm中信号的设置。</p>
+<h1 id="创建集群"><a href="#创建集群" class="headerlink" title="创建集群"></a>创建集群</h1><p>使用<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cfncluster create name_of_your_cluster</span></span><br></pre></td></tr></table></figure></p>
+<p>然后就全自动完成对集群的创建了。集群名称用于cfncluster对集群的控制。之后应该可以在AWS的控制台的EC2窗口中看到控制节点和初始计算节点。</p>
+<h1 id="免密登录控制节点"><a href="#免密登录控制节点" class="headerlink" title="免密登录控制节点"></a>免密登录控制节点</h1><p>在首次通过ssh登录控制节点之前需要设置ssh。Linux下在用户目录的<code>.ssh</code>隐藏文件夹中打开<code>config</code>文件，添加控制节点信息：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Host your_server_name</span><br><span class="line">Hostname xxx.xxx.xxx.xxx</span><br><span class="line">Port 22</span><br><span class="line">User ec2-user</span><br><span class="line">IdentityFile ~/.ssh/xxxxx.pem</span><br></pre></td></tr></table></figure></p>
+<p>这里节点名字任意起，用在ssh和scp连接时替代输入ip地址。<code>.pem</code>密钥文件就是你在创建密钥对的时候下载保存的那个<code>.pem</code>文件，可以将其移动到<code>.ssh</code>文件夹中保管。用户名AWS建议就使用ec2-user就好，不要改。</p>
+<p>在设置完ssh之后，就可以通过<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ssh your_server_name</span></span><br></pre></td></tr></table></figure></p>
+<p>登录。第一次登录有个ssh warning直接yes就可以了。</p>
+<h1 id="控制节点的配置"><a href="#控制节点的配置" class="headerlink" title="控制节点的配置"></a>控制节点的配置</h1><p>首先通过修改或上传<code>.bashrc</code>等配置文件定义自己的工作环境。然后安装软件等。这里创建的AWS控制节点上使用yum安装，其软件包是AWS内部提供的源。安装python3需要<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo yum install python36</span></span><br></pre></td></tr></table></figure></p>
+<p>然后通过切换默认python版本调到3.6<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo update-alternatives --config python</span></span><br></pre></td></tr></table></figure></p>
+<p>然后就可以用pip直接安装python3的各种包。</p>
+<h4 id="设置ssh通讯免中断"><a href="#设置ssh通讯免中断" class="headerlink" title="设置ssh通讯免中断"></a>设置ssh通讯免中断</h4><p>一般情况在shell中ssh连接到控制节点后，一段时间没有使用，则ssh自动中断连接，表现为shell无反应。这是ssh的特性。为了避免ssh自动中断，可以在自己的电脑（作为客户端）的<code>/etc/ssh/ssh_config</code>中添加或修改<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ServerAliveInterval <span class="number">20</span></span><br><span class="line">ServerAliveCountMax <span class="number">999</span></span><br></pre></td></tr></table></figure></p>
+<p>就可以对任何ssh服务器（这里是控制节点）防止通讯中断。</p>
+<h1 id="提交任务"><a href="#提交任务" class="headerlink" title="提交任务"></a>提交任务</h1><p>通过scp等将计算文件由本地上传至控制节点，然后通过qsub提交到计算节点。如果提交时没有计算节点，需要等待两分钟AWS自动扩展计算节点。对任务的控制基本与常见的公共计算集群一致。</p>
+<h1 id="更改集群设置"><a href="#更改集群设置" class="headerlink" title="更改集群设置"></a>更改集群设置</h1><p>最常见的更改集群的目的是为了修改最大计算节点数量。只要修改<code>.cfncluster</code>文件夹中的<code>config</code>中的数字，然后用cfncluster命令更新就可以了<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cfncluster update name_of_your_cluster</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="停止集群"><a href="#停止集群" class="headerlink" title="停止集群"></a>停止集群</h1><p>cfncluster的stop指令本质上是将自动扩展组的min/max/desired都设置为零，从而将所有的计算节点全部关闭。要关闭主节点，貌似必须手动在EC2窗口中stop。stop之后最好不要再修改任何设置，以免cfncluster对集群失去控制。</p>
+<p>控制节点不受cfncluster stop命令的影响。</p>
+<p>由于第一年控制节点24小时运行是免费的，所以一般无需担心控制节点费用问题。然而在第一年后，不用集群时最好将其完全删除。一个遗留的内容是CloudWatch中的关于Auto Scaling Group的Metric，可以手动删除。</p>
+<h1 id="删除集群"><a href="#删除集群" class="headerlink" title="删除集群"></a>删除集群</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cfncluster delete name_of_your_cluster</span></span><br></pre></td></tr></table></figure>
+<p>就可以完全删除，包括使用中的节点和数据盘、自动扩展（Auto Scaling Group）以及警报（Alarm）等。注意控制节点的文件将全部丢失。</p>
+<h1 id="关于数据盘"><a href="#关于数据盘" class="headerlink" title="关于数据盘"></a>关于数据盘</h1><p>控制节点创建时自动挂载两个数据盘，一个是系统一个是用户文件；计算节点创建时只挂载一个系统盘。</p>
+<h1 id="收费"><a href="#收费" class="headerlink" title="收费"></a>收费</h1><p>可以在AWS的billing中查看当月使用情况和账单。一般在建立账户24小时之后在会有统计数据。预算（Budget）功能可以在超过设定费用时向用户发送邮件报警，也需要在建立账户24小时之后设置。</p>
+<p>关于spot实例的价格可以在Spot Request中查看。On-Demand Price是预留价格，下面的spot价格往往是预留价格的1/6~1/7。一般c4.2xlarge都比较便宜，在Ohio区的只要每小时$0.0677。</p>
+<h1 id="已知Bug及处理办法"><a href="#已知Bug及处理办法" class="headerlink" title="已知Bug及处理办法"></a>已知Bug及处理办法</h1><h2 id="自动终止计算节点失效"><a href="#自动终止计算节点失效" class="headerlink" title="自动终止计算节点失效"></a>自动终止计算节点失效</h2><p>如果尝试手动stop或者reboot控制节点，将会产生重启后无法正常terminate计算节点的问题。此外偶尔Auto Scaling Group自动terminate会失效，导致完成计算的节点无法自动终止，如果不注意可能会浪费钱。所以建议在计算完成之后留意下是否正确终止计算节点，也可以在手机AWS客户端上关注。目前AWS对此无解决方案（<a href="https://github.com/awslabs/cfncluster/issues/339" target="_blank" rel="noopener">https://github.com/awslabs/cfncluster/issues/339</a>）。建议<strong>不要在EC2窗口中修改控制节点的任何设定</strong>。</p>
+<p>如果发生自动终止计算节点失效，则手动将Auto Scaling Group中的Desired改为0，之后EC2中的计算节点将自动关闭。<strong>不要在EC2中直接terminate计算节点</strong>，这样EC2马上会再开几个以保证计算节点数量达到Desired。</p>
+<h2 id="控制节点登录后提示更新"><a href="#控制节点登录后提示更新" class="headerlink" title="控制节点登录后提示更新"></a>控制节点登录后提示更新</h2><p>如果没有特殊需要，不要对节点进行<code>sudo yum update</code>更新，因为有可能带来未知错误，并且浪费公网流量。</p>
+<h2 id="任务卡在僵尸节点上"><a href="#任务卡在僵尸节点上" class="headerlink" title="任务卡在僵尸节点上"></a>任务卡在僵尸节点上</h2><p>偶尔由于未知原因任务卡在已经被删除的节点上。这时候可以使用<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo -u sgeadmin -i qdel -f job-ID</span></span><br></pre></td></tr></table></figure></p>
+<p>来强制删除任务。</p>
+<h2 id="僵尸节点残留在qhost中"><a href="#僵尸节点残留在qhost中" class="headerlink" title="僵尸节点残留在qhost中"></a>僵尸节点残留在qhost中</h2><p>偶尔节点在EC2窗口中已经终止，但是还残留在qhost表中。可以经过以下方法在控制节点上将其清除出集群：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> first, you need to <span class="built_in">disable</span> the host from queue to avoid any <span class="built_in">jobs</span> to be allocated to this host</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo -u sgeadmin -i qmod -d all.q@ip-xxx-xxx-xxx-xxx-east-2.compute.internal</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">wait</span> <span class="keyword">for</span> <span class="built_in">jobs</span> to be finished execution on this host, <span class="keyword">then</span> <span class="built_in">kill</span> the execution script</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo -u sgeadmin -i qconf -ke ip-xxx-xxx-xxx-xxx-east-2.compute.internal</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remove it from the cluster, this opens an editor, just remove the lines referring to this host</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo -u sgeadmin -i qconf -mq all.q</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remove it from allhosts group, this also opens an editor, remove lines referring to this host</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo -u sgeadmin -i qconf -mhgrp @allhosts</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remove it from execution host list</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo -u sgeadmin -i qconf -de ip-xxx-xxx-xxx-xxx</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> I normally go to the host and delete the sge scripts as well</span></span><br></pre></td></tr></table></figure></p>
+<p>对于僵尸节点，前两个命令失败是正常的。第三第四个命令都是打开一个编辑器（一般是vi），需要删除其中关于僵尸节点的内容。第三个命令，删除slots中的节点之后要确认行后没有逗号。第四个命令，如果删除后没有节点，需要在文件的hostlist后面跟一个NONE作为参数。</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HPC/" rel="tag"># HPC</a>
+          
+            <a href="/tags/AWS/" rel="tag"># AWS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/11/pdftk-content-adding/" rel="next" title="Linux下使用pdftk对pdf文件添加或修改目录">
+                <i class="fa fa-chevron-left"></i> Linux下使用pdftk对pdf文件添加或修改目录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/26/chandler-keys/" rel="prev" title="Introduction to Modern Statistical Mechanics by Chandler讨论、纠错及习题解答">
+                Introduction to Modern Statistical Mechanics by Chandler讨论、纠错及习题解答 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar-ly.jpg" alt="Ye Liang">
+            
+              <p class="site-author-name" itemprop="name">Ye Liang</p>
+              <div class="site-description motion-element" itemprop="description">So beautiful is the world.</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/liangye-whi" title="GitHub &rarr; https://github.com/liangye-whi" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:liangye@hotmail.com" title="E-Mail &rarr; mailto:liangye@hotmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links of Likes
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://avnpc.com/" title="https://avnpc.com/" rel="noopener" target="_blank">AlloVince's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://reuixiy.github.io/" title="https://reuixiy.github.io/" rel="noopener" target="_blank">Reuixiy's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://idleworks.io/" title="http://idleworks.io/" rel="noopener" target="_blank">IdleWorks</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://zkeeer.space/" title="http://zkeeer.space/" rel="noopener" target="_blank">ZKeeer's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.raychase.net/" title="http://www.raychase.net/" rel="noopener" target="_blank">四火的唠叨</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/huang0925/" title="http://www.cnblogs.com/huang0925/" rel="noopener" target="_blank">无敌北瓜</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建密钥对"><span class="nav-number">2.</span> <span class="nav-text">创建密钥对</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装配置CfnCluster"><span class="nav-number">3.</span> <span class="nav-text">安装配置CfnCluster</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建集群"><span class="nav-number">4.</span> <span class="nav-text">创建集群</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#免密登录控制节点"><span class="nav-number">5.</span> <span class="nav-text">免密登录控制节点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#控制节点的配置"><span class="nav-number">6.</span> <span class="nav-text">控制节点的配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提交任务"><span class="nav-number">7.</span> <span class="nav-text">提交任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更改集群设置"><span class="nav-number">8.</span> <span class="nav-text">更改集群设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#停止集群"><span class="nav-number">9.</span> <span class="nav-text">停止集群</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除集群"><span class="nav-number">10.</span> <span class="nav-text">删除集群</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于数据盘"><span class="nav-number">11.</span> <span class="nav-text">关于数据盘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#收费"><span class="nav-number">12.</span> <span class="nav-text">收费</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#已知Bug及处理办法"><span class="nav-number">13.</span> <span class="nav-text">已知Bug及处理办法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自动终止计算节点失效"><span class="nav-number">13.1.</span> <span class="nav-text">自动终止计算节点失效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制节点登录后提示更新"><span class="nav-number">13.2.</span> <span class="nav-text">控制节点登录后提示更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务卡在僵尸节点上"><span class="nav-number">13.3.</span> <span class="nav-text">任务卡在僵尸节点上</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#僵尸节点残留在qhost中"><span class="nav-number">13.4.</span> <span class="nav-text">僵尸节点残留在qhost中</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ye Liang</span>
+
+  
+
+  
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+
+  
+    <span class="site-uv" title="总访客量">
+       &nbsp; <i class="fa fa-mouse-pointer"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>&nbsp;hits.
+    </span>
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Ok4C3rcmRwMgcOSk22nDDedw-gzGzoHsz',
+    appKey: 'zCaDpvj6GSOvR84lJ0b7iM83',
+    placeholder: 'Leave a comment?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '0LqLqPGW53nbdmfQYMwdaTbl-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '0LqLqPGW53nbdmfQYMwdaTbl-gzGzoHsz',
+                'X-LC-Key': 'vvGIT8AoBabby809gGAcVFBA',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

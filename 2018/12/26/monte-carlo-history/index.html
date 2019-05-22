@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="eIrqMncbRU">
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="现代Monte Carlo算法的起源：Metropolis算法Monte Carlo算法的思想起源很早，一个很著名的例子是18世纪的布丰投针实验。人们很早就发现Monte Carlo算法能够用于求数值积分。 统计物理中的Monte Carlo算法始于20世纪40年代，由波兰数学家斯塔尼斯拉夫·乌拉姆（Stanisław Marcin Ulam）提出，用来数值求解曼哈顿计划中中子散射问题的微分方程。">
+<meta name="keywords" content="Monte Carlo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Monte Carlo算法发展史">
+<meta property="og:url" content="https://www.liangye.site/2018/12/26/monte-carlo-history/index.html">
+<meta property="og:site_name" content="Ye&#39;s Blog">
+<meta property="og:description" content="现代Monte Carlo算法的起源：Metropolis算法Monte Carlo算法的思想起源很早，一个很著名的例子是18世纪的布丰投针实验。人们很早就发现Monte Carlo算法能够用于求数值积分。 统计物理中的Monte Carlo算法始于20世纪40年代，由波兰数学家斯塔尼斯拉夫·乌拉姆（Stanisław Marcin Ulam）提出，用来数值求解曼哈顿计划中中子散射问题的微分方程。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-21T23:18:17.110Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Monte Carlo算法发展史">
+<meta name="twitter:description" content="现代Monte Carlo算法的起源：Metropolis算法Monte Carlo算法的思想起源很早，一个很著名的例子是18世纪的布丰投针实验。人们很早就发现Monte Carlo算法能够用于求数值积分。 统计物理中的Monte Carlo算法始于20世纪40年代，由波兰数学家斯塔尼斯拉夫·乌拉姆（Stanisław Marcin Ulam）提出，用来数值求解曼哈顿计划中中子散射问题的微分方程。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.liangye.site/2018/12/26/monte-carlo-history/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Monte Carlo算法发展史 | Ye's Blog</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4944b02c2f142cc6651487bf1307d2f7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ye's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.liangye.site/2018/12/26/monte-carlo-history/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ye Liang">
+      <meta itemprop="description" content="So beautiful is the world.">
+      <meta itemprop="image" content="/images/avatar-ly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ye's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Monte Carlo算法发展史
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-26 14:17:19" itemprop="dateCreated datePublished" datetime="2018-12-26T14:17:19-05:00">2018-12-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-21 19:18:17" itemprop="dateModified" datetime="2019-05-21T19:18:17-04:00">2019-05-21</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/statistics/" itemprop="url" rel="index"><span itemprop="name">statistics</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/12/26/monte-carlo-history/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/26/monte-carlo-history/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2018/12/26/monte-carlo-history/" class="leancloud_visitors" data-flag-title="Monte Carlo算法发展史">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="现代Monte-Carlo算法的起源：Metropolis算法"><a href="#现代Monte-Carlo算法的起源：Metropolis算法" class="headerlink" title="现代Monte Carlo算法的起源：Metropolis算法"></a>现代Monte Carlo算法的起源：Metropolis算法</h1><p>Monte Carlo算法的思想起源很早，一个很著名的例子是18世纪的布丰投针实验。人们很早就发现Monte Carlo算法能够用于求数值积分。</p>
+<p>统计物理中的Monte Carlo算法始于20世纪40年代，由波兰数学家斯塔尼斯拉夫·乌拉姆（Stanisław Marcin Ulam）提出，用来数值求解曼哈顿计划中中子散射问题的微分方程。1945年10月，第一台通用电子计算机ENIAC诞生，乌拉姆将这一思想告知冯·诺依曼（John von Neumann），随后冯·诺依曼将Monte Carlo算法编写成程序，利用计算机求解。而Monte Carlo这个名字，则由尼古拉斯·梅特罗波利斯（Nicholas Metropolis）提出，来源与乌拉姆的叔叔经常去赌博的摩纳哥蒙特卡罗赌场。</p>
+<p>1953年，梅特罗波利斯与罗森布卢特（Rosenbluth）夫妇、泰勒（Teller）夫妇共同发表论文Equation of State Calculations by Fast Computing Machines[1]，提出了一种利用计算机求解强关联多体系统的统计性质的随机算法。在这篇文章中，他们计算了二维硬球（rigid sphere）模型。文章核心思路是将正则系综的相空间看做概率空间。如果给定N个粒子的坐标，那么可以求这一构型的能量（势能）。因为势能只与位置有关，与速度无关，于是相空间积分当中的对动量自由度积分便可约去，所以系统的统计性质只与势能部分有关</p>
+<script type="math/tex; mode=display">\begin{equation}
+\la A\ra=\frac{\int A e^{-E/k _ BT}d^{dN}q}{\int e^{-E/k _ BT}d^{dN}q}
+\end{equation}</script><p>上式中d表示维度，N表示粒子数量，q表示（广义）坐标，A为待求物理量，$\la A \ra$表示对对物理量A的统计平均。</p>
+<p>一个直观的思路是随机给定粒子坐标，求这一构型的物理量A及能量E，然后给定其统计权重为$e^{-E/K_BT}$，最后求物理量A的加权平均。这一方法对稀疏系统可行，但是对稠密系统而言，由于绝大多数构型的权重极小（由于重叠而使得能量极大），而权重大的构型难以被采样，算法效率会极其低下。作者提出了修正方法，即举世闻名的<strong>Metropolis算法</strong>：与其随机均匀地抽取构型再赋以权重$e^{-E/k_BT}$，不如抽取概率为$e^{-E/k_BT}$的构型再按照平均。具体地，</p>
+<ol>
+<li>随机地初始化N个粒子的坐标，求其能量。</li>
+<li>随机选择一个粒子，将其移动$q_i\to q_i+\alpha\xi_i$，这里$\alpha$是步长，可以人为设定，$xi_i$是一个$[-1,1]范围内均匀分布的随机数。为了减小界面效应，作者采用了周期性边界条件。</li>
+<li>求新构型与原构型的能量差（$\Delta E$）。如果新构型能量更低，则新构型被“接受”（Accepted）。如果新构型能量更高，那么取$[0,1]$均匀分布的随机数$\varepsilon$，若其小于$e^{-\Delta E/k_BT}$，则新构型被“接受”；否则被“拒绝”（rejected），即恢复到本次移动之前的构型。</li>
+<li><strong>【重要！】</strong>无论新构型是否被接受，经过2、3两步之后的构型被视为一个抽样构型。</li>
+<li>重复步骤2-4多次，直到抽样构型足够多以控制统计误差到接受范围内。样本容量记为$M$。</li>
+<li>对待求物理量做无权重的样本平均，平均值就是一次“试验”的结果。有时会需要求物理量的高阶矩，同样这个高阶矩是一次“试验”的结果。</li>
+</ol>
+<p>以上就是Metropolis算法，其中第4步是其核心。显然，这是一个Markov过程，每一次转移（步骤2-4）得到一个状态，从第$n$个状态得到第$n+1$个状态的转移概率$P(X<em>{n+1}=x|X</em>{n}=x_n)$与$n$无关。</p>
+<p>我们可以进行多次“试验”，得到多次“试验”的结果，再取平均得到物理量的计算结果；对多次“试验”结果求样本标准差得到物理量的计算误差。这是一个完整的计算过程。</p>
+<p>对Metropolis算法采得的构型权重都正比于$e^{-E/k_BT}$，即</p>
+<script type="math/tex; mode=display">\begin{equation}
+\frac{\nu_s}{\nu_r}=\frac{e^{-E_s/k_BT}}{e^{-E_r/k_BT}}
+\end{equation}</script><p>作者证明如下：</p>
+<p>首先，一个粒子允许在整个空间中移动，只要步数足够多，那么这个粒子一定能够到达空间的任意位置。这就是说，算法满足遍历性（ergocity）。当然，这只是申明算法能够充分采样，并不需要在实际计算过程中遍历整个空间。</p>
+<p>其次，需要证明如果样本容量足够大，样本池中状态为r的样本数量$\nu_r$应当正比于$e^{-E_r/k_BT}$。关于这点，首先明确这个过程中涉及到</p>
+<ul>
+<li>先验（<em>a priori</em>）概率$P<em>{rs}$：当构型为s时，选择下一个构型为r的（条件）概率。显然$P</em>{rs}=P_{sr}$，因为粒子从位置1能够移动到位置2，那么单纯的看空间位置，当然也能从位置2移动到位置1，而且在步骤2中，选择移动位置是均匀随机的。</li>
+<li>接受（acceptance）概率$\alpha<em>{rs}$：即从状态r到状态s能够被“接受”的概率。若$E_r&gt;E_s$，那么$\alpha</em>{rs}=1$，$\alpha_{sr}=e^{-(E_r-E_s)/k_BT}$。</li>
+</ul>
+<p>这样，Markov链的转移矩阵为</p>
+<script type="math/tex; mode=display">\begin{equation}
+p_{r\to s}=P_{rs}\alpha_{rs}=P_{rs}\times\min[1,e^{-(E_s-E_r)/k_BT}], \qquad s\neq r
+\end{equation}</script><p>由随机过程理论可知，当Markov过程达到平稳时，即采样充分时，满足细致平衡条件（detailed balance）</p>
+<script type="math/tex; mode=display">\begin{equation}
+\nu_sp_{s\to r}=\nu_rp_{r\to s}
+\end{equation}</script><p>即</p>
+<script type="math/tex; mode=display">\begin{equation}
+\frac{\nu_s}{\nu_r}=\frac{p_{r\to s}}{p_{s\to r}}=\frac{P_{rs}\min[1,e^{-(E_s-E_r)/k_BT}]}{P_{sr}\min[1,e^{-(E_r-E_s)/k_BT}]}=\frac{\min[1,e^{-(E_s-E_r)/k_BT}]}{\min[1,e^{-(E_r-E_s)/k_BT}]}=\frac{e^{-E_s/k_BT}}{e^{-E_r/k_BT}}
+\end{equation}</script><p>证毕。</p>
+<p>这里特别说明：之所以步骤4非常重要，即必须在移动被拒绝的时候将原构型加入样本，可以通过计算$p<em>{r\to r}$看出：由于转移矩阵的性质$\sum_s p</em>{r\to s}=1$，</p>
+<script type="math/tex; mode=display">\begin{align}
+p_{r\to r}=&1-\sum_{s\neq r}p_{r\to s}=1-\sum_{s\neq r}P_{rs}\min[1,e^{-(E_s-E_r)/k_BT}]\nonumber\newline
+=&1-\sum_{s\neq r|E_s\leqslant E_r}P_{rs}-\sum_{s\neq r|E_s>E_r}P_{rs}+\sum_{s\neq r|E_s>E_r}P_{rs}(1-e^{-(E_s-E_r)/k_BT})\nonumber\newline
+=&P_{rr}+\sum_{s\neq r|E_s>E_r}P_{rs}(1-e^{-(E_s-E_r)/k_BT})
+\end{align}</script><p>即：状态r回到自身，不仅可以通过直接在第2步选择自身并直接移回（$e^{-\Delta E/k_BT}=1$），还能够通过第2步选择其他状态但是被拒绝之后移回。</p>
+<h4 id="Metropolis算法的局限性"><a href="#Metropolis算法的局限性" class="headerlink" title="Metropolis算法的局限性"></a>Metropolis算法的局限性</h4><p>Metropolis算法能够保证在<strong>足够多</strong>的Monte Carlo采样下得到足够精确的物理量，但是也有重要的不足：</p>
+<ol>
+<li>一般地，这个算法不能控制达到足够精度的步数，或者说不能告诉我们样本容量需要达到多大才能满足精度要求。达到足够的精度又称为“收敛”（converge）。Markov过程需要达到平稳才能保证抽样的正确分布，也就是说通常需要弃掉一开始的多个构型使得系统达到“平衡”，再进行采样。但是系统需要多久才能达到“平衡”并非已知。有的时候（例如在临界相变点附近），会发生<strong>临界降速</strong>（critical slowing-down），达到平衡的时间变为无穷长。</li>
+<li>对于连续空间的Metropolis算法，步长$\alpha$取值尚未确定。显然，$\alpha$与收敛速度有关，如何调节$\alpha$值以使Monte Carlo算法最有效率，是一个很重要的问题。</li>
+</ol>
+<p>经过维尔弗雷德·哈斯廷（Wilfred Keith Hastings）的总结推广[2]，Metropolis算法中接受概率可以不由波尔兹曼分布得出，而可以是任意要求的概率。这样推广的Metropolis算法成为一种通用的计算数学方法，称为Metropolis-Hastings算法。哈斯廷在总结中还讨论了Metropolis算法的误差估计等。</p>
+<p>Metropolis算法是Markov Chain Monte Carlo（MCMC）算法的一种，也是重要性采样（Importance Sampling）方法的一例。除了Metropolis-Hastings算法外，由Metropolis算法还可以导出处理高维采样、计算联合分布的Gibbs抽样法。这些方法在计算统计学、机器学习等领域中有很重要的应用。关于这些算法，可以参考：<br><a href="https://blog.csdn.net/pipisorry/article/details/51373090" target="_blank" rel="noopener">随机采样和随机模拟：吉布斯采样Gibbs Sampling</a><br><a href="https://www.cnblogs.com/pinard/p/6645766.html" target="_blank" rel="noopener">Gibbs采样</a></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li>Equation of State Calculations by Fast Computing Machines, Metropolis N., Rosenbluth A. W., Rosenbluth M. N., Teller A. H. and Teller E., Journal of Chemical Physics, 21, 1087-1092 (1953) <a href="http://link.zhihu.com/?target=https%3A//dasher.wustl.edu/chem478/reading/jcp-21-1087-53.pdf" target="_blank" rel="noopener">PDF</a></li>
+<li>Hastings, W. Keith. “Monte Carlo sampling methods using Markov chains and their applications.” (1970): 97-109. </li>
+</ol>
+<p>【持续更新】</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Monte-Carlo/" rel="tag"># Monte Carlo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/26/chandler-keys/" rel="next" title="Introduction to Modern Statistical Mechanics by Chandler讨论、纠错及习题解答">
+                <i class="fa fa-chevron-left"></i> Introduction to Modern Statistical Mechanics by Chandler讨论、纠错及习题解答
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/22/python-animation/" rel="prev" title="使用Python-Matplotlib制作动画">
+                使用Python-Matplotlib制作动画 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar-ly.jpg" alt="Ye Liang">
+            
+              <p class="site-author-name" itemprop="name">Ye Liang</p>
+              <div class="site-description motion-element" itemprop="description">So beautiful is the world.</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/liangye-whi" title="GitHub &rarr; https://github.com/liangye-whi" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:liangye@hotmail.com" title="E-Mail &rarr; mailto:liangye@hotmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links of Likes
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://avnpc.com/" title="https://avnpc.com/" rel="noopener" target="_blank">AlloVince's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://reuixiy.github.io/" title="https://reuixiy.github.io/" rel="noopener" target="_blank">Reuixiy's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://idleworks.io/" title="http://idleworks.io/" rel="noopener" target="_blank">IdleWorks</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://zkeeer.space/" title="http://zkeeer.space/" rel="noopener" target="_blank">ZKeeer's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.raychase.net/" title="http://www.raychase.net/" rel="noopener" target="_blank">四火的唠叨</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/huang0925/" title="http://www.cnblogs.com/huang0925/" rel="noopener" target="_blank">无敌北瓜</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#现代Monte-Carlo算法的起源：Metropolis算法"><span class="nav-number">1.</span> <span class="nav-text">现代Monte Carlo算法的起源：Metropolis算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">2.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ye Liang</span>
+
+  
+
+  
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+
+  
+    <span class="site-uv" title="总访客量">
+       &nbsp; <i class="fa fa-mouse-pointer"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>&nbsp;hits.
+    </span>
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Ok4C3rcmRwMgcOSk22nDDedw-gzGzoHsz',
+    appKey: 'zCaDpvj6GSOvR84lJ0b7iM83',
+    placeholder: 'Leave a comment?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '0LqLqPGW53nbdmfQYMwdaTbl-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '0LqLqPGW53nbdmfQYMwdaTbl-gzGzoHsz',
+                'X-LC-Key': 'vvGIT8AoBabby809gGAcVFBA',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

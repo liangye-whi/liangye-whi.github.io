@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="eIrqMncbRU">
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="习题解答这里的解答是我个人参考原solution manual之后的详细答案。其中，第6章后半习题大多为数值模拟，没有包含在解答内。如果对答案有疑问或发现其中的错误，欢迎讨论。 Chandler Stat Mech Solution Manual Chapter 1 Chandler Stat Mech Solution Manual Chapter 2 Chandler Stat Mech So">
+<meta name="keywords" content="Statistics,key,textbook">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Introduction to Modern Statistical Mechanics by Chandler讨论、纠错及习题解答">
+<meta property="og:url" content="https://www.liangye.site/2018/12/26/chandler-keys/index.html">
+<meta property="og:site_name" content="Ye&#39;s Blog">
+<meta property="og:description" content="习题解答这里的解答是我个人参考原solution manual之后的详细答案。其中，第6章后半习题大多为数值模拟，没有包含在解答内。如果对答案有疑问或发现其中的错误，欢迎讨论。 Chandler Stat Mech Solution Manual Chapter 1 Chandler Stat Mech Solution Manual Chapter 2 Chandler Stat Mech So">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.liangye.site/img/learn-statistics/inspiration-templates-pvt-phase-diagram-pvt-phase-diagram-pvt-phase-diagram-water-pvt-phase-diagram-3d-pvt-phase.png">
+<meta property="og:image" content="https://www.liangye.site/img/learn-statistics/free-printable-pvt-phase-diagram-pvt-phase-diagram-3d-pvt-phase-diagram-pvt-phase-diagram-pvt-phase-diagram.png">
+<meta property="og:updated_time" content="2019-05-21T23:18:17.110Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Introduction to Modern Statistical Mechanics by Chandler讨论、纠错及习题解答">
+<meta name="twitter:description" content="习题解答这里的解答是我个人参考原solution manual之后的详细答案。其中，第6章后半习题大多为数值模拟，没有包含在解答内。如果对答案有疑问或发现其中的错误，欢迎讨论。 Chandler Stat Mech Solution Manual Chapter 1 Chandler Stat Mech Solution Manual Chapter 2 Chandler Stat Mech So">
+<meta name="twitter:image" content="https://www.liangye.site/img/learn-statistics/inspiration-templates-pvt-phase-diagram-pvt-phase-diagram-pvt-phase-diagram-water-pvt-phase-diagram-3d-pvt-phase.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.liangye.site/2018/12/26/chandler-keys/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Introduction to Modern Statistical Mechanics by Chandler讨论、纠错及习题解答 | Ye's Blog</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4944b02c2f142cc6651487bf1307d2f7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ye's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.liangye.site/2018/12/26/chandler-keys/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ye Liang">
+      <meta itemprop="description" content="So beautiful is the world.">
+      <meta itemprop="image" content="/images/avatar-ly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ye's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Introduction to Modern Statistical Mechanics by Chandler讨论、纠错及习题解答
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-26 10:49:29" itemprop="dateCreated datePublished" datetime="2018-12-26T10:49:29-05:00">2018-12-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-21 19:18:17" itemprop="dateModified" datetime="2019-05-21T19:18:17-04:00">2019-05-21</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/statistics/" itemprop="url" rel="index"><span itemprop="name">statistics</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/12/26/chandler-keys/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/26/chandler-keys/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2018/12/26/chandler-keys/" class="leancloud_visitors" data-flag-title="Introduction to Modern Statistical Mechanics by Chandler讨论、纠错及习题解答">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="习题解答"><a href="#习题解答" class="headerlink" title="习题解答"></a>习题解答</h1><p>这里的解答是我个人参考原solution manual之后的详细答案。其中，第6章后半习题大多为数值模拟，没有包含在解答内。如果对答案有疑问或发现其中的错误，欢迎讨论。</p>
+<p><a href="/pdf/chandler/chapter1.pdf">Chandler Stat Mech Solution Manual Chapter 1</a></p>
+<p><a href="/pdf/chandler/chapter2.pdf">Chandler Stat Mech Solution Manual Chapter 2</a></p>
+<p><a href="/pdf/chandler/chapter3.pdf">Chandler Stat Mech Solution Manual Chapter 3</a></p>
+<p><a href="/pdf/chandler/chapter4.pdf">Chandler Stat Mech Solution Manual Chapter 4</a></p>
+<p><a href="/pdf/chandler/chapter5.pdf">Chandler Stat Mech Solution Manual Chapter 5</a></p>
+<p><a href="/pdf/chandler/chapter6.pdf">Chandler Stat Mech Solution Manual Chapter 6</a></p>
+<p><a href="/pdf/chandler/chapter7.pdf">Chandler Stat Mech Solution Manual Chapter 7</a></p>
+<p><a href="/pdf/chandler/chapter8.pdf">Chandler Stat Mech Solution Manual Chapter 8</a></p>
+<h1 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h1><h2 id="Wikipedia中热力学概念、公式合集"><a href="#Wikipedia中热力学概念、公式合集" class="headerlink" title="Wikipedia中热力学概念、公式合集"></a>Wikipedia中热力学概念、公式合集</h2><p>Chandler第一章总结，实际上在Wiki上有一页十分完整：<a href="https://en.wikipedia.org/wiki/Thermodynamic_potential" target="_blank" rel="noopener">Thermodynamic potential</a>。</p>
+<p>Wiki中关于热力学公式的合集：<a href="https://en.wikipedia.org/wiki/Table_of_thermodynamic_equations" target="_blank" rel="noopener">Tables of thermodynamic equations</a></p>
+<p>关于热力学基础，必须记住的有：</p>
+<ol>
+<li>基本的印象，包括熵的定义、绝热过程、可逆过程、等外压过程等。</li>
+<li>热一+热二得出平衡态的状态方程（EOS）以及Legendre变换得到的另外三个热力学函数和方程。热力学函数对热力学参数的直接偏导关系（单纯通过这些EOS能够直接推出一些偏导，但是还有一些偏导推不出来，需要通过下面的关系式间接推）。</li>
+<li>Maxwell关系，热力学参数之间的偏导关系。还有$\left(\frac{\pd x}{\pd y}\right) <em> z=-\left(\frac{\pd x}{\pd z}\right) </em> y\left(\frac{\pd z}{\pd y}\right) _ x$当$z=z(x,y)$。</li>
+<li>Gibbs-Duhem方程，给出与EOS补充的微分方程。</li>
+<li>热力学参数之间的关系往往是系统的特性，例如$p-V-T$关系（等温压缩系数、等压热膨胀系数）、$S-V,p$关系（热容）等。</li>
+<li>$S,T,p,v$知道两个就能确定剩余两个，也就是说一个参数是任意另外两个参数的函数（$n$不变时）。</li>
+</ol>
+<h2 id="关于熵和温度"><a href="#关于熵和温度" class="headerlink" title="关于熵和温度"></a>关于熵和温度</h2><p>Chandler这本书中直接假设熵随能量单增(p10)，这样其导数温度就是恒正。我有点觉得这个假设有些不严谨。平衡态热力学中温度为正值是热力学第三定律的直接推论。另外所谓的“负温度”应该不属于平衡态热力学的理论，这个粒子数反转态应该是一个不稳定态。</p>
+<h2 id="关于稳定性理论-stability-condition"><a href="#关于稳定性理论-stability-condition" class="headerlink" title="关于稳定性理论(stability condition)"></a>关于稳定性理论(stability condition)</h2><p>这个地方各本书似乎都在跳步骤。偶然搜到关于稳定性理论讲得很好的一章，在<a href="http://cvika.grimoar.cz/callen/callen_08.pdf" target="_blank" rel="noopener">Callen, Herbert B - Thermodynamics and an Introduction to Thermostatistics 2nd Edition第八章</a>。</p>
+<p>其实内容上并无特别不同，只是我觉得Callen的讲法在5秒钟之内让人彻底理解为何会存在这些不等式条件：本质都是热力学第二定律要求的熵函数$S(E,V,n)$的凸性。这样的话就省去了啰嗦的内部约束或者分成两个系统这样的证明过程，所有的性质都是系统单独就具有的。</p>
+<p>此外，熵函数对能量的凸性与其单调性（单增减）无直接关系，也就省去了假设温度为正的问题。当然最后推出热容之类的量的限制条件是要用温度为正这一条件的。在平衡态热力学中温度恒为正是热力学第三定律（能斯特热定理）的结论。</p>
+<h2 id="水的相图"><a href="#水的相图" class="headerlink" title="水的相图"></a>水的相图</h2><p>Chandler第二章提出水的0℃下的pv相图的问题却没有回答。关于水的pv相图，可以直接找p-v-T相图观察：<br><img src="/img/learn-statistics/inspiration-templates-pvt-phase-diagram-pvt-phase-diagram-pvt-phase-diagram-water-pvt-phase-diagram-3d-pvt-phase.png" alt><br>而普通物质的相图如<br><img src="/img/learn-statistics/free-printable-pvt-phase-diagram-pvt-phase-diagram-3d-pvt-phase-diagram-pvt-phase-diagram-pvt-phase-diagram.png" alt></p>
+<p>所以原文Fig2.7a是不对的，Fig2.7b是对的。</p>
+<p>一篇关于水的相图的模拟的文章：<a href="http://pubs.rsc.org/en/content/articlehtml/2009/CP/B812832D" target="_blank" rel="noopener">http://pubs.rsc.org/en/content/articlehtml/2009/CP/B812832D</a></p>
+<h2 id="表面张力"><a href="#表面张力" class="headerlink" title="表面张力"></a>表面张力</h2><p>习题2.17表达得极其随意——“This means that there will be surface interaction energies with the walls that are also propotional to $\sigma$”这里的walls是什么意思？读了几遍猜想这个能量说的可能是系统内物质与其抽象容器的界面处的属于系统的能量。</p>
+<h2 id="经典流体复习总结"><a href="#经典流体复习总结" class="headerlink" title="经典流体复习总结"></a>经典流体复习总结</h2><p>半学期过后，之前预习的关于经典流体（Chandler Chapter 7）和非平衡统计（Chapter 8）都忘得差不多了。这里结合Pathria的教材串讲一次作为复习。</p>
+<p>Pathria(10.7)直接从关联入手：首先是单粒子数密度的直接定义</p>
+<script type="math/tex; mode=display">\begin{equation}
+\rho(\br)=\left\langle\sum_i\delta(\br-\br_i)\right\rangle
+\end{equation}</script><p>$\rho(\br)d\br$就是$d\br$中粒子的个数。其意义从积分可以看出来</p>
+<script type="math/tex; mode=display">\begin{equation}
+\int \rho(\br)d\br=\la N\ra
+\end{equation}</script><p>注意这个密度的定义是统计上的。接着定义二粒子数密度</p>
+<script type="math/tex; mode=display">\begin{equation}
+\rho^{(2)}(\br,\br')=\left\langle\sum_{i\neq j}\delta(\br-\br_i)\delta(\br'-\br_j)\right\rangle\label{eqn:den2}
+\end{equation}</script><p>$\rho^{(2)}(\br,\br’)d\br d\br’$就是粒子1在$d\br$中、粒子2在$d\br’$中的粒子对12的数目。其积分为</p>
+<script type="math/tex; mode=display">\begin{equation}
+\int \rho^{(2)}(\br,\br')d\br d\br'=\la N(N-1)\ra.
+\end{equation}</script><p>将某一构型的密度函数视为随机变量，定义$X(\br)=\sum_i\delta(\br-\br_i)$，$Y(\br’)=\sum_j\delta(\br’-\br_j)$，其中$\br$和$\br’$表示两个不同粒子的坐标。随机性由构型$\br_i$带来，则$E[X(r)]=\rho(\br)$，$E[Y(r’)]=\rho(\br’)$，</p>
+<script type="math/tex; mode=display">\begin{align}
+E[X(\br)Y(\br')]=&\left\langle\sum_i\delta(\br-\br_i)\sum_j\delta(\br'-\br_j)\right\rangle\nonumber\newline
+=&\left\langle\sum_{i\neq j}\delta(\br-\br_i)\delta(\br'-\br_j)+\sum_i\delta(\br-\br_i)\delta(\br'-\br_i)\right\rangle\nonumber\newline
+=&\left\langle\sum_{i\neq j}\delta(\br-\br_i)\delta(\br'-\br_j)\right\rangle=\rho^{(2)}(\br,\br')
+\end{align}</script><p>则两个不同的粒子的密度函数之间的协方差，即<a href="https://en.wikipedia.org/wiki/Correlation_function_(statistical_mechanics&#41;" target="_blank" rel="noopener">统计力学中的关联函数</a><strong>Corrlation function</strong>为</p>
+<script type="math/tex; mode=display">\begin{equation}
+C(\rho(\br),\rho(\br'))=Cov[X(\br),Y(\br')]=E[X(\br)Y(\br')]-E[X(\br)]E[Y(\br')]=\rho^{(2)}(\br,\br')-\rho(\br)\rho(\br')
+\end{equation}</script><p>显然，当两个粒子之间无相互作用时，$\rho^{(2)}(\br,\br’)=\rho(\br)\rho(\br’)$，$C(\rho(\br),\rho(\br’))=0$。<br>通常的系统（哈密顿量）具有空间平移和旋转不变性，则密度函数与空间坐标无关（空间均匀分布），二阶约化密度函数只与两粒子之间的距离$r=|\br-\br’|$有关。在这个基础上，定义</p>
+<script type="math/tex; mode=display">\begin{equation}
+g(r)=\frac{\rho^{(2)}(r)}{\rho^2}
+\end{equation}</script><p>就是<strong>径向分布函数</strong>或者称为<strong>对关联函数</strong>。</p>
+<p>之所以称作径向分布函数，是因为$4\pi r^2\rho g(r)dr$表示以某个粒子的坐标为原点，在半径为$r$厚度为$dr$的球壳中的粒子数。这一点可以如此推出：在给定的一个粒子$r$处有粒子的概率用条件概率表示为</p>
+<script type="math/tex; mode=display">\begin{equation}
+\frac{\rho^{(2)}(r)}{\rho}d\br= 4\pi r^2\rho g(r)dr.
+\end{equation}</script><p>Chandler则明确地展示了密度函数、角度分布函数和哈密顿量之间的关系。Chandler的导出如下：一般地，配分函数写为</p>
+<script type="math/tex; mode=display">\begin{equation}
+Q=\frac{1}{N!\lambda^{3N}}\int d\br^N\exp[-\beta U(\br^N)]
+\end{equation}</script><p>按照配分函数的统计本质，被积函数实际上联系着该构型的概率。即在$U(\br^N)$相互作用控制下，粒子$1,2,\cdots, N$处于$\br^N=(\br_1,\br_2,\cdots,\br_N)$位置的概率密度为</p>
+<script type="math/tex; mode=display">\begin{equation}
+P(\br^N)=\frac{\exp[-\beta U(\br^N)]}{\int d\br^N\exp[-\beta U(\br^N)]}
+\end{equation}</script><p>那么，单个粒子的平均空间密度为</p>
+<script type="math/tex; mode=display">\begin{equation}
+\rho(\br)=N\int \br^{N-1}P(\br^N)=N\frac{\int d\br^{N-1} \exp[-\beta U(\br^N)]}{\int d\br^N\exp[-\beta U(\br^N)]}=\frac{N C}{\int d\br C}=\frac{N}{V}
+\end{equation}</script><p>这里$C=\int \br^{N-1}\exp[-\beta U(\br^N)]$。因为空间的平移不变性（Hamiltonian的各项同性），所以被积的指数函数只要$3(N-1)$个自由度就可以确定（不好理解的话举一个二体相互作用的例子），因此$C$与剩余的指标$\br$无关。最后的结果就是粒子密度$\rho$在空间中均匀分布，</p>
+<script type="math/tex; mode=display">\begin{equation}
+\int d\br \rho=V\times \frac{N}V=N
+\end{equation}</script><p>按照这个思路，二电子的概率密度分布，即体系中某两个电子处在$\br_1$和$\br_2$的概率</p>
+<script type="math/tex; mode=display">\begin{equation}
+\rho^{(2)}(\br_1,\br_2)=N(N-1)\frac{\int d\br^{N-2}\exp[-\beta U(\br^N)]}{\int d\br^N\exp[-\beta U(\br^N)]}
+\end{equation}</script><p>同理，在各向异性Hamiltonian下这个函数实际上只有一个自由度，即$\rho^{(2)}(\br<em>1,\br_2)=\rho^{(2)}(\br</em>{12})=\rho^{(2)}(r_{12})$。</p>
+<script type="math/tex; mode=display">\begin{equation}
+\int d\br_1 d\br_2\rho^{(2)}(\br_1,\br_2)=N(N-1).
+\end{equation}</script><p>实际上途径是一样的。再往下走到径向分布函数和结构因子的关系，交代下和实验的联系，即从实验获得径向分布函数。当然，另一条线是从理论导出，这也是理论重难点。在将理论之前，先说明这个径向分布函数可以给出许多热力学性质，有点类似解配分函数的作用。一个例子是体系能量</p>
+<script type="math/tex; mode=display">\begin{equation}
+\frac{\la E\ra}N=\frac32k_BT+\frac12\rho\int d\br g(r)u(r)
+\end{equation}</script><p>这个式子可以由配分函数开始配合二阶约化密度函数的定义导出。其中$u(r)$表示任何两个粒子之间的相互作用，即$U(\br^N)=\sum<em>i u(r</em>{ij})$。同时，压强为</p>
+<script type="math/tex; mode=display">\begin{equation}
+\frac{\beta p}{\rho}=1-\frac{\beta \rho}6\int d\br r g(r)\frac{du(r)}{dr}
+\end{equation}</script><p>这个公式称为virial定理，如果已知对势$u(r)$以及能够通过理论推出$g(r)$，就可以得到一个状态方程。如果只保留第一项1，就回到理想气体状态方程。对积分按密度展开的方法就是virial展开。</p>
+<p>Virial展开可以配合<strong>可逆功定理</strong>：</p>
+<script type="math/tex; mode=display">\begin{equation}
+g(r)=e^{-\beta w(r)}
+\end{equation}</script><p>其中$w(r)$表示在NVT下将系统中两个粒子由无穷远可逆地移动到距离$r$的状态所做的功，即这个过程的Helmholtz自由能差</p>
+<script type="math/tex; mode=display">\begin{equation}
+w(r)=A(\infty)-A(r)。
+\end{equation}</script><p>这个定理实际上有点平均场的感觉。如果将功分为该粒子对的对势的功和其他粒子的场功$w(r)=u(r)+\Delta w(r)$，忽略$\Delta w(r)$，那么virial可以展开到密度的二次项</p>
+<script type="math/tex; mode=display">\begin{equation}
+\rho p=\rho+\rho^2B_2(T)+O(\rho^3)
+\end{equation}</script><p>其中</p>
+<script type="math/tex; mode=display">\begin{equation}
+B_2(T)=-\frac12\int d\br f(r)=-\frac12\int d\br\left(e^{-\beta u(r)}-1\right)
+\end{equation}</script><p>即为第二virial系数。函数$f(r)$称为Mayer函数。求高阶virial系数的方法称为Mayer Cluster Expansion。</p>
+<p>至于理论上已知$u(r)$解$g(r)$或$f(r)$的近似方法，有Scaled-Particle Theory(SPT)以及Percus-Yevick近似。这些Chandler书上没讲，具体可以看文献。</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Statistics/" rel="tag"># Statistics</a>
+          
+            <a href="/tags/key/" rel="tag"># key</a>
+          
+            <a href="/tags/textbook/" rel="tag"># textbook</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/16/aws-cluster/" rel="next" title="基于AWS云计算创建个人高性能计算集群">
+                <i class="fa fa-chevron-left"></i> 基于AWS云计算创建个人高性能计算集群
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/26/monte-carlo-history/" rel="prev" title="Monte Carlo算法发展史">
+                Monte Carlo算法发展史 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar-ly.jpg" alt="Ye Liang">
+            
+              <p class="site-author-name" itemprop="name">Ye Liang</p>
+              <div class="site-description motion-element" itemprop="description">So beautiful is the world.</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/liangye-whi" title="GitHub &rarr; https://github.com/liangye-whi" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:liangye@hotmail.com" title="E-Mail &rarr; mailto:liangye@hotmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links of Likes
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://avnpc.com/" title="https://avnpc.com/" rel="noopener" target="_blank">AlloVince's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://reuixiy.github.io/" title="https://reuixiy.github.io/" rel="noopener" target="_blank">Reuixiy's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://idleworks.io/" title="http://idleworks.io/" rel="noopener" target="_blank">IdleWorks</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://zkeeer.space/" title="http://zkeeer.space/" rel="noopener" target="_blank">ZKeeer's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.raychase.net/" title="http://www.raychase.net/" rel="noopener" target="_blank">四火的唠叨</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/huang0925/" title="http://www.cnblogs.com/huang0925/" rel="noopener" target="_blank">无敌北瓜</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#习题解答"><span class="nav-number">1.</span> <span class="nav-text">习题解答</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#讨论"><span class="nav-number">2.</span> <span class="nav-text">讨论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Wikipedia中热力学概念、公式合集"><span class="nav-number">2.1.</span> <span class="nav-text">Wikipedia中热力学概念、公式合集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于熵和温度"><span class="nav-number">2.2.</span> <span class="nav-text">关于熵和温度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于稳定性理论-stability-condition"><span class="nav-number">2.3.</span> <span class="nav-text">关于稳定性理论(stability condition)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#水的相图"><span class="nav-number">2.4.</span> <span class="nav-text">水的相图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表面张力"><span class="nav-number">2.5.</span> <span class="nav-text">表面张力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#经典流体复习总结"><span class="nav-number">2.6.</span> <span class="nav-text">经典流体复习总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ye Liang</span>
+
+  
+
+  
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+
+  
+    <span class="site-uv" title="总访客量">
+       &nbsp; <i class="fa fa-mouse-pointer"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>&nbsp;hits.
+    </span>
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Ok4C3rcmRwMgcOSk22nDDedw-gzGzoHsz',
+    appKey: 'zCaDpvj6GSOvR84lJ0b7iM83',
+    placeholder: 'Leave a comment?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '0LqLqPGW53nbdmfQYMwdaTbl-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '0LqLqPGW53nbdmfQYMwdaTbl-gzGzoHsz',
+                'X-LC-Key': 'vvGIT8AoBabby809gGAcVFBA',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

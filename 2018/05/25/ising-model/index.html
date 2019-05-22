@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="eIrqMncbRU">
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Ising模型是统计物理学最经典的模型之一，由Wilhelm Lenz在1920年提出。Ising模型属于点阵模型，最初被设计用于描述铁磁性相变，现在已经在各个领域都有广泛应用。其模拟技术简单、典型。 定义一个点阵系统的每个格点$i$有一个离散随机变量$s_i$，其值为$\pm 1$。这个变量在描述磁现象的问题中，即为格点的自旋。当每一个格点$i$都指定了确定的$s_i$，这样集合$s=\{s_i">
+<meta name="keywords" content="Statistics,Model,Monte Carlo,Ising Model,Lattice Model,Simulation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[模型]Ising模型的模拟技术">
+<meta property="og:url" content="https://www.liangye.site/2018/05/25/ising-model/index.html">
+<meta property="og:site_name" content="Ye&#39;s Blog">
+<meta property="og:description" content="Ising模型是统计物理学最经典的模型之一，由Wilhelm Lenz在1920年提出。Ising模型属于点阵模型，最初被设计用于描述铁磁性相变，现在已经在各个领域都有广泛应用。其模拟技术简单、典型。 定义一个点阵系统的每个格点$i$有一个离散随机变量$s_i$，其值为$\pm 1$。这个变量在描述磁现象的问题中，即为格点的自旋。当每一个格点$i$都指定了确定的$s_i$，这样集合$s=\{s_i">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.liangye.site/img/ising/ising.png">
+<meta property="og:image" content="https://www.liangye.site/img/ising/Ising5x5benchmark.png">
+<meta property="og:updated_time" content="2019-05-21T23:18:17.110Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[模型]Ising模型的模拟技术">
+<meta name="twitter:description" content="Ising模型是统计物理学最经典的模型之一，由Wilhelm Lenz在1920年提出。Ising模型属于点阵模型，最初被设计用于描述铁磁性相变，现在已经在各个领域都有广泛应用。其模拟技术简单、典型。 定义一个点阵系统的每个格点$i$有一个离散随机变量$s_i$，其值为$\pm 1$。这个变量在描述磁现象的问题中，即为格点的自旋。当每一个格点$i$都指定了确定的$s_i$，这样集合$s=\{s_i">
+<meta name="twitter:image" content="https://www.liangye.site/img/ising/ising.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.liangye.site/2018/05/25/ising-model/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>[模型]Ising模型的模拟技术 | Ye's Blog</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4944b02c2f142cc6651487bf1307d2f7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ye's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.liangye.site/2018/05/25/ising-model/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ye Liang">
+      <meta itemprop="description" content="So beautiful is the world.">
+      <meta itemprop="image" content="/images/avatar-ly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ye's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">[模型]Ising模型的模拟技术
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          
+            <i class="fa fa-thumb-tack"></i>
+            <font color="CD465D">TOP</font>
+            <span class="post-meta-divider">|</span>
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-05-25 11:00:06" itemprop="dateCreated datePublished" datetime="2018-05-25T11:00:06-04:00">2018-05-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-21 19:18:17" itemprop="dateModified" datetime="2019-05-21T19:18:17-04:00">2019-05-21</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/statistics/" itemprop="url" rel="index"><span itemprop="name">statistics</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/05/25/ising-model/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/25/ising-model/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2018/05/25/ising-model/" class="leancloud_visitors" data-flag-title="[模型]Ising模型的模拟技术">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Ising模型是统计物理学最经典的模型之一，由Wilhelm Lenz在1920年提出。Ising模型属于点阵模型，最初被设计用于描述铁磁性相变，现在已经在各个领域都有广泛应用。其模拟技术简单、典型。</p>
+<h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>一个点阵系统的每个格点$i$有一个离散随机变量$s_i$，其值为$\pm 1$。这个变量在描述磁现象的问题中，即为格点的自旋。当每一个格点$i$都指定了确定的$s_i$，这样集合$s=\{s_i\}$就是系统的一个组态。这样的描述是许多点阵模型共有的。</p>
+<p>Ising模型的核心是其哈密顿量：对于组态$s=\{s_i\}$，</p>
+<script type="math/tex; mode=display">\begin{equation}
+H(s)=-\sum_{\la ij\ra}J_{ij} s_is_j-\sum_i h_i s_i
+\end{equation}</script><p>其中$\la ij\ra$是通用的记号，表示所有最近邻的格点$i,j$对。$J_{ij}$描述最近邻格点的相互作用，$h_i$描述外场作用。</p>
+<h4 id="相互作用参数-J-ij"><a href="#相互作用参数-J-ij" class="headerlink" title="相互作用参数$J_{ij}$"></a>相互作用参数$J_{ij}$</h4><p>$J_{ij}&gt;0$，则该系统为铁磁性(Ferromanetism, FM)，相邻格点倾向于同号（自旋平行）<br>$J_{ij}&lt; 0$，则该系统为反铁磁性（Antiferromagnetism, AFM），相邻格点倾向于反号（自旋反平行）<br>$J_{ij}=0$，表示自旋间无相互作用。<br>除此之外该系统为非铁磁性。<br>Ising模型通常指铁磁性体系$J_{ij}&gt;0$。而且为了研究其最本质的性质，会假设所有的$J_{ij}$都相等。</p>
+<h4 id="外场参数-h-i"><a href="#外场参数-h-i" class="headerlink" title="外场参数$h_{i}$"></a>外场参数$h_{i}$</h4><p>描述外场和格点之间的相互作用。格点顷向于和外场$h_i$同号（同向）。</p>
+<p>通常以二维正方晶格作为图形示例：<br><img src="\img\ising\ising.png" alt></p>
+<p>通常讨论的Ising模型是所有$J_{ij}$相等$J_{ij}=1$（取为能量单位），所有$h_i$相等$h_i=h$的立方格子模型。其他衍生的Ising模型有变更点阵（三角、六角、四方等）、变更相互作用强度$J_{ij}$的选择（反铁磁、随机键自旋玻璃等）、变更外场$h_i$（随机场、周期场等）以及增加长程相互作用（Ising-Coulomb模型）等。这些广义Ising模型往往需要做专门讨论，不在此文的讨论范围内。</p>
+<h1 id="性质与现象"><a href="#性质与现象" class="headerlink" title="性质与现象"></a>性质与现象</h1><h2 id="温度-T"><a href="#温度-T" class="headerlink" title="温度$T$"></a>温度$T$</h2><p>在零温下，系统的组态取能量最低态（基态），所有的物理学性质由基态决定。但是温度非零时，系统的物理学性质由所有组态性质的Boltzmann加权平均求得。这是对Ising模型进行Monte Carlo模拟的出发点。各组态的权重即Boltzmann分布，</p>
+<script type="math/tex; mode=display">\begin{equation}
+P(s)\propto \exp(-\beta H)
+\end{equation}</script><p>这里$\beta=\frac{1}{k_BT}$是常用的温度记号。能量（哈密顿量）越低的组态权重越大（这也就是上面“倾向于”的具体含义）。</p>
+<p>模拟时，Ising模型的温度$T$一般是事先给定的。</p>
+<h2 id="待求的物理量"><a href="#待求的物理量" class="headerlink" title="待求的物理量"></a>待求的物理量</h2><p>通常统计的物理量包括：</p>
+<h4 id="能量（系统总能量）"><a href="#能量（系统总能量）" class="headerlink" title="能量（系统总能量）"></a>能量（系统总能量）</h4><script type="math/tex; mode=display">\begin{equation}
+E=\la E\ra=\frac{1}{Z}\sum_s E(s)\exp[-\beta H(s)],\quad E(s)=H(s)
+\end{equation}</script><h4 id="热容（单位粒子热容）"><a href="#热容（单位粒子热容）" class="headerlink" title="热容（单位粒子热容）"></a>热容（单位粒子热容）</h4><script type="math/tex; mode=display">\begin{equation}
+C=\frac{\la E^2\ra-\la E\ra^2}{Nk_BT^2}
+\end{equation}</script><h4 id="磁矩（系统总磁矩）"><a href="#磁矩（系统总磁矩）" class="headerlink" title="磁矩（系统总磁矩）"></a>磁矩（系统总磁矩）</h4><script type="math/tex; mode=display">\begin{equation}
+M=\la M\ra = \frac{1}{Z}\sum_s M(s)\exp[-\beta H(s)],\quad M(s)=\sum_i s_i
+\end{equation}</script><p>无外场时，统计上的磁矩应当恒为零。实际铁磁体在居里温度（临界温度）之下存在非零磁矩，是因为对称性自发破缺，称为自发的宏观磁矩。若希望计算这一性质不妨统计磁矩的模长$|M(s)|$。<br>平均磁矩（单位粒子磁矩）记为</p>
+<script type="math/tex; mode=display">\begin{equation}
+m=\frac{M}{N}
+\end{equation}</script><h4 id="磁化率（单位粒子磁化率）"><a href="#磁化率（单位粒子磁化率）" class="headerlink" title="磁化率（单位粒子磁化率）"></a>磁化率（单位粒子磁化率）</h4><p>磁化率的定义在各种文献中形式不一，主要区别是在是否除以一个温度。一般物理、化学教材（如费曼物理学第二卷[6]，IUPAC Gold Book[7]，Baxter可解模型[8]，Pathria统计力学教材[4]等）定义（单位）磁化率magnetic susceptibility为</p>
+<script type="math/tex; mode=display">\begin{equation}
+\chi=\frac1N\left(\frac{\pd \la M\ra}{\pd H}\right)_{N,T}=\frac{\la M^2\ra-\la M\ra^2}{Nk_BT}=\frac{\la M^2\ra}{Nk_BT}
+\end{equation}</script><p>Chandler的统计力学教材[9]第五章定义susceptibility为</p>
+<script type="math/tex; mode=display">\begin{equation}
+\chi=\frac1N\left(\frac{\pd \la M\ra}{\pd \beta H}\right)_{N,T}=\frac{\la M^2\ra-\la M\ra^2}{N}=\frac{\la M^2\ra}{N}
+\end{equation}</script><p>看上去前一种定义更准确、更常用。本文后面的磁导率都以前一种定义方法定义。</p>
+<p>高于临界温度$T_c$时，磁化率应当为0。低于临界温度时，由于对称性自发破缺，磁矩不为零。临界温度相当于铁磁体的居里温度。</p>
+<h3 id="关联强度与特征尺度"><a href="#关联强度与特征尺度" class="headerlink" title="关联强度与特征尺度"></a>关联强度与特征尺度</h3><p>关联强度定义为</p>
+<script type="math/tex; mode=display">\begin{equation}
+g(r) = \la g(i,j)\ra_{r_{ij}=r},\quad g(i,j)=\la s_is_j\ra-\la s_i\ra\la s_j\ra
+\end{equation}</script><p>远离相变温度时，关联强度呈现指数衰减：</p>
+<script type="math/tex; mode=display">\begin{equation}
+g(r)\sim \exp(-r/r_0)
+\end{equation}</script><p>这里$r_0$为一常数。在接近相变温度时，$r_0$不再是一个常数，而呈现出温度的幂律行为，见下文。</p>
+<h2 id="重要的现象"><a href="#重要的现象" class="headerlink" title="重要的现象"></a>重要的现象</h2><h3 id="二级相变"><a href="#二级相变" class="headerlink" title="二级相变"></a>二级相变</h3><p>在无外场的情况下，二维及以上铁磁Ising模型存在二级相变温度$T_c$，即能量、磁矩随温度连续，热容、磁化率随温度不连续。高温时为顺磁态，低温时为铁磁态。</p>
+<p>在临界点，系统具有长程关联性质，组态呈现出自相似的特点。这是Ising模型的重正化方法的出发点。</p>
+<p>一维Ising链不存在相变。简单二维Ising模型在无穷尺寸晶格下的临界温度$k_BT_c/J=\frac{2}{\ln(1+\sqrt{2})}\approx 2.27$。简单三维Ising模型临界温度$k_BT_c/J\approx 4.512$。</p>
+<h3 id="对称性自发破缺"><a href="#对称性自发破缺" class="headerlink" title="对称性自发破缺"></a>对称性自发破缺</h3><p>无外场的Ising模型的哈密顿量具有$Z_2$对称性，即在统计中将组态中的$+1$改成$-1$，$-1$改成$+1$，统计结果不变（最多差一个符号，比如磁矩），也就是说这两个组态简并。在低温时，系统接近简并的基态（全部+1或全部-1），热力学过程中最终只能选择一个。这种物理现象就是<strong>对称性自发破缺</strong>。</p>
+<p>从动力学的角度来看，两个基态之间的势垒非常高，以至于低温下的涨落难以克服，所以系统不会在两个基态之间来回快速转换。与之对比，高温下涨落比较大，出现大块相同符号格点的“团簇”的情况比较少，系统能够比较快地达到平衡。</p>
+<p>因此，在模拟中，低温情况下需要考虑如何克服势垒的影响以满足遍历性要求。见下文Wolff Cluster算法。</p>
+<h3 id="尺寸效应"><a href="#尺寸效应" class="headerlink" title="尺寸效应"></a>尺寸效应</h3><p>相变不可避免地涉及到尺寸效应。临界温度会随着体系的增大而趋近一个定值。二维时最简单二维正方晶格Ising模型的临界温度$T_c\approx2.26918531$。</p>
+<h3 id="幂律行为与临界指数"><a href="#幂律行为与临界指数" class="headerlink" title="幂律行为与临界指数"></a>幂律行为与临界指数</h3><p>在相变点附近，Ising模型的物理量出现随温度、外场的幂律行为，即</p>
+<script type="math/tex; mode=display">\begin{align}
+C_0\sim& \left(\frac{|T-T_c|}{T_c}\right)^{-\alpha}\newline
+m_0\sim&\left(\frac{T_c-T}{T_c}\right)^{1/\beta}\newline
+\chi_0\sim&\left(\frac{|T_c-T|}{T_c}\right)^{-\gamma}\newline
+m|_{T=T_c}\sim& h^{1/\delta}\newline
+r_0\sim&\left(\frac{|T-T_c|}{T_c}\right)^{-\nu}\newline
+g(r)\sim& r^{-(d-2+\eta)}
+\end{align}</script><p>这里$h$是外场，$d$是维度。前三式表示在零外场下，第四式表示在临界温度下。幂指数$\alpha,\beta,\gamma,\delta,\nu,\eta$称为临界指数，其数值大小在同一维度下与系统的尺寸无关。求不同维度下临界指数数值一度是Ising模型理论和模拟的研究热点。从Ising、Onsager到杨振宁、李政道，都曾经对该领域做出详细的研究。</p>
+<p>更详细的定义说明参见[4]第12章8节、12节。</p>
+<h1 id="计算设定"><a href="#计算设定" class="headerlink" title="计算设定"></a>计算设定</h1><h2 id="约化单位"><a href="#约化单位" class="headerlink" title="约化单位"></a>约化单位</h2><p>计算机模拟只能直接给出一个数字，而不能给出一个带单位的物理值。在计算中我们需要设定单位以使得输入输出的纯数字有意义。这里设定单位并不是指具体的设定米还是英尺这样的单位，而是找基准的物理参数作为数字的单位，或者说得到的数字最终被理解为基准物理参数的多少倍。</p>
+<p>例如，在Ising模型中，我们选择参数$J$作为能量的单位。$J$本身就是一个有着能量单位的物理量，这样我们在计算中得出的任何应该具有能量单位的物理量的数字，只要乘上给定的$J$，也就换算成了真实体系的数字，可以与实际物理量进行比较。因此，$J$本身也决定了体系能量的尺度。尺度的变化不应当导致程序运算结果的变化。</p>
+<p>这里我们选择$J$为能量单位，那么温度$\beta$的单位就是$J^{-1}$，温度$T$的单位就是$J\cdot k_B^{-1}$。平均热容的物理量的单位就是$k_B$。显然，$J$的具体取值不会影响到约去单位以后的物理量的计算结果。此时系统的哈密顿量写为</p>
+<script type="math/tex; mode=display">\begin{equation}
+H=-\sum_{\la ij\ra}s_is_j-h\sum_is_i
+\end{equation}</script><p>此式中以及下文所有未额外说明的物理量都是已经约去单位的物理量。</p>
+<h2 id="边界条件"><a href="#边界条件" class="headerlink" title="边界条件"></a>边界条件</h2><p>通常使用周期性边界条件。</p>
+<p>也有直接研究有限边界，边上的格点除了和有限点阵中周围其他格点相互左右，还和一个不存在的虚格点作用，这个虚格点的自旋为0或者全部为$+1$（或全部为$-1$）。</p>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="小规模二维体系穷举"><a href="#小规模二维体系穷举" class="headerlink" title="小规模二维体系穷举"></a>小规模二维体系穷举</h2><p>我们能够确定正确的是直接使用统计力学定义的系综平均来求各个统计量。所以我们先用超小规模的体系标定一组可以作为基准的数据。</p>
+<div class="note info">
+            <p>在缺乏实验数据和理论解析解的情况下，<strong>使用定义求解小体系得到绝对可靠的数据作为基准</strong>是确认后续模拟方法正确的必要操作。</p>
+          </div>
+<h3 id="体系设定"><a href="#体系设定" class="headerlink" title="体系设定"></a>体系设定</h3><p>Benchmark的选择是$5\times5$的体系在$T=1.0$到$T=5.0$下的零外场的性质。由于$2^{25}=33554432\sim 10^7$还是可以直接计算的，所以可以通过Python很快写一个测试，直接产生$2^{25}$个构型，分别计算能量和磁矩。最后在不同温度下按照Boltzmann加权计算平均值即可。这样的值是精确的数值值。注意只需要计算一次所有构型的能量和磁矩，保存下来就可以快速计算其他所有温度下的物理量。<br><img src="/img/ising/Ising5x5benchmark.png" alt></p>
+<h3 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h3><p>首先由二阶矩（热容$C$和磁导率$\chi$）确认在$2&lt;T&lt;3$存在二级相变。然而从图中看到，$5\times5$的体系对于确定精确的临界温度来说还是太小了，尺寸效应使得相变峰不够尖锐。所以，后续实验要确定相变点，就必须增大系统尺寸。</p>
+<p>其次，如果直接统计磁矩$m$，发现其值在任意温度下恒为零。这恰好印证了Ising模型的对称性，统计结论是正确的。但是为了观察到有意义的磁矩值，需要改为统计$|m|$。此时可以看到在低温下磁矩趋于1，表示铁磁相，在高温下磁矩趋于零，表示顺磁相。同时$\chi$的统计中需要的磁矩也全部按照$|m|$统计。后面所有的$\chi$也全部按此计算。</p>
+<h2 id="Markov-Chain-Monte-Carlo-Metropolis-Hastings"><a href="#Markov-Chain-Monte-Carlo-Metropolis-Hastings" class="headerlink" title="Markov Chain Monte Carlo + Metropolis-Hastings"></a>Markov Chain Monte Carlo + Metropolis-Hastings</h2><p>在MC程序中，首先初始化晶格，可以随机生成，也可以选择一个初始构型。因为MC程序原理上可以使体系达到热力学平衡态，所以只要弃掉未平衡的前期数据，只对后边达到平衡的数据做统计，就可以消除初始结构对统计的影响。</p>
+<p>MCMC算法中，每一步（flip）循环随机选取一个格点尝试翻转符号，翻转的概率为</p>
+<script type="math/tex; mode=display">\begin{equation}
+p=\min[1,\exp(-\beta \Delta E)]
+\end{equation}</script><p>$\Delta E$为（假设）翻转后的组态能量减去翻转前的组态能量。<br>具体的实现可以产生一个满足$[0,1]$上均匀分布的随机数，若小于p值则可以翻转。若大于p值则保持构型不变，对这步不变的构型同样要进行统计（Metropolis算法的要求，满足细致平衡）。</p>
+<p>通常，为了使得采样充分，设置一个MC step为$N$个flip，即平均每个格点被尝试翻转一次。每个MC step进行一次统计，求当前构型的各种物理量（能量、磁矩等）。这样运行一次MC程序，跑$Nstep=10^4\sim10^6$个MC step，得到$Nstep$个构型对应的（瞬时）物理量，其中设定达到平衡需要$Ninit$步。之后，对这$Nstep-Ninit$个数据进行统计求均值、方差，就得到统计上的一阶矩（能量、磁矩）和二阶矩（热容、磁化率）等。这算作一次实验。重复进行$n$次实验并作统计，对得到的热力学量求平均和误差，就得到该温度下的全部结果。如果希望提高实验结果精度，减小误差，那么需要增加总的运行步数$n\times Nstep$。如果总运行步数不变，那么统计的精度也不会变。</p>
+<p>平衡的判据可以是平均磁矩$m\approx0$。通过观察平均磁矩的变化可以确定平衡步数$Ninit$的大致取值。这个步数不需要特别精确。</p>
+<p>以上是最基本的对Ising模型的模拟方法。</p>
+<h2 id="Wolff-Cluster"><a href="#Wolff-Cluster" class="headerlink" title="Wolff Cluster"></a>Wolff Cluster</h2><p>当温度接近$T_c$或低于$T_c$时，Metropolis算法非常低效（难以翻越势垒，体现为系统的平均磁矩难以达到零）。Wolff Cluster算法利用Gibbs采样的思想，可以解决这个问题。</p>
+<blockquote>
+<p>Wolff, Ulli. “Collective Monte Carlo updating for spin systems.” Physical Review Letters 62.4 (1989): 361.</p>
+</blockquote>
+<ul>
+<li><p>每一步循环随机选取一个格点作为起始点加入“团簇”；</p>
+</li>
+<li><p>检查“团簇”中所有未检查过的点：<br>查看其所有<strong>未加入团簇的</strong>最近邻格点，若被检查的最近邻格点与当前格点的符号相同，则按照概率$p=1-\exp(-2\beta J_{ij})$将其加入本次循环的“团簇”；</p>
+</li>
+<li><p>重复检查，直到团簇中没有未检查的格点；</p>
+</li>
+<li><p>最后将团簇中的所有格点符号翻转。</p>
+</li>
+</ul>
+<p>实现时，显然可以用队列实现团簇的增长和检查。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li>Christensen, Kim, and Nicholas R. Moloney. Complexity and criticality. Vol. 1. World Scientific Publishing Company, 2005.</li>
+<li>Ising model. <a href="https://en.wikipedia.org/wiki/Ising_model" target="_blank" rel="noopener">Wikipedia</a> (2018.5)</li>
+<li>Cluster Algorithms for the Ising Model. <a href="http://notes.yeshiwei.com/ASA_homeworks/Cluster_Algorithms_for_the_Ising_Model/algorithm.html" target="_blank" rel="noopener">Alex’s Notes</a> (2018.5)</li>
+<li>Pathria, R. K., and P. D. Beale. Statistical mechanics. 2011.</li>
+<li>Ising, Ernst. “Beitrag zur theorie des ferromagnetismus.” Zeitschrift für Physik 31.1 (1925): 253-258.（原始文献，德语）</li>
+<li>Feynman, Richard Phillips, Robert B. Leighton, and Matthew Sands. The Feynman lectures on physics, vol. 2: Mainly electromagnetism and matter. Addison-Wesley, 1979. <a href="http://www.feynmanlectures.caltech.edu/II_35.html" target="_blank" rel="noopener">http://www.feynmanlectures.caltech.edu/II_35.html</a></li>
+<li>PAC, 1997, 69, 1251 (Glossary of terms used in bioinorganic chemistry (IUPAC Recommendations 1997)) on page 1284 </li>
+<li>Baxter, Rodney J. Exactly solved models in statistical mechanics. Elsevier, 2016.</li>
+<li>Chandler, David. Introduction to Modern Statistical Mechanics, Oxford University Press, Sep 1987.</li>
+</ol>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Statistics/" rel="tag"># Statistics</a>
+          
+            <a href="/tags/Model/" rel="tag"># Model</a>
+          
+            <a href="/tags/Monte-Carlo/" rel="tag"># Monte Carlo</a>
+          
+            <a href="/tags/Ising-Model/" rel="tag"># Ising Model</a>
+          
+            <a href="/tags/Lattice-Model/" rel="tag"># Lattice Model</a>
+          
+            <a href="/tags/Simulation/" rel="tag"># Simulation</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/21/umbrella-sampling-example/" rel="next" title="一个例子理解伞形抽样">
+                <i class="fa fa-chevron-left"></i> 一个例子理解伞形抽样
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/25/edwards-anderson-model/" rel="prev" title="[模型]Edwards-Anderson模型的模拟技术">
+                [模型]Edwards-Anderson模型的模拟技术 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar-ly.jpg" alt="Ye Liang">
+            
+              <p class="site-author-name" itemprop="name">Ye Liang</p>
+              <div class="site-description motion-element" itemprop="description">So beautiful is the world.</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/liangye-whi" title="GitHub &rarr; https://github.com/liangye-whi" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:liangye@hotmail.com" title="E-Mail &rarr; mailto:liangye@hotmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links of Likes
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://avnpc.com/" title="https://avnpc.com/" rel="noopener" target="_blank">AlloVince's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://reuixiy.github.io/" title="https://reuixiy.github.io/" rel="noopener" target="_blank">Reuixiy's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://idleworks.io/" title="http://idleworks.io/" rel="noopener" target="_blank">IdleWorks</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://zkeeer.space/" title="http://zkeeer.space/" rel="noopener" target="_blank">ZKeeer's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.raychase.net/" title="http://www.raychase.net/" rel="noopener" target="_blank">四火的唠叨</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/huang0925/" title="http://www.cnblogs.com/huang0925/" rel="noopener" target="_blank">无敌北瓜</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性质与现象"><span class="nav-number">2.</span> <span class="nav-text">性质与现象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#温度-T"><span class="nav-number">2.1.</span> <span class="nav-text">温度$T$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#待求的物理量"><span class="nav-number">2.2.</span> <span class="nav-text">待求的物理量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关联强度与特征尺度"><span class="nav-number">2.2.1.</span> <span class="nav-text">关联强度与特征尺度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重要的现象"><span class="nav-number">2.3.</span> <span class="nav-text">重要的现象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二级相变"><span class="nav-number">2.3.1.</span> <span class="nav-text">二级相变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对称性自发破缺"><span class="nav-number">2.3.2.</span> <span class="nav-text">对称性自发破缺</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尺寸效应"><span class="nav-number">2.3.3.</span> <span class="nav-text">尺寸效应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#幂律行为与临界指数"><span class="nav-number">2.3.4.</span> <span class="nav-text">幂律行为与临界指数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算设定"><span class="nav-number">3.</span> <span class="nav-text">计算设定</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#约化单位"><span class="nav-number">3.1.</span> <span class="nav-text">约化单位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边界条件"><span class="nav-number">3.2.</span> <span class="nav-text">边界条件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法"><span class="nav-number">4.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#小规模二维体系穷举"><span class="nav-number">4.1.</span> <span class="nav-text">小规模二维体系穷举</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#体系设定"><span class="nav-number">4.1.1.</span> <span class="nav-text">体系设定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果分析"><span class="nav-number">4.1.2.</span> <span class="nav-text">结果分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Markov-Chain-Monte-Carlo-Metropolis-Hastings"><span class="nav-number">4.2.</span> <span class="nav-text">Markov Chain Monte Carlo + Metropolis-Hastings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wolff-Cluster"><span class="nav-number">4.3.</span> <span class="nav-text">Wolff Cluster</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ye Liang</span>
+
+  
+
+  
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+
+  
+    <span class="site-uv" title="总访客量">
+       &nbsp; <i class="fa fa-mouse-pointer"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>&nbsp;hits.
+    </span>
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Ok4C3rcmRwMgcOSk22nDDedw-gzGzoHsz',
+    appKey: 'zCaDpvj6GSOvR84lJ0b7iM83',
+    placeholder: 'Leave a comment?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '0LqLqPGW53nbdmfQYMwdaTbl-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '0LqLqPGW53nbdmfQYMwdaTbl-gzGzoHsz',
+                'X-LC-Key': 'vvGIT8AoBabby809gGAcVFBA',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
