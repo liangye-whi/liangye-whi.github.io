@@ -99,20 +99,20 @@
 
 
 
-  <meta name="description" content="Ising模型是统计物理学最经典的模型之一，由Wilhelm Lenz在1920年提出。Ising模型属于点阵模型，最初被设计用于描述铁磁性相变，现在已经在各个领域都有广泛应用。其模拟技术简单、典型。 定义一个点阵系统的每个格点$i$有一个离散随机变量$s_i$，其值为$\pm 1$。这个变量在描述磁现象的问题中，即为格点的自旋。当每一个格点$i$都指定了确定的$s_i$，这样集合$s=\{s_i">
+  <meta name="description" content="Ising模型是统计物理学最经典的模型之一，由Wilhelm Lenz在1920年提出。Ising模型属于点阵模型，最初被设计用于描述铁磁性相变，现在已经在各个领域都有广泛应用。其模拟技术简单、典型。 定义一个点阵系统的每个格点$i$有一个离散随机变量$s_i$，其值为$\pm 1$。这个变量在描述磁现象的问题中，即为格点的自旋。当每一个格点$i$都指定了确定的$s_i$，这样集合$s=\\{s_">
 <meta name="keywords" content="Statistics,Model,Monte Carlo,Ising Model,Lattice Model,Simulation">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[模型]Ising模型的模拟技术">
 <meta property="og:url" content="https://www.liangye.site/2018/05/25/ising-model/index.html">
 <meta property="og:site_name" content="Ye&#39;s Blog">
-<meta property="og:description" content="Ising模型是统计物理学最经典的模型之一，由Wilhelm Lenz在1920年提出。Ising模型属于点阵模型，最初被设计用于描述铁磁性相变，现在已经在各个领域都有广泛应用。其模拟技术简单、典型。 定义一个点阵系统的每个格点$i$有一个离散随机变量$s_i$，其值为$\pm 1$。这个变量在描述磁现象的问题中，即为格点的自旋。当每一个格点$i$都指定了确定的$s_i$，这样集合$s=\{s_i">
+<meta property="og:description" content="Ising模型是统计物理学最经典的模型之一，由Wilhelm Lenz在1920年提出。Ising模型属于点阵模型，最初被设计用于描述铁磁性相变，现在已经在各个领域都有广泛应用。其模拟技术简单、典型。 定义一个点阵系统的每个格点$i$有一个离散随机变量$s_i$，其值为$\pm 1$。这个变量在描述磁现象的问题中，即为格点的自旋。当每一个格点$i$都指定了确定的$s_i$，这样集合$s=\\{s_">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.liangye.site/img/ising/ising.png">
 <meta property="og:image" content="https://www.liangye.site/img/ising/Ising5x5benchmark.png">
 <meta property="og:updated_time" content="2019-05-22T15:37:45.051Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[模型]Ising模型的模拟技术">
-<meta name="twitter:description" content="Ising模型是统计物理学最经典的模型之一，由Wilhelm Lenz在1920年提出。Ising模型属于点阵模型，最初被设计用于描述铁磁性相变，现在已经在各个领域都有广泛应用。其模拟技术简单、典型。 定义一个点阵系统的每个格点$i$有一个离散随机变量$s_i$，其值为$\pm 1$。这个变量在描述磁现象的问题中，即为格点的自旋。当每一个格点$i$都指定了确定的$s_i$，这样集合$s=\{s_i">
+<meta name="twitter:description" content="Ising模型是统计物理学最经典的模型之一，由Wilhelm Lenz在1920年提出。Ising模型属于点阵模型，最初被设计用于描述铁磁性相变，现在已经在各个领域都有广泛应用。其模拟技术简单、典型。 定义一个点阵系统的每个格点$i$有一个离散随机变量$s_i$，其值为$\pm 1$。这个变量在描述磁现象的问题中，即为格点的自旋。当每一个格点$i$都指定了确定的$s_i$，这样集合$s=\\{s_">
 <meta name="twitter:image" content="https://www.liangye.site/img/ising/ising.png">
 
 
@@ -500,8 +500,8 @@
 
       
         <p>Ising模型是统计物理学最经典的模型之一，由Wilhelm Lenz在1920年提出。Ising模型属于点阵模型，最初被设计用于描述铁磁性相变，现在已经在各个领域都有广泛应用。其模拟技术简单、典型。</p>
-<h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>一个点阵系统的每个格点$i$有一个离散随机变量$s_i$，其值为$\pm 1$。这个变量在描述磁现象的问题中，即为格点的自旋。当每一个格点$i$都指定了确定的$s_i$，这样集合$s=\{s_i\}$就是系统的一个组态。这样的描述是许多点阵模型共有的。</p>
-<p>Ising模型的核心是其哈密顿量：对于组态$s=\{s_i\}$，</p>
+<h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>一个点阵系统的每个格点$i$有一个离散随机变量$s_i$，其值为$\pm 1$。这个变量在描述磁现象的问题中，即为格点的自旋。当每一个格点$i$都指定了确定的$s_i$，这样集合$s=\\{s_i\\}$就是系统的一个组态。这样的描述是许多点阵模型共有的。</p>
+<p>Ising模型的核心是其哈密顿量：对于组态$s=\\{s_i\\}$，</p>
 <script type="math/tex; mode=display">\begin{equation}
 H(s)=-\sum_{\la ij\ra}J_{ij} s_is_j-\sum_i h_i s_i
 \end{equation}</script><p>其中$\la ij\ra$是通用的记号，表示所有最近邻的格点$i,j$对。$J_{ij}$描述最近邻格点的相互作用，$h_i$描述外场作用。</p>
@@ -1295,6 +1295,38 @@ p=\min[1,\exp(-\beta \Delta E)]
   
 
   
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 

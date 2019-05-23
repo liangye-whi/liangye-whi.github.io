@@ -26,4 +26,5 @@
 {"title":"常用数学运算和符号的英文读法","url":"/2019/03/15/math-english/"},
 {"title":"并行回火算法原理和在Ising类模型中的应用","url":"/2019/03/19/parallel-tempering/"},
 {"title":"Cluster算法与percolation模型的关系","url":"/2019/04/05/cluster-algorithm-percolation/"},
+{"title":"Monte Carlo统计误差估计","url":"/2019/05/23/error-estimate/"},
 ]

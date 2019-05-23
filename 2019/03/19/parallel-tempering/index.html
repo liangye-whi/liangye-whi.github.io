@@ -494,7 +494,7 @@
       
         <p>Monte Carlo采样的过程相当于在模型的自由能面上按照一定规则游走，每一步采一次样。对于Metropolis算法，对于Ising自旋模型也就是single spin flip算法，这个过程大致是随机产生一个下一步，但是能否接受要看与当前点的能量差。如果能量降低则一定接受下一步，如果能量升高，则以概率$p=e^{-\beta\Delta E}$来决定是否接受。这样总体上采样点在向能量低的地方走，同时也有概率能够翻越势垒。但是如果势垒太高，那么这个概率就很小，需要很长时间才能使采样点翻出势垒。显然，势垒越高，需要的步数就越长。对于某些体系，如自旋玻璃这样有阻挫的体系，势能面非常“崎岖”，有很多的局部极小点，并且可能势垒也很高。使用Metropolis算法就会发现MC的自相关时间非常长，也就是说，采样点被困在某个势阱当中了。重复计算可以观察到每次计算的物理量之间误差可能很大，这是因为每次模拟的时候采样点被困在不同的势阱中。这意味着在有限时间内，算法失去了遍历性。如果无法增加采样时间，那么Metropolis算法就失效了。</p>
 <p>并行回火(parallel tempering，又称复本交换replica exchange)是一种Monte Carlo采样算法，专门用于处理这种有“崎岖”的势能面的体系。“回火”是金属加工的一种技术，将金属稍作加热，使微观结构达到热力学平衡，从而改变金属性能。并行回火的大致原理就是使用多个副本(replicas)在一系列温度下同时模拟，并且相互交换温度来促进采样。</p>
-<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><p>假设我们要计算某一个较低温度$T<em>0$下体系的某个热力学量。我们使用$n$个副本，每个副本对应一个温度$T_i$，这一系列温度由低到高$T_0&lt;T_1&lt;\ldots&lt;T</em>{n-1}$，或者等价地$\beta<em>0&gt;\beta_1&gt;\ldots&gt;\beta</em>{n-1}&gt;0$。这$n$个副本并行地按照Metropolis算法进行演化，并且按照一定频率尝试交换相邻温度的两个副本的构型。这个交换可以看做一个特殊的Metropolis步骤，提出交换之后要按照一定的概率决定是否接受交换：</p>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><p>假设我们要计算某一个较低温度$T_0$下体系的某个热力学量。我们使用$n$个副本，每个副本对应一个温度$T_i$，这一系列温度由低到高$T_0<t_1<\ldots<t_{n-1}$，或者等价地$\beta_0>\beta_1&gt;\ldots&gt;\beta_{n-1}&gt;0$。这$n$个副本并行地按照Metropolis算法进行演化，并且按照一定频率尝试交换相邻温度的两个副本的构型。这个交换可以看做一个特殊的Metropolis步骤，提出交换之后要按照一定的概率决定是否接受交换：</t_1<\ldots<t_{n-1}$，或者等价地$\beta_0></p>
 <script type="math/tex; mode=display">\begin{equation}
 \frac{acc(o\to n)}{acc(n\to o)}=\exp(\Delta\beta\Delta E)
 \end{equation}</script><p>这里$\Delta\beta=\beta_i-\beta_j$，$\Delta E=E_i-E_j$，$i,j$是被交换的两个副本。如果接受<sup><a href="#fn_s" id="reffn_s">s</a></sup>，则交换两个副本的构型。</p>
@@ -1183,6 +1183,38 @@
   
 
   
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 

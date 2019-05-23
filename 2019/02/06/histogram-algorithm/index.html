@@ -500,7 +500,7 @@
 <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><h2 id="单直方图-SH-方法"><a href="#单直方图-SH-方法" class="headerlink" title="单直方图(SH)方法"></a>单直方图(SH)方法</h2><p>一般来说，MC在$T=T_0$处产生系统的一系列构型（轨迹），每个构型出现的频率正比于Boltzmann权重$\exp[-\beta_0 H]$，这里$\beta_0=1/k_BT$，$H$是系统的哈密顿量。一种惯用的标记是记$K=-J/k_BT$，成为耦合强度，下文我们主要使用这个记号。这样Boltzmann权重记为$\exp[K_0 E]$，$E$是构型的能量。那么在$K_0$时观测到能量$E$且磁矩$M=\sum_i\sigma_i$的构型的概率为</p>
 <script type="math/tex; mode=display">\begin{equation}\label{eqn:p0}
 P_{K_0}(E,M)=\frac1{Z(K_0)}W(E,M)\exp[K_0 E]
-\end{equation}</script><p>这里$W(E,M)$是有着能量为$E$、磁矩为$M$的构型的总数（简并度、态密度），$Z(K<em>0)$是配分函数。因为MC模拟都是按照这个概率来产生构型，所以相当于产生一个直方图$H(E,M)$以估计平衡时的概率分布。$H(E,M)$表示采样时能量为E磁矩为M的构型数目。当MC步数无穷多时，频率分布就是概率分布，但是对于有限的MC步数，采样不足就会造成统计误差。然而，尽管误差存在，$H(E,M)/N$仍然是一个对$P</em>{K_0}$的估计（N是MC的步数）。按照这个思路，我们类比式$\eqref{eqn:p0}$写出</p>
+\end{equation}</script><p>这里$W(E,M)$是有着能量为$E$、磁矩为$M$的构型的总数（简并度、态密度），$Z(K_0)$是配分函数。因为MC模拟都是按照这个概率来产生构型，所以相当于产生一个直方图$H(E,M)$以估计平衡时的概率分布。$H(E,M)$表示采样时能量为E磁矩为M的构型数目。当MC步数无穷多时，频率分布就是概率分布，但是对于有限的MC步数，采样不足就会造成统计误差。然而，尽管误差存在，$H(E,M)/N$仍然是一个对$P_{K_0}$的估计（N是MC的步数）。按照这个思路，我们类比式$\eqref{eqn:p0}$写出</p>
 <script type="math/tex; mode=display">\begin{equation}\label{eqn:h}
 H(E,M)=\frac{N}{Z(K_0)}\widetilde{W}(E,M)\exp[K_0E]
 \end{equation}</script><p>这里$\widetilde{W}(E,M)$是对真实态密度$W(E,M)$的统计估计。</p>
@@ -1207,6 +1207,38 @@ P_k(E,M)=\frac{H(E,M)\exp[\Delta KE]}{\displaystyle{\sum_{E,M} H(E,M)\exp[\Delta
   
 
   
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 

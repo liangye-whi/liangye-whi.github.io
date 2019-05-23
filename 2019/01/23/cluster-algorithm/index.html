@@ -531,8 +531,8 @@ p=acc(o\to n) = \min\{1, \exp[-\beta(E(n)-E(o))]\}
 <script type="math/tex; mode=display">\begin{equation}\label{eqn:detailed_balance}
 N(o)P_\text{Gen}^o(\{\text{cluster}\})P^{\{\text{cl}\}}(o\to n) acc(o\to n)
 =N(n)P_\text{Gen}^n(\{\text{cluster}\})P^{\{\text{cl}\}}(n\to o) acc(n\to o)
-\end{equation}</script><p>$N(o)$是原构型的Boltzmann权重，$P_{\text{Gen}}^o(\{\text{cluster}\})$是在构型o下产生特定的cluster的概率，$P^{\{\text{cl}\}}(o\to n)$是将整个cluster移动到指定位置得到提议构型的概率（对于Ising这样的spin-1/2模型别无选择，就是flip），最后$acc(o\to n)$是这个提议构型被接受的概率。</p>
-<p>通常可取$P^{\{\text{cl}\}}(o\to n)=P^{\{\text{cl}\}}(n\to o)$，即只要选定了相同的cluster，来回移动/翻转的概率是一样的。此外，算法要求$acc(o\to n)=1$。这样我们得到了</p>
+\end{equation}</script><p>$N(o)$是原构型的Boltzmann权重，$P_{\text{Gen}}^o(\\{\text{cluster}\\})$是在构型o下产生特定的cluster的概率，$P^{\\{\text{cl}\\}}(o\to n)$是将整个cluster移动到指定位置得到提议构型的概率（对于Ising这样的spin-1/2模型别无选择，就是flip），最后$acc(o\to n)$是这个提议构型被接受的概率。</p>
+<p>通常可取$P^{\\{\text{cl}\\}}(o\to n)=P^{\\{\text{cl}\\}}(n\to o)$，即只要选定了相同的cluster，来回移动/翻转的概率是一样的。此外，算法要求$acc(o\to n)=1$。这样我们得到了</p>
 <script type="math/tex; mode=display">\begin{equation}
 \frac{P_\text{Gen}^o(\{\text{cluster}\})}{P_\text{Gen}^n(\{\text{cluster}\})}=\frac{N(n)}{N(o)}=\exp(-\beta\Delta E)\label{eqn:14.3.3}
 \end{equation}</script><h1 id="Swendsen-Wang算法"><a href="#Swendsen-Wang算法" class="headerlink" title="Swendsen-Wang算法"></a>Swendsen-Wang算法</h1><p>下面的问题是怎么设计算法、求与算法对应的各个概率。<br>在以上核心思想指导下，Swendsen和Wang针对Ising模型提出了如下的构型创建方法：<br>由于Ising模型仅在相邻两格点之间有相互作用，那么我们称相邻两格点之间的空间为<strong>键位</strong>。每个键位有两种状态，为<strong>成键</strong>和<strong>不成键</strong>。</p>
@@ -545,12 +545,12 @@ N(o)P_\text{Gen}^o(\{\text{cluster}\})P^{\{\text{cl}\}}(o\to n) acc(o\to n)
 <script type="math/tex; mode=display">\begin{equation}\label{eqn:cluster_o}
 P_{\text{Gen}}^o(\{\text{cluster}\})=p^{n_c}(1-p)^{n_b}
 \end{equation}</script><p>其中$n_c$为所有可成键键位中成键的数目，$n_b$为所有可成键键位中不成键的数目。</p>
-<p>这样一个划分中，我们称成键的所有格点为一个<strong>团簇</strong>。系统被划分称许多个团簇，只包含一个格点也可以称为一个团簇。我们就从所有团簇中选一部分移动（翻转）。由于要求相同划分下团簇翻转来回的可逆$P^{\{\text{cl}\}}(o\to n)=P^{\{\text{cl}\}}(n\to o)$，那么可以设每个团簇被翻转的概率都是0.5。原则上这个概率可以任取，但是太小对构型的改变不够显著，太大则是整体翻转，所以最合适的值是0.5[2]。这样得到提议构型。提议构型被接受的概率为1。</p>
+<p>这样一个划分中，我们称成键的所有格点为一个<strong>团簇</strong>。系统被划分称许多个团簇，只包含一个格点也可以称为一个团簇。我们就从所有团簇中选一部分移动（翻转）。由于要求相同划分下团簇翻转来回的可逆$P^{\\{\text{cl}\\}}(o\to n)=P^{\\{\text{cl}\\}}(n\to o)$，那么可以设每个团簇被翻转的概率都是0.5。原则上这个概率可以任取，但是太小对构型的改变不够显著，太大则是整体翻转，所以最合适的值是0.5[2]。这样得到提议构型。提议构型被接受的概率为1。</p>
 <p>下面，我们求各个反向概率，即从提议构型返回到原构型的各个概率。</p>
 <p>首先假设上面的过程之后有$\Delta$个反平行的不可成键键位变成了平行的可成键键位，那么系统的能量就变为</p>
 <script type="math/tex; mode=display">\begin{equation}
 E(n)=E(o)-2J\Delta
-\end{equation}</script><p>这样Boltzmann权重之比就确定了。而反向的团簇翻转概率和正向的相同，只要生成同一个划分。所以就剩下求反向得到与正向相同的划分的概率$P_{\text{Gen}}^n(\{\text{cluster}\})$。</p>
+\end{equation}</script><p>这样Boltzmann权重之比就确定了。而反向的团簇翻转概率和正向的相同，只要生成同一个划分。所以就剩下求反向得到与正向相同的划分的概率$P_{\text{Gen}}^n(\\{\text{cluster}\\})$。</p>
 <p>为了产生相同的划分，可成键键位中成键的数目依然为$n_c$，这些键都在团簇内部。但是可成键键位总数变化，增加了$\Delta$个，于是可成键键位中不成键的数目变为$(n_b+\Delta)$。这样</p>
 <script type="math/tex; mode=display">\begin{equation}\label{eqn:cluster_n}
 P_{\text{Gen}}^n(\{\text{cluster}\})=p^{n_c}(1-p)^{n_b+\Delta}
@@ -585,7 +585,7 @@ p=1-\exp(-2\beta J)
 <h1 id="对点阵模型通用的Wolff-cluster算法"><a href="#对点阵模型通用的Wolff-cluster算法" class="headerlink" title="对点阵模型通用的Wolff cluster算法"></a>对点阵模型通用的Wolff cluster算法</h1><p>参看文献[3]。</p>
 <h1 id="广义cluster算法"><a href="#广义cluster算法" class="headerlink" title="广义cluster算法"></a>广义cluster算法</h1><p>见[1]第14章第3节General Cluster Moves。</p>
 <p>通常，对于一般的多粒子模型，不会总能找到方法构造接受概率100%的构型。但是cluster算法通常可以用来提高提议构型的被接受概率。</p>
-<h2 id="减小cluster的尺寸"><a href="#减小cluster的尺寸" class="headerlink" title="减小cluster的尺寸"></a>减小cluster的尺寸</h2><p>有的时候过高的连通性会导致过大的cluster。这时候我们希望牺牲一点接受概率来控制cluster的尺寸。由式$\eqref{eqn:detailed_balance}$开始，继续要求$P^{\{\text{cl}\}}(o\to n)=P^{\{\text{cl}\}}(n\to o)$，但是不要求$acc=1$，那么得到</p>
+<h2 id="减小cluster的尺寸"><a href="#减小cluster的尺寸" class="headerlink" title="减小cluster的尺寸"></a>减小cluster的尺寸</h2><p>有的时候过高的连通性会导致过大的cluster。这时候我们希望牺牲一点接受概率来控制cluster的尺寸。由式$\eqref{eqn:detailed_balance}$开始，继续要求$P^{\\{\text{cl}\\}}(o\to n)=P^{\\{\text{cl}\\}}(n\to o)$，但是不要求$acc=1$，那么得到</p>
 <script type="math/tex; mode=display">\begin{equation}
 \frac{P_\text{Gen}^o(\{\text{cluster}\})}{P_\text{Gen}^n(\{\text{cluster}\})}=\frac{N(n)acc(n\to o)}{N(o)acc(o\to n)}
 \end{equation}</script><p>式$\eqref{eqn:cluster_o}$、式$\eqref{eqn:cluster_n}$继续成立，那么</p>
@@ -1285,6 +1285,38 @@ acc(o\to n)=\min[1,\exp(\beta J\Delta)]
   
 
   
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 

@@ -99,19 +99,19 @@
 
 
 
-  <meta name="description" content="Edwards-Anderson（EA）模型由S. F. Edwards和P. W. Anderson于1975年提出，用来描述自旋玻璃现象。 定义EA模型是一个点阵模型，其哈密顿量定义为 \begin{equation} H(s) = -\sum_{\la ij\ra}J_{ij} s_is_j \end{equation}与Ising模型相同的是格点$i$的自旋$si$可以取$\pm1$。与I">
+  <meta name="description" content="Edwards-Anderson（EA）模型由S. F. Edwards和P. W. Anderson于1975年提出，用来描述自旋玻璃现象。 定义EA模型是一个点阵模型，其哈密顿量定义为 \begin{equation} H(s) = -\sum_{\la ij\ra}J_{ij} s_is_j \end{equation}与Ising模型相同的是格点$i$的自旋$s_i$可以取$\pm1$。与">
 <meta name="keywords" content="Statistics,Model,Monte Carlo,Edwards-Adnerson Model,Ising Model,Spin Glass,Lattice Model">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[模型]Edwards-Anderson模型的模拟技术">
 <meta property="og:url" content="https://www.liangye.site/2018/05/25/edwards-anderson-model/index.html">
 <meta property="og:site_name" content="Ye&#39;s Blog">
-<meta property="og:description" content="Edwards-Anderson（EA）模型由S. F. Edwards和P. W. Anderson于1975年提出，用来描述自旋玻璃现象。 定义EA模型是一个点阵模型，其哈密顿量定义为 \begin{equation} H(s) = -\sum_{\la ij\ra}J_{ij} s_is_j \end{equation}与Ising模型相同的是格点$i$的自旋$si$可以取$\pm1$。与I">
+<meta property="og:description" content="Edwards-Anderson（EA）模型由S. F. Edwards和P. W. Anderson于1975年提出，用来描述自旋玻璃现象。 定义EA模型是一个点阵模型，其哈密顿量定义为 \begin{equation} H(s) = -\sum_{\la ij\ra}J_{ij} s_is_j \end{equation}与Ising模型相同的是格点$i$的自旋$s_i$可以取$\pm1$。与">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.liangye.site/img/eamodel/frustration.png">
 <meta property="og:updated_time" content="2019-05-21T23:18:17.110Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[模型]Edwards-Anderson模型的模拟技术">
-<meta name="twitter:description" content="Edwards-Anderson（EA）模型由S. F. Edwards和P. W. Anderson于1975年提出，用来描述自旋玻璃现象。 定义EA模型是一个点阵模型，其哈密顿量定义为 \begin{equation} H(s) = -\sum_{\la ij\ra}J_{ij} s_is_j \end{equation}与Ising模型相同的是格点$i$的自旋$si$可以取$\pm1$。与I">
+<meta name="twitter:description" content="Edwards-Anderson（EA）模型由S. F. Edwards和P. W. Anderson于1975年提出，用来描述自旋玻璃现象。 定义EA模型是一个点阵模型，其哈密顿量定义为 \begin{equation} H(s) = -\sum_{\la ij\ra}J_{ij} s_is_j \end{equation}与Ising模型相同的是格点$i$的自旋$s_i$可以取$\pm1$。与">
 <meta name="twitter:image" content="https://www.liangye.site/img/eamodel/frustration.png">
 
 
@@ -498,10 +498,10 @@
 <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>EA模型是一个点阵模型，其哈密顿量定义为</p>
 <script type="math/tex; mode=display">\begin{equation}
 H(s) = -\sum_{\la ij\ra}J_{ij} s_is_j
-\end{equation}</script><p>与Ising模型相同的是格点$i$的自旋$s<em>i$可以取$\pm1$。与Ising模型的决定性的区别在于格点间相互作用$J</em>{ij}$的随机性：设最近邻格点$i,j$之间的相互作用为$J<em>{ij}$的概率为$P(J</em>{ij})$，则要求$\sum<em>{\la ij\ra}J</em>{ij}P(J_{ij})=0$。这样的定义意味着EA模型在任何非零温度下没有自发的宏观平均磁矩（Ising模型在临界温度下有自发的宏观平均磁矩，尽管统计的平均磁矩为零）。</p>
-<p>比较常用的$J<em>{ij}$的分布有两点分布，即取$\pm J$的概率各为$\frac12$；以及高斯分布 $N(0,J)$等。所有的$J</em>{ij}$一经给定，就不再随时间改变。</p>
+\end{equation}</script><p>与Ising模型相同的是格点$i$的自旋$s_i$可以取$\pm1$。与Ising模型的决定性的区别在于格点间相互作用$J_{ij}$的随机性：设最近邻格点$i,j$之间的相互作用为$J_{ij}$的概率为$P(J_{ij})$，则要求$\sum_{\la ij\ra}J_{ij}P(J_{ij})=0$。这样的定义意味着EA模型在任何非零温度下没有自发的宏观平均磁矩（Ising模型在临界温度下有自发的宏观平均磁矩，尽管统计的平均磁矩为零）。</p>
+<p>比较常用的$J_{ij}$的分布有两点分布，即取$\pm J$的概率各为$\frac12$；以及高斯分布 $N(0,J)$等。所有的$J_{ij}$一经给定，就不再随时间改变。</p>
 <h1 id="性质和现象"><a href="#性质和现象" class="headerlink" title="性质和现象"></a>性质和现象</h1><h2 id="相变与自旋玻璃态"><a href="#相变与自旋玻璃态" class="headerlink" title="相变与自旋玻璃态"></a>相变与自旋玻璃态</h2><p>高温下为顺磁态，低温下为自旋玻璃态。宏观的平均磁化率在某一温度达到峰值，该温度称为自旋玻璃相变温度$T_{sg}$。</p>
-<h2 id="阻挫"><a href="#阻挫" class="headerlink" title="阻挫"></a>阻挫</h2><p>与铁磁性的Ising模型显著不同的是，EA自旋玻璃态有着自旋玻璃态的特征性质：存在无法同时使铁磁性相互作用（$J<em>{ij}&gt;0$, FM）和反铁磁性相互作用（$J</em>{ij}&lt;0$, AFM）能量同时最小的情况，例如下图在一个正方形元胞（2x2）的三个顶点上，假如使反铁磁能量最小，确定左边两个格点自旋反平行，而此时无论右边的两个格点取何种状态，都不可能使铁磁性相互作用最小。这个现象就是自旋玻璃的阻挫（frustration）。此时三种不同的系统构型（右边两格点上上、下下、上下）有相同的能量，即简并。<br><img src="/img/eamodel/frustration.png" alt="阻挫示意图"><br>自旋玻璃研究的最大困难在于阻挫。阻挫使得相空间中的能量曲面非常复杂，导致系统的平衡和非平衡性质难以在理论上精确描述；系统基态存在很大的简并度，而能量曲面存在很多局部极小，所以难以通过局部优化的方法求解。</p>
+<h2 id="阻挫"><a href="#阻挫" class="headerlink" title="阻挫"></a>阻挫</h2><p>与铁磁性的Ising模型显著不同的是，EA自旋玻璃态有着自旋玻璃态的特征性质：存在无法同时使铁磁性相互作用（$J_{ij}&gt;0$, FM）和反铁磁性相互作用（$J_{ij}&lt;0$, AFM）能量同时最小的情况，例如下图在一个正方形元胞（2x2）的三个顶点上，假如使反铁磁能量最小，确定左边两个格点自旋反平行，而此时无论右边的两个格点取何种状态，都不可能使铁磁性相互作用最小。这个现象就是自旋玻璃的阻挫（frustration）。此时三种不同的系统构型（右边两格点上上、下下、上下）有相同的能量，即简并。<br><img src="/img/eamodel/frustration.png" alt="阻挫示意图"><br>自旋玻璃研究的最大困难在于阻挫。阻挫使得相空间中的能量曲面非常复杂，导致系统的平衡和非平衡性质难以在理论上精确描述；系统基态存在很大的简并度，而能量曲面存在很多局部极小，所以难以通过局部优化的方法求解。</p>
 <h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="Parallel-Tempering-并行退火"><a href="#Parallel-Tempering-并行退火" class="headerlink" title="Parallel Tempering 并行退火"></a>Parallel Tempering 并行退火</h2><blockquote>
 <p>Feng, Sheng, et al. “Three Dimensional Edwards-Anderson Spin Glass Model in an External Field.” arXiv preprint arXiv:1403.4560 (2014).</p>
 </blockquote>
@@ -1201,6 +1201,38 @@ H(s) = -\sum_{\la ij\ra}J_{ij} s_is_j
   
 
   
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 

@@ -498,12 +498,12 @@
 <p>SW算法及其改进版本Wolff算法是处理二阶相变的主要工具。但是在具体的情况中，需求可能有变化。对于某种情况我们需要生成满足某种对称性的cluster。</p>
 <p>Heringa等提出的这个算法很大程度上类似Wolff。这里我们用Ising-spin模型来介绍。每个MC move：</p>
 <ol>
-<li>选择一对$s<em>i,s</em>{i’}$。体系本身有对称性使得存在操作$A(i)=i’$。</li>
-<li>如果$s<em>i=s</em>{i’}$，那么本次move什么都不改变、本次move结束。</li>
+<li>选择一对$s_i,s_{i’}$。体系本身有对称性使得存在操作$A(i)=i’$。</li>
+<li>如果$s_i=s_{i’}$，那么本次move什么都不改变、本次move结束。</li>
 <li>将$s_i$加入cluster stack和seed stack。</li>
-<li>若seed stack空，则cluster生成完毕，将cluster中的每个spin $s<em>{i}$及其对称位置的spin $s</em>{A(i)}$翻转。本次move结束。</li>
+<li>若seed stack空，则cluster生成完毕，将cluster中的每个spin $s_{i}$及其对称位置的spin $s_{A(i)}$翻转。本次move结束。</li>
 <li>$s_j$=seed.pop()</li>
-<li>检查$s<em>j$的所有相邻spin $s_k$，如果$s_j=s_k$，且$s</em>{A(j)}=s_A{k}$，且$s_k$不在cluster中，则按照概率$p=1-\exp(-4\beta J)$将$s_k$加入cluster和seed。</li>
+<li>检查$s_j$的所有相邻spin $s_k$，如果$s_j=s_k$，且$s_{A(j)}=s_A{k}$，且$s_k$不在cluster中，则按照概率$p=1-\exp(-4\beta J)$将$s_k$加入cluster和seed。</li>
 <li>GOTO 4</li>
 </ol>
 <p>这个算法的特点：每次翻转的spin正负数量相同，因此保证$M$不变。每次产生的cluster（实际上是两个）对称。</p>
@@ -1164,6 +1164,38 @@
   
 
   
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 

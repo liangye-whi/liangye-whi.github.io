@@ -510,7 +510,7 @@
 <ol>
 <li>基本的印象，包括熵的定义、绝热过程、可逆过程、等外压过程等。</li>
 <li>热一+热二得出平衡态的状态方程（EOS）以及Legendre变换得到的另外三个热力学函数和方程。热力学函数对热力学参数的直接偏导关系（单纯通过这些EOS能够直接推出一些偏导，但是还有一些偏导推不出来，需要通过下面的关系式间接推）。</li>
-<li>Maxwell关系，热力学参数之间的偏导关系。还有$\left(\frac{\pd x}{\pd y}\right) <em> z=-\left(\frac{\pd x}{\pd z}\right) </em> y\left(\frac{\pd z}{\pd y}\right) _ x$当$z=z(x,y)$。</li>
+<li>Maxwell关系，热力学参数之间的偏导关系。还有$\left(\frac{\pd x}{\pd y}\right) _ z=-\left(\frac{\pd x}{\pd z}\right) _ y\left(\frac{\pd z}{\pd y}\right) _ x$当$z=z(x,y)$。</li>
 <li>Gibbs-Duhem方程，给出与EOS补充的微分方程。</li>
 <li>热力学参数之间的关系往往是系统的特性，例如$p-V-T$关系（等温压缩系数、等压热膨胀系数）、$S-V,p$关系（热容）等。</li>
 <li>$S,T,p,v$知道两个就能确定剩余两个，也就是说一个参数是任意另外两个参数的函数（$n$不变时）。</li>
@@ -566,13 +566,13 @@ P(\br^N)=\frac{\exp[-\beta U(\br^N)]}{\int d\br^N\exp[-\beta U(\br^N)]}
 \end{equation}</script><p>按照这个思路，二电子的概率密度分布，即体系中某两个电子处在$\br_1$和$\br_2$的概率</p>
 <script type="math/tex; mode=display">\begin{equation}
 \rho^{(2)}(\br_1,\br_2)=N(N-1)\frac{\int d\br^{N-2}\exp[-\beta U(\br^N)]}{\int d\br^N\exp[-\beta U(\br^N)]}
-\end{equation}</script><p>同理，在各向异性Hamiltonian下这个函数实际上只有一个自由度，即$\rho^{(2)}(\br<em>1,\br_2)=\rho^{(2)}(\br</em>{12})=\rho^{(2)}(r_{12})$。</p>
+\end{equation}</script><p>同理，在各向异性Hamiltonian下这个函数实际上只有一个自由度，即$\rho^{(2)}(\br_1,\br_2)=\rho^{(2)}(\br_{12})=\rho^{(2)}(r_{12})$。</p>
 <script type="math/tex; mode=display">\begin{equation}
 \int d\br_1 d\br_2\rho^{(2)}(\br_1,\br_2)=N(N-1).
 \end{equation}</script><p>实际上途径是一样的。再往下走到径向分布函数和结构因子的关系，交代下和实验的联系，即从实验获得径向分布函数。当然，另一条线是从理论导出，这也是理论重难点。在将理论之前，先说明这个径向分布函数可以给出许多热力学性质，有点类似解配分函数的作用。一个例子是体系能量</p>
 <script type="math/tex; mode=display">\begin{equation}
 \frac{\la E\ra}N=\frac32k_BT+\frac12\rho\int d\br g(r)u(r)
-\end{equation}</script><p>这个式子可以由配分函数开始配合二阶约化密度函数的定义导出。其中$u(r)$表示任何两个粒子之间的相互作用，即$U(\br^N)=\sum<em>i u(r</em>{ij})$。同时，压强为</p>
+\end{equation}</script><p>这个式子可以由配分函数开始配合二阶约化密度函数的定义导出。其中$u(r)$表示任何两个粒子之间的相互作用，即$U(\br^N)=\sum_i u(r_{ij})$。同时，压强为</p>
 <script type="math/tex; mode=display">\begin{equation}
 \frac{\beta p}{\rho}=1-\frac{\beta \rho}6\int d\br r g(r)\frac{du(r)}{dr}
 \end{equation}</script><p>这个公式称为virial定理，如果已知对势$u(r)$以及能够通过理论推出$g(r)$，就可以得到一个状态方程。如果只保留第一项1，就回到理想气体状态方程。对积分按密度展开的方法就是virial展开。</p>
@@ -1273,6 +1273,38 @@ B_2(T)=-\frac12\int d\br f(r)=-\frac12\int d\br\left(e^{-\beta u(r)}-1\right)
   
 
   
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 

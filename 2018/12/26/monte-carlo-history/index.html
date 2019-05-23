@@ -507,7 +507,7 @@
 <li>重复步骤2-4多次，直到抽样构型足够多以控制统计误差到接受范围内。样本容量记为$M$。</li>
 <li>对待求物理量做无权重的样本平均，平均值就是一次“试验”的结果。有时会需要求物理量的高阶矩，同样这个高阶矩是一次“试验”的结果。</li>
 </ol>
-<p>以上就是Metropolis算法，其中第4步是其核心。显然，这是一个Markov过程，每一次转移（步骤2-4）得到一个状态，从第$n$个状态得到第$n+1$个状态的转移概率$P(X<em>{n+1}=x|X</em>{n}=x_n)$与$n$无关。</p>
+<p>以上就是Metropolis算法，其中第4步是其核心。显然，这是一个Markov过程，每一次转移（步骤2-4）得到一个状态，从第$n$个状态得到第$n+1$个状态的转移概率$P(X_{n+1}=x|X_{n}=x_n)$与$n$无关。</p>
 <p>我们可以进行多次“试验”，得到多次“试验”的结果，再取平均得到物理量的计算结果；对多次“试验”结果求样本标准差得到物理量的计算误差。这是一个完整的计算过程。</p>
 <p>对Metropolis算法采得的构型权重都正比于$e^{-E/k_BT}$，即</p>
 <script type="math/tex; mode=display">\begin{equation}
@@ -516,8 +516,8 @@
 <p>首先，一个粒子允许在整个空间中移动，只要步数足够多，那么这个粒子一定能够到达空间的任意位置。这就是说，算法满足遍历性（ergocity）。当然，这只是申明算法能够充分采样，并不需要在实际计算过程中遍历整个空间。</p>
 <p>其次，需要证明如果样本容量足够大，样本池中状态为r的样本数量$\nu_r$应当正比于$e^{-E_r/k_BT}$。关于这点，首先明确这个过程中涉及到</p>
 <ul>
-<li>先验（<em>a priori</em>）概率$P<em>{rs}$：当构型为s时，选择下一个构型为r的（条件）概率。显然$P</em>{rs}=P_{sr}$，因为粒子从位置1能够移动到位置2，那么单纯的看空间位置，当然也能从位置2移动到位置1，而且在步骤2中，选择移动位置是均匀随机的。</li>
-<li>接受（acceptance）概率$\alpha<em>{rs}$：即从状态r到状态s能够被“接受”的概率。若$E_r&gt;E_s$，那么$\alpha</em>{rs}=1$，$\alpha_{sr}=e^{-(E_r-E_s)/k_BT}$。</li>
+<li>先验（<em>a priori</em>）概率$P_{rs}$：当构型为s时，选择下一个构型为r的（条件）概率。显然$P_{rs}=P_{sr}$，因为粒子从位置1能够移动到位置2，那么单纯的看空间位置，当然也能从位置2移动到位置1，而且在步骤2中，选择移动位置是均匀随机的。</li>
+<li>接受（acceptance）概率$\alpha_{rs}$：即从状态r到状态s能够被“接受”的概率。若$E_r&gt;E_s$，那么$\alpha_{rs}=1$，$\alpha_{sr}=e^{-(E_r-E_s)/k_BT}$。</li>
 </ul>
 <p>这样，Markov链的转移矩阵为</p>
 <script type="math/tex; mode=display">\begin{equation}
@@ -529,7 +529,7 @@ p_{r\to s}=P_{rs}\alpha_{rs}=P_{rs}\times\min[1,e^{-(E_s-E_r)/k_BT}], \qquad s\n
 <script type="math/tex; mode=display">\begin{equation}
 \frac{\nu_s}{\nu_r}=\frac{p_{r\to s}}{p_{s\to r}}=\frac{P_{rs}\min[1,e^{-(E_s-E_r)/k_BT}]}{P_{sr}\min[1,e^{-(E_r-E_s)/k_BT}]}=\frac{\min[1,e^{-(E_s-E_r)/k_BT}]}{\min[1,e^{-(E_r-E_s)/k_BT}]}=\frac{e^{-E_s/k_BT}}{e^{-E_r/k_BT}}
 \end{equation}</script><p>证毕。</p>
-<p>这里特别说明：之所以步骤4非常重要，即必须在移动被拒绝的时候将原构型加入样本，可以通过计算$p<em>{r\to r}$看出：由于转移矩阵的性质$\sum_s p</em>{r\to s}=1$，</p>
+<p>这里特别说明：之所以步骤4非常重要，即必须在移动被拒绝的时候将原构型加入样本，可以通过计算$p_{r\to r}$看出：由于转移矩阵的性质$\sum_s p_{r\to s}=1$，</p>
 <script type="math/tex; mode=display">\begin{align}
 p_{r\to r}=&1-\sum_{s\neq r}p_{r\to s}=1-\sum_{s\neq r}P_{rs}\min[1,e^{-(E_s-E_r)/k_BT}]\nonumber\newline
 =&1-\sum_{s\neq r|E_s\leqslant E_r}P_{rs}-\sum_{s\neq r|E_s>E_r}P_{rs}+\sum_{s\neq r|E_s>E_r}P_{rs}(1-e^{-(E_s-E_r)/k_BT})\nonumber\newline
@@ -1226,6 +1226,38 @@ p_{r\to r}=&1-\sum_{s\neq r}p_{r\to s}=1-\sum_{s\neq r}P_{rs}\min[1,e^{-(E_s-E_r
   
 
   
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 
