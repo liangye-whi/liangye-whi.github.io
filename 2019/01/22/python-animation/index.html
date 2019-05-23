@@ -497,7 +497,7 @@
 <p>其中，<code>for</code>循环中就按照最基本的画图方法设置横纵轴、画图就可以，比如<code>ax.plt(x,y,&#39;.-&#39;)</code>这样的。</p>
 <p>如果开启保存，那么一边动态更新canvas的时候就一边产生png图片。</p>
 <p>参考<br><a href="https://stackoverflow.com/questions/4098131/how-to-update-a-plot-in-matplotlib" target="_blank" rel="noopener">https://stackoverflow.com/questions/4098131/how-to-update-a-plot-in-matplotlib</a></p>
-<h1 id="Linux下将png图片转化为mp4视频"><a href="#Linux下将png图片转化为mp4视频" class="headerlink" title="Linux下将png图片转化为mp4视频"></a>Linux下将png图片转化为mp4视频</h1><p>首先确保自己安装了ffmpeg。Debian/Ubuntu用户可以执行<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo apt install ffmpeg</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="Linux下将png图片转化为mp4视频"><a href="#Linux下将png图片转化为mp4视频" class="headerlink" title="Linux下将png图片转化为mp4视频"></a>Linux下将png图片转化为mp4视频</h1><p>首先确保自己安装了ffmpeg。Debian/Ubuntu用户可以执行<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt <span class="keyword">install</span> ffmpeg</span><br></pre></td></tr></table></figure></p>
 <p>Shell下进入保存了编号的图片的文件夹，执行<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ffmpeg -framerate 30 -i %04d.png -c:v libx264 -pix_fmt yuv420p out.mp4</span></span><br></pre></td></tr></table></figure></p>
 <p>其中30是帧频，即每秒帧数；<code>%04d.png</code>是输入图片文件的格式；lib264是视频编码格式，<code>yuv420p</code>是颜色编码方案，一般就采用这两种；out.mp4是输出视频文件名。</p>
 <p>参考<br><a href="https://stackoverflow.com/questions/24961127/how-to-create-a-video-from-images-with-ffmpeg" target="_blank" rel="noopener">https://stackoverflow.com/questions/24961127/how-to-create-a-video-from-images-with-ffmpeg</a></p>
@@ -632,7 +632,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -740,7 +740,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">30</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">32</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
