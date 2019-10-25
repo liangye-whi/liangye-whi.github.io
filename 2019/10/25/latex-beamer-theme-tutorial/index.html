@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next gemini" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="eIrqMncbRU">
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本教程将介绍使用LaTeX Beamer制作正式演示文稿的方法。">
+<meta name="keywords" content="Beamer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LaTeX Beamer数理报告设计精通：主题制作">
+<meta property="og:url" content="https://www.liangye.site/2019/10/25/latex-beamer-theme-tutorial/index.html">
+<meta property="og:site_name" content="Ye&#39;s Blog">
+<meta property="og:description" content="本教程将介绍使用LaTeX Beamer制作正式演示文稿的方法。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-25T02:10:10.942Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LaTeX Beamer数理报告设计精通：主题制作">
+<meta name="twitter:description" content="本教程将介绍使用LaTeX Beamer制作正式演示文稿的方法。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.liangye.site/2019/10/25/latex-beamer-theme-tutorial/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>LaTeX Beamer数理报告设计精通：主题制作 | Ye's Blog</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4944b02c2f142cc6651487bf1307d2f7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ye's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.liangye.site/2019/10/25/latex-beamer-theme-tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ye Liang">
+      <meta itemprop="description" content="So beautiful is the world.">
+      <meta itemprop="image" content="/images/avatar-ly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ye's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">LaTeX Beamer数理报告设计精通：主题制作
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          
+            <i class="fa fa-thumb-tack"></i>
+            <font color="CD465D">TOP</font>
+            <span class="post-meta-divider">|</span>
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-25 08:23:36 / 修改时间：10:10:10" itemprop="dateCreated datePublished" datetime="2019-10-25T08:23:36+08:00">2019-10-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/latex/" itemprop="url" rel="index"><span itemprop="name">latex</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/10/25/latex-beamer-theme-tutorial/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/10/25/latex-beamer-theme-tutorial/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2019/10/25/latex-beamer-theme-tutorial/" class="leancloud_visitors" data-flag-title="LaTeX Beamer数理报告设计精通：主题制作">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+            <div class="post-description">本教程将介绍使用LaTeX Beamer制作正式演示文稿的方法。</div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>不得不说<a href="https://hartwork.org/beamer-theme-matrix/" target="_blank" rel="noopener">Beamer自带的主题</a>实在是跟不上时代。本节介绍如何使用和制作主题(theme)。</p>
+<p>Beamer的主题分为五部分：演示主题、颜色主题、字体主题、内部主题、外部主题。通常演示主题指的是由其他四个组合而成的一个完整的主题，而其他四类分别控制颜色、字体、内容元素、页眉页脚等。在指定了演示主题之后，默认其他的四个也会指定，但是也可以手动指定更换演示主题包含的子主题。在设计时，这几部分可以放在同一个主题文件中，也可以分开放到专门的文件。关于这些我们暂时不详细介绍，我们先从最基本最重要最有用的地方开始讲。</p>
+<p>自定义的主题就是一个<code>beamerthemeNAME.sty</code>文件，这里<code>NAME</code>就是主题的名字。这个文件一般要放在与beamer的<code>.tex</code>文件相同的目录下。可以在网上找好看的主题文件直接使用。</p>
+<p>使用主题：在导言区<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usetheme</span><span class="string">[⟨options⟩]</span><span class="string">&#123;⟨name list⟩&#125;</span></span></span><br><span class="line"><span class="comment">% ⟨name list⟩就是主题的名字，例如上面的NAME</span></span><br></pre></td></tr></table></figure></p>
+<p>例如：<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">usetheme</span><span class="string">&#123;default&#125;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>一个基本的测试tex文档，用于展示主题（首页）的效果（假设主题名字为general，并且在<code>.tex</code>文档目录下有<code>beamerthemegeneral.sty</code>主题文件）：</p>
+<figure class="highlight tex"><figcaption><span>pres.tex</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">&#123;beamer&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">[utf8]</span><span class="string">&#123;inputenc&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">[T1]</span><span class="string">&#123;fontenc&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">title</span><span class="string">&#123;There Is No Largest Prime Number&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">subtitle</span><span class="string">&#123;A Math Talk&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">date</span><span class="string">[ISPN ’80]</span><span class="string">&#123;27th International Symposium of Prime Numbers&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">author</span><span class="string">[Euclid]</span><span class="string">&#123;Euclid\\\texttt&#123;euclid@alexandria.edu&#125;</span></span>&#125;</span><br><span class="line"><span class="tag">\<span class="name">institute</span><span class="string">&#123;U of Alexandria&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">usetheme</span><span class="string">&#123;general&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;frame&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">titlepage</span></span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;frame&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;frame&#125;</span><span class="string">&#123;Hello world&#125;</span></span></span><br><span class="line">  Hi!</span><br><span class="line">  <span class="tag">\<span class="name">begin</span><span class="string">&#123;itemize&#125;</span></span></span><br><span class="line">    <span class="tag">\<span class="name">item</span></span> First</span><br><span class="line">    <span class="tag">\<span class="name">item</span></span> Second</span><br><span class="line">  <span class="tag">\<span class="name">end</span><span class="string">&#123;itemize&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;frame&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>一般标题、作者、时间等首页信息需要放在<code>\usetheme{}</code>之前。</p>
+<h1 id="一个最简单的主题"><a href="#一个最简单的主题" class="headerlink" title="一个最简单的主题"></a>一个最简单的主题</h1><p>下面我们介绍用最少的知识做出一个最简单、最漂亮的主题。</p>
+<p>一个最简单的主题至少要包含对presentation部分的描述，所以第一行写：<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">mode</span></span>&lt;presentation&gt;</span><br><span class="line"><span class="comment">% 关于presentation的部分</span></span><br></pre></td></tr></table></figure></p>
+<p>这一行标志着从这里到下一个<code>\mode</code>或者至文件结束都是关于presentation部分的设计。</p>
+<h2 id="主题颜色"><a href="#主题颜色" class="headerlink" title="主题颜色"></a>主题颜色</h2><p>调用颜色包：<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">RequirePackage</span><span class="string">&#123;xcolor&#125;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>这里<code>\RequirePackage{}</code>相当于文档中的<code>\usepackage{}</code>。之后就可以使用包中定义过的颜色。</p>
+<p>除了xcolor包自带颜色，还可以自定义主题中用到的颜色：<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 两种取色方法</span></span><br><span class="line"><span class="tag">\<span class="name">definecolor</span><span class="string">&#123;Gblue&#125;</span><span class="string">&#123;RGB&#125;</span><span class="string">&#123;0,32,91&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">definecolor</span><span class="string">&#123;Gred&#125;</span><span class="string">&#123;HTML&#125;</span><span class="string">&#123;E32235&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">definecolor</span><span class="string">&#123;Ggray&#125;</span><span class="string">&#123;HTML&#125;</span><span class="string">&#123;303030&#125;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>然后可以指定主题中各个部分文字的颜色：<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 首页</span></span><br><span class="line"><span class="tag">\<span class="name">setbeamercolor</span><span class="string">&#123;title&#125;</span><span class="string">&#123;fg=Gblue&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">setbeamercolor</span><span class="string">&#123;subtitle&#125;</span><span class="string">&#123;fg=Gred&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">setbeamercolor</span><span class="string">&#123;author&#125;</span><span class="string">&#123;fg=black&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">setbeamercolor</span><span class="string">&#123;institute&#125;</span><span class="string">&#123;fg=green&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">setbeamercolor</span><span class="string">&#123;date&#125;</span><span class="string">&#123;fg=Ggray&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 每一页标题</span></span><br><span class="line"><span class="tag">\<span class="name">setbeamercolor</span><span class="string">&#123;frametitle&#125;</span><span class="string">&#123;fg = Gblue&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% itemize列表文字</span></span><br><span class="line"><span class="tag">\<span class="name">setbeamercolor</span><span class="string">&#123;item&#125;</span><span class="string">&#123;fg = Gred&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">setbeamercolor</span><span class="string">&#123;subitem&#125;</span><span class="string">&#123;fg = gray&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 正文普通文字</span></span><br><span class="line"><span class="tag">\<span class="name">setbeamercolor</span><span class="string">&#123;normal text&#125;</span><span class="string">&#123;fg=Ggray&#125;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>除此之外，还可以设置block的颜色、页面背景色以及文本背景色等等。见Beamer手册<code>\setbeamercolor</code>。</p>
+<h2 id="首页设计"><a href="#首页设计" class="headerlink" title="首页设计"></a>首页设计</h2><p>这里列出了常用的insert。更多选择可以看<a href="http://tug.ctan.org/macros/latex/contrib/beamer/doc/beameruserguide.pdf" target="_blank" rel="noopener">beamer的手册</a>第8章。<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">defbeamertemplate*</span><span class="string">&#123;title page&#125;</span><span class="string">&#123;general&#125;</span><span class="string">[1]</span><span class="string">[]</span><span class="string">&#123;%</span></span></span><br><span class="line"><span class="tag"><span class="string">  \begin&#123;center&#125;</span></span></span><br><span class="line">    &#123;<span class="tag">\<span class="name">usebeamercolor</span><span class="string">[fg]</span><span class="string">&#123;title&#125;</span></span><span class="tag">\<span class="name">inserttitle</span></span>&#125;</span><br><span class="line"></span><br><span class="line">    &#123;<span class="tag">\<span class="name">usebeamercolor</span><span class="string">[fg]</span><span class="string">&#123;subtitle&#125;</span></span><span class="tag">\<span class="name">insertsubtitle</span></span>&#125;</span><br><span class="line"></span><br><span class="line">    &#123;<span class="tag">\<span class="name">usebeamercolor</span><span class="string">[fg]</span><span class="string">&#123;author&#125;</span></span><span class="tag">\<span class="name">insertauthor</span></span>&#125;</span><br><span class="line"></span><br><span class="line">    &#123;<span class="tag">\<span class="name">usebeamercolor</span><span class="string">[fg]</span><span class="string">&#123;institute&#125;</span></span><span class="tag">\<span class="name">insertinstitute</span></span>&#125;</span><br><span class="line"></span><br><span class="line">    &#123;<span class="tag">\<span class="name">usebeamercolor</span><span class="string">[fg]</span><span class="string">&#123;date&#125;</span></span><span class="tag">\<span class="name">insertdate</span></span>&#125;</span><br><span class="line"></span><br><span class="line">  <span class="tag">\<span class="name">end</span><span class="string">&#123;center&#125;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果你愿意，可以使用textblock等继续折腾。</p>
+<h1 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h1><h2 id="禁用导航条"><a href="#禁用导航条" class="headerlink" title="禁用导航条"></a>禁用导航条</h2><p>导航（按钮）条是beamer的一个特色，但是实际上很少用到。如果你希望禁用导航条，直接在<code>\mode&lt;presentation&gt;</code>下面写：<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% disable navigation symbols</span></span><br><span class="line"><span class="tag">\<span class="name">setbeamertemplate</span><span class="string">&#123;navigation symbols&#125;</span><span class="string">&#123;&#125;</span></span></span><br></pre></td></tr></table></figure></p>
+<h2 id="调用package"><a href="#调用package" class="headerlink" title="调用package"></a>调用package</h2><p>在主题的设计中经常要调用其他package，最典型的有图像包、颜色包、画图包、字体包等。一般导入包的语句紧接着<code>\mode&lt;presentation&gt;</code>。一个常用的导入如下：<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% REQUIREMENTS</span></span><br><span class="line"><span class="comment">% we use TikZ for drawing the background network on the slides</span></span><br><span class="line"><span class="tag">\<span class="name">RequirePackage</span><span class="string">&#123;tikz&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">usetikzlibrary</span><span class="string">&#123;positioning&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% we need this packages for importing images and using colors</span></span><br><span class="line"><span class="comment">% especially in tables</span></span><br><span class="line"><span class="tag">\<span class="name">RequirePackage</span><span class="string">&#123;graphicx,xcolor,colortbl&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">% change the font size of captions </span></span><br><span class="line"><span class="tag">\<span class="name">RequirePackage</span><span class="string">[font=footnotesize]</span><span class="string">&#123;caption&#125;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>这里<code>\RequirePackage{}</code>相当于<code>.tex</code>文件中的<code>\usepackage{}</code>。</p>
+<h2 id="页边距"><a href="#页边距" class="headerlink" title="页边距"></a>页边距</h2><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% GEOMETRY</span></span><br><span class="line"><span class="comment">% setting the parskip and the margins</span></span><br><span class="line"><span class="tag">\<span class="name">parskip</span>=<span class="number">1ex</span></span></span><br><span class="line"><span class="tag">\<span class="name">setbeamersize</span><span class="string">&#123;text margin left=7mm,text margin right=7mm&#125;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><h2 id="定义颜色"><a href="#定义颜色" class="headerlink" title="定义颜色"></a>定义颜色</h2><p>例如：<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">definecolor</span><span class="string">&#123;⟨color name⟩&#125;</span><span class="string">&#123;RGB&#125;</span><span class="string">&#123;0,32,91&#125;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>RGB取值从0到255。</p>
+<h2 id="封面页"><a href="#封面页" class="headerlink" title="封面页"></a>封面页</h2><p>封面页也就是beamer的第一页，一般要显示标题、作者、日期等。</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% TEMPLATE FOR THE TITLE PAGE</span></span><br><span class="line"><span class="tag">\<span class="name">defbeamertemplate*</span><span class="string">&#123;title page&#125;</span><span class="string">&#123;NAME&#125;</span><span class="string">[1]</span><span class="string">[]</span><span class="string">&#123;%</span></span></span><br><span class="line"><span class="tag"><span class="string">	%We use TIKZ for the whole layout.</span></span></span><br><span class="line"><span class="tag"><span class="string">	\begin&#123;tikzpicture&#125;</span></span></span><br><span class="line">		<span class="comment">% the title is displayed in a colored box with white sepration lines</span></span><br><span class="line">		<span class="comment">% between the lines of the title</span></span><br><span class="line">		<span class="tag">\<span class="name">useasboundingbox</span></span> (0,0) rectangle (<span class="tag">\<span class="name">the</span></span><span class="tag">\<span class="name">paperwidth</span></span>,<span class="tag">\<span class="name">the</span></span><span class="tag">\<span class="name">paperheight</span></span>);</span><br><span class="line">		<span class="tag">\<span class="name">node</span><span class="string">[anchor = south west, align = left, text width = 8cm, color = white,</span></span></span><br><span class="line"><span class="tag"><span class="string">			 inner xsep = 0cm,inner ysep = 1mm, fill = \titlecolor]</span></span> (title) at (-.7,1.75)</span><br><span class="line">			&#123;<span class="tag">\<span class="name">hspace</span><span class="string">&#123;.7cm&#125;</span></span><span class="tag">\<span class="name">parbox</span><span class="string">&#123;7cm&#125;</span><span class="string">&#123;</span></span></span><br><span class="line"><span class="tag"><span class="string">			\LARGE \baselineskip=8mm \textbf&#123;\MakeUppercase&#123;\inserttitle&#125;</span></span>&#125;<span class="tag">\<span class="name">par</span></span></span><br><span class="line">			&#125;&#125;;</span><br><span class="line">		<span class="tag">\<span class="name">draw</span><span class="string">[ultra thick,white]</span></span> ([yshift=2.4cm]title.south west)--([yshift=2.4cm]title.south east);	</span><br><span class="line">		<span class="tag">\<span class="name">draw</span><span class="string">[ultra thick,white]</span></span> ([yshift=.8cm]title.south west)--([yshift=.8cm]title.south east);	</span><br><span class="line">		<span class="tag">\<span class="name">draw</span><span class="string">[ultra thick,white]</span></span> ([yshift=1.6cm]title.south west)--([yshift=1.6cm]title.south east);</span><br><span class="line">		<span class="tag">\<span class="name">fill</span><span class="string">[\titlecolor]</span></span>	([yshift=-.5mm,xshift=.07mm] title.north west)rectangle([yshift=1.5mm,xshift=-.07mm]title.north east);</span><br><span class="line"></span><br><span class="line">		<span class="comment">% display the other presentation informations according to the UPB template</span></span><br><span class="line">		<span class="tag">\<span class="name">node</span><span class="string">[anchor = south west, align = left, color = upbblue, inner sep = 0cm,</span></span></span><br><span class="line"><span class="tag"><span class="string">			xshift=7mm, yshift = 3mm]</span></span></span><br><span class="line">			at (title.north west) &#123;<span class="tag">\<span class="name">textbf</span><span class="string">&#123;\insertinstitute&#125;</span></span>&#125;;</span><br><span class="line"></span><br><span class="line">		<span class="tag">\<span class="name">node</span><span class="string">[anchor = north west, align = left, color = upbblue, inner sep = 0cm,</span></span></span><br><span class="line"><span class="tag"><span class="string">			xshift=7mm, yshift = -3mm]</span></span> (subtitle)</span><br><span class="line">			at (title.south west) &#123;<span class="tag">\<span class="name">textbf</span><span class="string">&#123;\MakeUppercase&#123;\insertsubtitle&#125;</span></span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line">		<span class="tag">\<span class="name">node</span><span class="string">[anchor = north west, align = left, color = upbblue, inner sep = 0cm,</span></span></span><br><span class="line"><span class="tag"><span class="string">			xshift=0mm, yshift = -3mm]</span></span> (author)</span><br><span class="line">			at (subtitle.south west) &#123;<span class="tag">\<span class="name">footnotesize</span></span> <span class="tag">\<span class="name">insertauthor</span></span>&#125;;</span><br><span class="line"></span><br><span class="line">		<span class="tag">\<span class="name">node</span><span class="string">[anchor = north east, align = right, color = upbblue, inner sep = 0cm,</span></span></span><br><span class="line"><span class="tag"><span class="string">			xshift=\the\paperwidth-14mm, yshift = 0mm]</span></span></span><br><span class="line">			at (author.north west) &#123;<span class="tag">\<span class="name">footnotesize</span></span> <span class="tag">\<span class="name">insertdate</span></span>&#125;;</span><br><span class="line">	<span class="tag">\<span class="name">end</span><span class="string">&#123;tikzpicture&#125;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="空间布局"><a href="#空间布局" class="headerlink" title="空间布局"></a>空间布局</h2><h1 id="逻辑要素"><a href="#逻辑要素" class="headerlink" title="逻辑要素"></a>逻辑要素</h1><h2 id="叠层：单击后显示"><a href="#叠层：单击后显示" class="headerlink" title="叠层：单击后显示"></a>叠层：单击后显示</h2><h2 id="结构性目录"><a href="#结构性目录" class="headerlink" title="结构性目录"></a>结构性目录</h2><h1 id="准备演讲"><a href="#准备演讲" class="headerlink" title="准备演讲"></a>准备演讲</h1><h2 id="调整显示比例"><a href="#调整显示比例" class="headerlink" title="调整显示比例"></a>调整显示比例</h2><h2 id="双屏下显示备注"><a href="#双屏下显示备注" class="headerlink" title="双屏下显示备注"></a>双屏下显示备注</h2><h2 id="打印讲义"><a href="#打印讲义" class="headerlink" title="打印讲义"></a>打印讲义</h2><p>一个sty文件结构主要分为两大块：<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">mode</span></span>&lt;presentation&gt;</span><br><span class="line"><span class="comment">% 关于presentation的部分</span></span><br><span class="line"><span class="tag">\<span class="name">mode</span></span>&lt;handout&gt;</span><br><span class="line"><span class="comment">% 关于handout的部分</span></span><br></pre></td></tr></table></figure></p>
+<p>关于讲义handout，简单的处理就是<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">mode</span></span>&lt;handout&gt;&#123;</span><br><span class="line">	<span class="tag">\<span class="name">RequirePackage</span><span class="string">&#123;pgfpages&#125;</span></span></span><br><span class="line">	<span class="tag">\<span class="name">ifnum</span></span><span class="tag">\<span class="name">theslidesperhandout</span>=<span class="number">1</span></span><span class="tag">\<span class="name">relax</span></span></span><br><span class="line">		<span class="tag">\<span class="name">pgfpagesuselayout</span><span class="string">&#123;resize to&#125;</span><span class="string">[letter, border shrink = 2.5mm,landscape]</span></span></span><br><span class="line">	<span class="tag">\<span class="name">fi</span></span></span><br><span class="line"></span><br><span class="line">	<span class="tag">\<span class="name">ifnum</span></span><span class="tag">\<span class="name">theslidesperhandout</span>=<span class="number">2</span></span><span class="tag">\<span class="name">relax</span></span></span><br><span class="line">		<span class="tag">\<span class="name">pgfpagesuselayout</span><span class="string">&#123;2 on 1&#125;</span><span class="string">[letter, border shrink = 2.5mm]</span></span></span><br><span class="line">	<span class="tag">\<span class="name">fi</span></span></span><br><span class="line"></span><br><span class="line">	<span class="tag">\<span class="name">ifnum</span></span><span class="tag">\<span class="name">theslidesperhandout</span>=<span class="number">4</span></span><span class="tag">\<span class="name">relax</span></span></span><br><span class="line">		<span class="tag">\<span class="name">pgfpagesuselayout</span><span class="string">&#123;4 on 1&#125;</span><span class="string">[letter, border shrink = 2.5mm,landscape]</span></span></span><br><span class="line">	<span class="tag">\<span class="name">fi</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样就能够应对一般的单页(letter)1张、2张和4张slides的情况。关于如何使用<code>.tex</code>文件输出handout，我们在后文介绍。</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Beamer/" rel="tag"># Beamer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/23/error-estimate/" rel="next" title="Monte Carlo统计误差估计">
+                <i class="fa fa-chevron-left"></i> Monte Carlo统计误差估计
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar-ly.jpg" alt="Ye Liang">
+            
+              <p class="site-author-name" itemprop="name">Ye Liang</p>
+              <div class="site-description motion-element" itemprop="description">So beautiful is the world.</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/liangye-whi" title="GitHub &rarr; https://github.com/liangye-whi" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:liangye@hotmail.com" title="E-Mail &rarr; mailto:liangye@hotmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links of Likes
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://avnpc.com/" title="https://avnpc.com/" rel="noopener" target="_blank">AlloVince's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://reuixiy.github.io/" title="https://reuixiy.github.io/" rel="noopener" target="_blank">Reuixiy's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://idleworks.io/" title="http://idleworks.io/" rel="noopener" target="_blank">IdleWorks</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://zkeeer.space/" title="http://zkeeer.space/" rel="noopener" target="_blank">ZKeeer's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.raychase.net/" title="http://www.raychase.net/" rel="noopener" target="_blank">四火的唠叨</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/huang0925/" title="http://www.cnblogs.com/huang0925/" rel="noopener" target="_blank">无敌北瓜</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一个最简单的主题"><span class="nav-number">1.</span> <span class="nav-text">一个最简单的主题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主题颜色"><span class="nav-number">1.1.</span> <span class="nav-text">主题颜色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#首页设计"><span class="nav-number">1.2.</span> <span class="nav-text">首页设计</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进阶"><span class="nav-number">2.</span> <span class="nav-text">进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#禁用导航条"><span class="nav-number">2.1.</span> <span class="nav-text">禁用导航条</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用package"><span class="nav-number">2.2.</span> <span class="nav-text">调用package</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页边距"><span class="nav-number">2.3.</span> <span class="nav-text">页边距</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字体"><span class="nav-number">2.4.</span> <span class="nav-text">字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义颜色"><span class="nav-number">2.5.</span> <span class="nav-text">定义颜色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封面页"><span class="nav-number">2.6.</span> <span class="nav-text">封面页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空间布局"><span class="nav-number">2.7.</span> <span class="nav-text">空间布局</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑要素"><span class="nav-number">3.</span> <span class="nav-text">逻辑要素</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#叠层：单击后显示"><span class="nav-number">3.1.</span> <span class="nav-text">叠层：单击后显示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构性目录"><span class="nav-number">3.2.</span> <span class="nav-text">结构性目录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备演讲"><span class="nav-number">4.</span> <span class="nav-text">准备演讲</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#调整显示比例"><span class="nav-number">4.1.</span> <span class="nav-text">调整显示比例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双屏下显示备注"><span class="nav-number">4.2.</span> <span class="nav-text">双屏下显示备注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打印讲义"><span class="nav-number">4.3.</span> <span class="nav-text">打印讲义</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ye Liang</span>
+
+  
+
+  
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+
+  
+    <span class="site-uv" title="总访客量">
+       &nbsp; <i class="fa fa-mouse-pointer"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>&nbsp;hits.
+    </span>
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Ok4C3rcmRwMgcOSk22nDDedw-gzGzoHsz',
+    appKey: 'zCaDpvj6GSOvR84lJ0b7iM83',
+    placeholder: 'Leave a comment?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '0LqLqPGW53nbdmfQYMwdaTbl-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '0LqLqPGW53nbdmfQYMwdaTbl-gzGzoHsz',
+                'X-LC-Key': 'vvGIT8AoBabby809gGAcVFBA',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
