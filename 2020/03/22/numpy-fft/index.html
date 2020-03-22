@@ -100,6 +100,7 @@
 
 
   <meta name="description" content="numpy.fft模块本来用于计算傅立叶变换，和傅立叶级数有关系但不是一回事。对于周期为$T$的实函数，如果我们能够获得其一个周期的函数值，实际上也是可以使用numpy.fft做傅立叶展开的。 叠加cos函数的傅立叶展开我们输入一个np.array作为一个周期内的函数值，函数值都是实数。如果这个函数能够完全使用$cos$函数展开而不涉及$sin$函数，那么我们希望得到的傅立叶级数系数数组也应该是实">
+<meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Numpy.fft模块求傅立叶级数">
 <meta property="og:url" content="https://www.liangye.site/2020/03/22/numpy-fft/index.html">
@@ -108,7 +109,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.liangye.site/img/fourier/fourier1.png">
 <meta property="og:image" content="https://www.liangye.site/img/fourier/fourier2.png">
-<meta property="og:updated_time" content="2020-03-22T11:31:51.389Z">
+<meta property="og:updated_time" content="2020-03-22T11:34:39.771Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Numpy.fft模块求傅立叶级数">
 <meta name="twitter:description" content="numpy.fft模块本来用于计算傅立叶变换，和傅立叶级数有关系但不是一回事。对于周期为$T$的实函数，如果我们能够获得其一个周期的函数值，实际上也是可以使用numpy.fft做傅立叶展开的。 叠加cos函数的傅立叶展开我们输入一个np.array作为一个周期内的函数值，函数值都是实数。如果这个函数能够完全使用$cos$函数展开而不涉及$sin$函数，那么我们希望得到的傅立叶级数系数数组也应该是实">
@@ -401,7 +402,7 @@
                 
               
 
-              <time title="创建时间：2020-03-22 17:32:27 / 修改时间：19:31:51" itemprop="dateCreated datePublished" datetime="2020-03-22T17:32:27+08:00">2020-03-22</time>
+              <time title="创建时间：2020-03-22 17:32:27 / 修改时间：19:34:39" itemprop="dateCreated datePublished" datetime="2020-03-22T17:32:27+08:00">2020-03-22</time>
             
 
             
@@ -411,6 +412,24 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -526,6 +545,12 @@ y(x) = 3\sin(5\pi x)+5\cos(3\pi x) +7\cos(2\pi x)-2\sin(\pi x)
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
       
 
       
