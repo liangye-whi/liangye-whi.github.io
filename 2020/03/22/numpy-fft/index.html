@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next gemini" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="eIrqMncbRU">
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="numpy.fft模块本来用于计算傅立叶变换，和傅立叶级数有关系但不是一回事。对于周期为$T$的实函数，如果我们能够获得其一个周期的函数值，实际上也是可以使用numpy.fft做傅立叶展开的。 叠加cos函数的傅立叶展开我们输入一个np.array作为一个周期内的函数值，函数值都是实数。如果这个函数能够完全使用$cos$函数展开而不涉及$sin$函数，那么我们希望得到的傅立叶级数系数数组也应该是实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Numpy.fft模块求傅立叶级数">
+<meta property="og:url" content="https://www.liangye.site/2020/03/22/numpy-fft/index.html">
+<meta property="og:site_name" content="Ye&#39;s Blog">
+<meta property="og:description" content="numpy.fft模块本来用于计算傅立叶变换，和傅立叶级数有关系但不是一回事。对于周期为$T$的实函数，如果我们能够获得其一个周期的函数值，实际上也是可以使用numpy.fft做傅立叶展开的。 叠加cos函数的傅立叶展开我们输入一个np.array作为一个周期内的函数值，函数值都是实数。如果这个函数能够完全使用$cos$函数展开而不涉及$sin$函数，那么我们希望得到的傅立叶级数系数数组也应该是实">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.liangye.site/img/fourier/fourier1.png">
+<meta property="og:updated_time" content="2020-03-22T11:30:49.953Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Numpy.fft模块求傅立叶级数">
+<meta name="twitter:description" content="numpy.fft模块本来用于计算傅立叶变换，和傅立叶级数有关系但不是一回事。对于周期为$T$的实函数，如果我们能够获得其一个周期的函数值，实际上也是可以使用numpy.fft做傅立叶展开的。 叠加cos函数的傅立叶展开我们输入一个np.array作为一个周期内的函数值，函数值都是实数。如果这个函数能够完全使用$cos$函数展开而不涉及$sin$函数，那么我们希望得到的傅立叶级数系数数组也应该是实">
+<meta name="twitter:image" content="https://www.liangye.site/img/fourier/fourier1.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.liangye.site/2020/03/22/numpy-fft/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Numpy.fft模块求傅立叶级数 | Ye's Blog</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4944b02c2f142cc6651487bf1307d2f7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ye's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.liangye.site/2020/03/22/numpy-fft/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ye Liang">
+      <meta itemprop="description" content="So beautiful is the world.">
+      <meta itemprop="image" content="/images/avatar-ly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ye's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Numpy.fft模块求傅立叶级数
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-22 17:32:27 / 修改时间：19:30:49" itemprop="dateCreated datePublished" datetime="2020-03-22T17:32:27+08:00">2020-03-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2020/03/22/numpy-fft/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/22/numpy-fft/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2020/03/22/numpy-fft/" class="leancloud_visitors" data-flag-title="Numpy.fft模块求傅立叶级数">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><code>numpy.fft</code>模块本来用于计算傅立叶变换，和傅立叶级数有关系但不是一回事。对于周期为$T$的实函数，如果我们能够获得其一个周期的函数值，实际上也是可以使用<code>numpy.fft</code>做傅立叶展开的。</p>
+<h1 id="叠加cos函数的傅立叶展开"><a href="#叠加cos函数的傅立叶展开" class="headerlink" title="叠加cos函数的傅立叶展开"></a>叠加cos函数的傅立叶展开</h1><p>我们输入一个<code>np.array</code>作为一个周期内的函数值，函数值都是实数。如果这个函数能够完全使用$cos$函数展开而不涉及$sin$函数，那么我们希望得到的傅立叶级数系数数组也应该是实数组。所以此对称性可以使用<code>numpy.fft.hfft</code>加以利用。<code>hfft</code>返回一个实数列$H_k$，其图像为一些峰，这些峰的横坐标$k$与这些峰的角频率$\omega$的关系是</p>
+<script type="math/tex; mode=display">\begin{equation}
+\omega = \frac{\pi k}{T}
+\end{equation}</script><p>峰高$H$与$\cos$函数振幅$A$的关系为</p>
+<script type="math/tex; mode=display">\begin{equation}
+A = \frac{H}{N-1}
+\end{equation}</script><p>这里$N$为输入的函数值数组的长度。</p>
+<p>以下我们通过一些测试说明怎么使用。</p>
+<p>我们先通过一个例子解释、验证上面的公式，从表现上知道<code>hfft</code>的作用效果。我们给出一个已知傅立叶展开系数的函数</p>
+<script type="math/tex; mode=display">\begin{equation}
+y(x) = 3\cos(5\pi x)+5\cos(3\pi x) +7\cos(2\pi x)+2\cos(\pi x)
+\end{equation}</script><p>通过傅立叶级数展开，我们希望得到各个展开$\cos$函数的角频率以及幅度。</p>
+<p>首先导入numpy包<br><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure></p>
+<p>我们的输入是<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">N = <span class="number">500</span></span><br><span class="line">x = np.linspace(<span class="number">0</span>,<span class="number">6</span>,N)</span><br><span class="line">omega1 = <span class="number">5</span> * np.pi</span><br><span class="line">omega2 = <span class="number">3</span> * np.pi</span><br><span class="line">omega3 = <span class="number">2</span> * np.pi</span><br><span class="line">omega4 = <span class="number">1</span> * np.pi</span><br><span class="line">y = <span class="number">3</span>*np.cos(omega1*x) + <span class="number">5</span>*np.cos(omega2*x) + <span class="number">7</span>*np.cos(omega3*x) + <span class="number">2</span>*np.cos(omega4*x)</span><br></pre></td></tr></table></figure></p>
+<p>这里linspace参数6来自于y函数的一个周期$T=6$。做傅立叶展开</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">z = np.fft.hfft(y)/(N<span class="number">-1</span>)</span><br></pre></td></tr></table></figure>
+<p>得到z是一个实数列。画出图可以看到有八个尖峰，整个图像是对称的。我们只取其前一半即可，因为后一半是傅立叶变换本身产生的对称图像。图像四个峰分别在$k=6,12,18,30$。注意$T=6$。使用上面的公式可得到$\omega=\pi,2\pi,3\pi,5\pi$，与我们期望的一致。其峰高依次为$A=2,7,5,3$，与角频率完全一一对应。</p>
+<p><img src="/img/fourier/fourier1.png" alt="傅立叶展开图" width="800"></p>
+<p>注意：改变N值不会影响傅立叶展开，只要够大就可以了。</p>
+<p>此外，假如我们给出的y数组为两个周期，那么只要令$T$等于两倍原来周期，最后的结果$\omega,A$不会变，与我们期望的一致。</p>
+<h1 id="叠加cos和sin函数的傅立叶展开"><a href="#叠加cos和sin函数的傅立叶展开" class="headerlink" title="叠加cos和sin函数的傅立叶展开"></a>叠加cos和sin函数的傅立叶展开</h1><p>一个函数完整的傅立叶展开可能包含$sin$项，在傅立叶变换后其幅度值被分到了虚数部分，此时我们应当使用$numpy.fft.fft$来展开，得到一列复数。我们输入一个<code>np.array</code>作为一个周期内的函数值，函数值仍然都是实数。<code>fft</code>返回一个复数列$H_k$，对其实部和虚部分别作图，其图像为一些峰，这些峰的横坐标$k$与这些峰的角频率$\omega$的关系是</p>
+<script type="math/tex; mode=display">\begin{equation}
+\omega = \frac{2\pi k}{T}
+\end{equation}</script><p>复数峰高$H$与$\cos$函数振幅$A$的关系为</p>
+<script type="math/tex; mode=display">\begin{equation}
+A = \frac{2\Re(H)}{N}
+\end{equation}</script><p>复数峰高$H$与$\sin$函数振幅$B$的关系为</p>
+<script type="math/tex; mode=display">\begin{equation}
+B = -\frac{2\Im(H)}{N}
+\end{equation}</script><p>这里$N$为输入的函数值数组的长度。$\Re,\Im$分别为取实部、虚部。</p>
+<p>以下我们通过一些测试说明<code>fft</code>怎么使用。我们给出一个已知傅立叶展开系数的函数</p>
+<script type="math/tex; mode=display">\begin{equation}
+y(x) = 3\sin(5\pi x)+5\cos(3\pi x) +7\cos(2\pi x)-2\sin(\pi x)
+\end{equation}</script><p>通过傅立叶级数展开，我们希望得到各个展开$\cos$和$\sin$函数的角频率以及幅度。</p>
+<p>首先导入numpy包<br><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure></p>
+<p>我们的输入是<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">N = <span class="number">500</span></span><br><span class="line">x = np.linspace(<span class="number">0</span>,<span class="number">6</span>,N)</span><br><span class="line">omega1 = <span class="number">5</span> * np.pi</span><br><span class="line">omega2 = <span class="number">3</span> * np.pi</span><br><span class="line">omega3 = <span class="number">2</span> * np.pi</span><br><span class="line">omega4 = <span class="number">1</span> * np.pi</span><br><span class="line">y = <span class="number">3</span>*np.sin(omega1*x) + <span class="number">5</span>*np.cos(omega2*x) + <span class="number">7</span>*np.cos(omega3*x) - <span class="number">2</span>*np.sin(omega4*x)</span><br></pre></td></tr></table></figure></p>
+<p>这里linspace参数6来自于y函数的一个周期$T=6$。做傅立叶展开</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">z = np.fft.fft(y)/N*<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>得到z是一个复数列，我们仍旧只取其前一半。其实部<code>z.real</code>图像有两个主要的峰，分别在$k=6,9$，对应角频率为$\omega=2\pi,3\pi$、幅度为$A=7,5$的两个$\cos$函数；其虚部相反数<code>-z.imag</code>图像也有两个主要的峰，分别在$k=3,15$，对应角频率为$\omega=\pi,5\pi$、幅度为$B=-2,3$的两个$\sin$函数。以上结果与我们期望的一致。</p>
+<p>注意，以上使用<code>fft</code>得到的峰值并非严格等于我们期望的数值，有一些区别；而用之前<code>hfft</code>在纯$\cos$的情况下可以得到精确的峰值。</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/25/latex-beamer-theme-tutorial/" rel="next" title="LaTeX Beamer数理报告设计精通：主题制作">
+                <i class="fa fa-chevron-left"></i> LaTeX Beamer数理报告设计精通：主题制作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar-ly.jpg" alt="Ye Liang">
+            
+              <p class="site-author-name" itemprop="name">Ye Liang</p>
+              <div class="site-description motion-element" itemprop="description">So beautiful is the world.</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/liangye-whi" title="GitHub &rarr; https://github.com/liangye-whi" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:liangye@hotmail.com" title="E-Mail &rarr; mailto:liangye@hotmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links of Likes
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://avnpc.com/" title="https://avnpc.com/" rel="noopener" target="_blank">AlloVince's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://reuixiy.github.io/" title="https://reuixiy.github.io/" rel="noopener" target="_blank">Reuixiy's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://idleworks.io/" title="http://idleworks.io/" rel="noopener" target="_blank">IdleWorks</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://zkeeer.space/" title="http://zkeeer.space/" rel="noopener" target="_blank">ZKeeer's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.raychase.net/" title="http://www.raychase.net/" rel="noopener" target="_blank">四火的唠叨</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/huang0925/" title="http://www.cnblogs.com/huang0925/" rel="noopener" target="_blank">无敌北瓜</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#叠加cos函数的傅立叶展开"><span class="nav-number">1.</span> <span class="nav-text">叠加cos函数的傅立叶展开</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#叠加cos和sin函数的傅立叶展开"><span class="nav-number">2.</span> <span class="nav-text">叠加cos和sin函数的傅立叶展开</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ye Liang</span>
+
+  
+
+  
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+
+  
+    <span class="site-uv" title="总访客量">
+       &nbsp; <i class="fa fa-mouse-pointer"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>&nbsp;hits.
+    </span>
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Ok4C3rcmRwMgcOSk22nDDedw-gzGzoHsz',
+    appKey: 'zCaDpvj6GSOvR84lJ0b7iM83',
+    placeholder: 'Leave a comment?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '0LqLqPGW53nbdmfQYMwdaTbl-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '0LqLqPGW53nbdmfQYMwdaTbl-gzGzoHsz',
+                'X-LC-Key': 'vvGIT8AoBabby809gGAcVFBA',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: {
+          Macros: {
+            bm: ["\\boldsymbol{#1}",1],
+            brm: ["\\boldsymbol{\\mathrm{#1}}",1],
+            la: ["\\langle"],
+            ra: ["\\rangle"],
+            bx: ["\\brm{x}"],
+            br: ["\\brm{r}"],
+            pd: ["\\partial"],
+          }
+        }
+      });
+ </script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
