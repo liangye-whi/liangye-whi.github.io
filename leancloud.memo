@@ -29,4 +29,5 @@
 {"title":"Cluster算法与percolation模型的关系","url":"/2019/04/05/cluster-algorithm-percolation/"},
 {"title":"Monte Carlo统计误差估计","url":"/2019/05/23/error-estimate/"},
 {"title":"LaTeX Beamer数理报告设计精通：主题制作","url":"/2019/10/25/latex-beamer-theme-tutorial/"},
+{"title":"Numpy.fft模块求傅立叶级数","url":"/2020/03/22/numpy-fft/"},
 ]

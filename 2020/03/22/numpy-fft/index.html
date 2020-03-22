@@ -107,7 +107,8 @@
 <meta property="og:description" content="numpy.fft模块本来用于计算傅立叶变换，和傅立叶级数有关系但不是一回事。对于周期为$T$的实函数，如果我们能够获得其一个周期的函数值，实际上也是可以使用numpy.fft做傅立叶展开的。 叠加cos函数的傅立叶展开我们输入一个np.array作为一个周期内的函数值，函数值都是实数。如果这个函数能够完全使用$cos$函数展开而不涉及$sin$函数，那么我们希望得到的傅立叶级数系数数组也应该是实">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.liangye.site/img/fourier/fourier1.png">
-<meta property="og:updated_time" content="2020-03-22T11:30:49.953Z">
+<meta property="og:image" content="https://www.liangye.site/img/fourier/fourier2.png">
+<meta property="og:updated_time" content="2020-03-22T11:31:51.389Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Numpy.fft模块求傅立叶级数">
 <meta name="twitter:description" content="numpy.fft模块本来用于计算傅立叶变换，和傅立叶级数有关系但不是一回事。对于周期为$T$的实函数，如果我们能够获得其一个周期的函数值，实际上也是可以使用numpy.fft做傅立叶展开的。 叠加cos函数的傅立叶展开我们输入一个np.array作为一个周期内的函数值，函数值都是实数。如果这个函数能够完全使用$cos$函数展开而不涉及$sin$函数，那么我们希望得到的傅立叶级数系数数组也应该是实">
@@ -400,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2020-03-22 17:32:27 / 修改时间：19:30:49" itemprop="dateCreated datePublished" datetime="2020-03-22T17:32:27+08:00">2020-03-22</time>
+              <time title="创建时间：2020-03-22 17:32:27 / 修改时间：19:31:51" itemprop="dateCreated datePublished" datetime="2020-03-22T17:32:27+08:00">2020-03-22</time>
             
 
             
@@ -503,6 +504,7 @@ y(x) = 3\sin(5\pi x)+5\cos(3\pi x) +7\cos(2\pi x)-2\sin(\pi x)
 <p>这里linspace参数6来自于y函数的一个周期$T=6$。做傅立叶展开</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">z = np.fft.fft(y)/N*<span class="number">2</span></span><br></pre></td></tr></table></figure>
 <p>得到z是一个复数列，我们仍旧只取其前一半。其实部<code>z.real</code>图像有两个主要的峰，分别在$k=6,9$，对应角频率为$\omega=2\pi,3\pi$、幅度为$A=7,5$的两个$\cos$函数；其虚部相反数<code>-z.imag</code>图像也有两个主要的峰，分别在$k=3,15$，对应角频率为$\omega=\pi,5\pi$、幅度为$B=-2,3$的两个$\sin$函数。以上结果与我们期望的一致。</p>
+<p><img src="/img/fourier/fourier2.png" alt="傅立叶展开图" width="800"></p>
 <p>注意，以上使用<code>fft</code>得到的峰值并非严格等于我们期望的数值，有一些区别；而用之前<code>hfft</code>在纯$\cos$的情况下可以得到精确的峰值。</p>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
       
