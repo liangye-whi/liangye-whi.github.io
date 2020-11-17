@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Ye&#39;s Blog">
 <meta property="og:description" content="学了统计学，还是不会汇报误差？没办法把书上的概念和实际问题对应？">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-11-17T02:48:38.059Z">
+<meta property="og:updated_time" content="2020-11-17T08:25:13.628Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实用统计学">
 <meta name="twitter:description" content="学了统计学，还是不会汇报误差？没办法把书上的概念和实际问题对应？">
@@ -415,7 +415,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-11-17 10:48:38" itemprop="dateModified" datetime="2020-11-17T10:48:38+08:00">2020-11-17</time>
+                <time title="修改时间：2020-11-17 16:25:13" itemprop="dateModified" datetime="2020-11-17T16:25:13+08:00">2020-11-17</time>
               
             
           </span>
@@ -595,19 +595,56 @@ u(\rho)=0.23\%\times 1.639\text{g/cm}^3=0.004\text{g/cm}^3
 \end{equation}</script></li>
 </ol>
 <h1 id="计数实验的统计结果汇报方法"><a href="#计数实验的统计结果汇报方法" class="headerlink" title="计数实验的统计结果汇报方法"></a>计数实验的统计结果汇报方法</h1><p>高能物理实验中经常遇到<strong>计数</strong>的问题，如使用放射性计数器、闪烁体探测器等测量高能粒子的通量。我们使用探测器测量一段时间，得到的是这段时间内事例的个数。这个结果该如何理解、汇报？测量的误差怎么估计？</p>
-<p>我们用一个模型来描述事例的探测：事例发生的频率是一个定值（更准确地说，是事例在一段时间内发生次数的期望是定值），每个事例的发生是相互独立的。这样的概率模型对应的概率分布是<strong>泊松分布</strong>。</p>
-<blockquote>
-<p>The Poisson distribution is a discrete probability distribution that expresses the probability of a given number of events occurring in a fixed interval of time or space if these events occur with a known constant mean rate and independently of the time since the last event.</p>
-</blockquote>
-<p>为什么是泊松分布？可以用二项分布的极限证明，见<a href="https://zh.wikipedia.org/wiki/%E6%B3%8A%E6%9D%BE%E5%88%86%E4%BD%88#%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83%E7%9A%84%E6%9D%A5%E6%BA%90%EF%BC%88%E6%B3%8A%E6%9D%BE%E5%B0%8F%E6%95%B0%E5%AE%9A%E5%BE%8B%EF%BC%89" target="_blank" rel="noopener">维基百科</a>。</p>
+<p>我们用一个模型来描述事例的探测：事例发生的频率是一个定值（更准确地说，是事例在一段时间内发生次数的期望是定值），每个事例的发生是相互独立的。这样的模型下，描述一段时间内事例发生次数的概率分布是<strong>泊松分布</strong>。</p>
+<div class="spoiler collapsed"><div class="spoiler-title">为什么是泊松分布？</div><div class="spoiler-content"><p>可以用二项分布的极限来导出泊松分布。如果试验次数$n$很大，二项分布的概率$p$很小，且乘积$\lambda= np$比较适中，则事件出现的次数的概率在$n\to\infty$时就是泊松分布。</p>
+<p>证明如下。首先，回顾$e$的定义：</p>
+<script type="math/tex; mode=display">\begin{equation}
+ \lim _ {n\to\infty}\left(1-{\lambda \over n}\right)^n=e^{-\lambda},
+\end{equation}</script><p>二项分布的定义：</p>
+<script type="math/tex; mode=display">\begin{equation}
+P(X=k)={n \choose k}p^{k}(1-p)^{n-k}
+\end{equation}</script><p>如果令$p = \lambda / n$，$n$趋于无穷时$P$的极限：</p>
+<script type="math/tex; mode=display">\begin{align}
+\lim _ {n\to\infty} P(X=k)&=\lim _ {n\to\infty}{n \choose k} p^k (1-p)^{n-k} \nonumber\\
+ &=\lim _ {n\to\infty}{n! \over (n-k)!k!} \left({\lambda \over n}\right)^k \left(1-{\lambda\over n}\right)^{n-k}\nonumber\\
+ &=\lim _ {n\to\infty} \underbrace{\left[\frac{n!}{n^k\left(n-k\right)!}\right]} _ F \left(\frac{\lambda^k}{k!}\right) \underbrace{\left(1-\frac{\lambda}{n}\right)^n} _ {\to\exp\left(-\lambda\right)} \underbrace{\left(1-\frac{\lambda}{n}\right)^{-k}} _ {\to 1} \nonumber\\
+ &= \lim _ {n\to\infty} \underbrace{\left[ \left(1-\frac{1}{n}\right)\left(1-\frac{2}{n}\right) \ldots \left(1-\frac{k-1}{n}\right) \right]} _ {\to 1} \left(\frac{\lambda^k}{k!}\right) \underbrace{\left(1-\frac{\lambda}{n}\right)^n} _ {\to\exp\left(-\lambda\right)} \underbrace{\left(1-\frac{\lambda}{n}\right)^{-k}} _ {\to 1} \nonumber\\
+ &= \left(\frac{\lambda^k}{k!}\right)\exp\left(-\lambda\right)
+\end{align}</script></div></div>
 <p>由泊松分布，对于一段时间内<strong>发生次数</strong>期望为$\lambda$的事例，实际发生$k$次的概率表达为</p>
 <script type="math/tex; mode=display">\begin{equation}
   P(X=k)=\frac{e^{-\lambda}\lambda^k}{k!}
 \end{equation}</script><p>泊松分布有数字特征</p>
 <script type="math/tex; mode=display">\begin{equation}
 E[X] = \lambda,\qquad D[X]= \lambda
-\end{equation}</script><p>我们做计数实验一次得到的结果，可以看作一个样本。我们的任务是估计这次实验的<strong>频率的期望值</strong>（即$\lambda$）。</p>
-<h1 id="二、分析化学滴定实验，怎么汇报结果？"><a href="#二、分析化学滴定实验，怎么汇报结果？" class="headerlink" title="二、分析化学滴定实验，怎么汇报结果？"></a>二、分析化学滴定实验，怎么汇报结果？</h1><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+\end{equation}</script><p>我们做计数实验测量一次得到的结果，可以看作一个样本。我们的任务是估计这次实验的<strong>频率的期望值</strong>（即$\lambda$）。</p>
+<p>一般地，用单次测量结果即可估计给定时长计数实验的计数量，从而求出计数率。其测量结果可以表达为</p>
+<script type="math/tex; mode=display">\begin{equation}
+N_i\pm\sqrt{N_i}
+\end{equation}</script><p>该式表明的置信区间为$(N_i-\sqrt{N_i},N_i+\sqrt{N_i})$，置信度为68.3%。计数率$n=N/t$汇报为</p>
+<script type="math/tex; mode=display">\begin{equation}
+n\pm\dfrac{n}{\sqrt{N}}
+\end{equation}</script><p>画图时，测量误差用<strong>误差棒</strong>的长度表示，按惯例每点两边的误差棒长度各等于一倍$\sigma$值。</p>
+<h2 id="各种变化的计数方案"><a href="#各种变化的计数方案" class="headerlink" title="各种变化的计数方案"></a>各种变化的计数方案</h2><p>Q：将一次时长为t的计数实验分成m次长度为t/m的计数实验，以m个计数率的均值作为计数率的估计，计数率的误差会变化吗？<br>A：不会。<strong>计数率的相对标准偏差仅与总计数有关，且与总计数的相对标准偏差相等。</strong></p>
+<p>Q：多次不等精度（时长不等）的计数实验，结果如何汇报？<br>A：计数率的合成就是总计数量除以总时间。误差汇报的原理是一样的。另外，<strong>定数计时</strong>误差汇报结果也一样。</p>
+<p>Q：存在本底时的计数实验结果如何汇报？<br>A：一般通过两次测量，一次纯本底，一次本底+样品，汇报的样品的计数率是两个计数率相减。正常做误差的传递就好。</p>
+<p>Q：在求能谱时，方案一：独立测量两个能量阈值的计数量；方案二：设置反符合直接测两个能量之间的计数量，两个方案的误差有什么区别？<br>A：方案一的测量误差（设等精度测量）是$u(\Delta n)=\sqrt{\frac{n_1}{t}+\frac{n_2}{t}}=\sqrt{\frac{n_1+n_2}{t}}$。<br>方案二的测量误差是$u(\Delta n)=\sqrt{\frac{\Delta n}{t}}=\sqrt{\frac{n_1-n_2}{t}}$</p>
+<p>同等测量时长，方案二的误差更小。</p>
+<h2 id="计数结果的检验"><a href="#计数结果的检验" class="headerlink" title="计数结果的检验"></a>计数结果的检验</h2><p>检查步骤：</p>
+<ol>
+<li>给定显著性水平$\alpha$，查表找$K _ \alpha$。</li>
+<li>求实验计数值差$\Delta=|N_1-N_2|$，以及计数值差的标准偏差$\sigma _ \Delta=\sqrt{N_1+N_2}$。</li>
+<li>求$K=\Delta/\sigma _ \Delta$。</li>
+<li>若$K\geqslant K _ \alpha$，认为$\Delta$差异显著，怀疑计数的正确性。</li>
+</ol>
+<p>显著性水平$\alpha$越小，表示若判定“异常”，此判定一个误判的概率小。若我们想对数据点有高的质量要求，则可以设置高的显著性水平。</p>
+<p>常用的显著性水平值：$\alpha = 0.05, K _ \alpha = 1.96$；$\alpha=0.01, K _ \alpha=2.58$</p>
+<h1 id="二、分析化学滴定实验，怎么汇报结果？"><a href="#二、分析化学滴定实验，怎么汇报结果？" class="headerlink" title="二、分析化学滴定实验，怎么汇报结果？"></a>二、分析化学滴定实验，怎么汇报结果？</h1><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li>朱鹤年，肖志刚，《新概念基础物理实验讲义》</li>
+<li>陈伯显，张智，《核辐射物理及探测学》</li>
+<li>沈元华，陆申龙，《基础物理实验》</li>
+</ol>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
       
     </div>
 
@@ -932,7 +969,7 @@ E[X] = \lambda,\qquad D[X]= \lambda
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简单测量的不确定度汇报"><span class="nav-number">1.</span> <span class="nav-text">简单测量的不确定度汇报</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#直接测量"><span class="nav-number">1.1.</span> <span class="nav-text">直接测量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-number">1.1.1.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#间接测量"><span class="nav-number">1.2.</span> <span class="nav-text">间接测量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例子-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">例子</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计数实验的统计结果汇报方法"><span class="nav-number">2.</span> <span class="nav-text">计数实验的统计结果汇报方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、分析化学滴定实验，怎么汇报结果？"><span class="nav-number">3.</span> <span class="nav-text">二、分析化学滴定实验，怎么汇报结果？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简单测量的不确定度汇报"><span class="nav-number">1.</span> <span class="nav-text">简单测量的不确定度汇报</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#直接测量"><span class="nav-number">1.1.</span> <span class="nav-text">直接测量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-number">1.1.1.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#间接测量"><span class="nav-number">1.2.</span> <span class="nav-text">间接测量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例子-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">例子</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计数实验的统计结果汇报方法"><span class="nav-number">2.</span> <span class="nav-text">计数实验的统计结果汇报方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#各种变化的计数方案"><span class="nav-number">2.1.</span> <span class="nav-text">各种变化的计数方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计数结果的检验"><span class="nav-number">2.2.</span> <span class="nav-text">计数结果的检验</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、分析化学滴定实验，怎么汇报结果？"><span class="nav-number">3.</span> <span class="nav-text">二、分析化学滴定实验，怎么汇报结果？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
