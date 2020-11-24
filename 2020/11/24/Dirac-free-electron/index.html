@@ -99,18 +99,18 @@
 
 
 
-  <meta name="description" content="很多时候我们需要自己开发一些简易的python包来满足个人需要。轻量级python包可能只包含少数功能，并且通常我们希望能够像调用公共包一样调用自定义的包。这样的一个包的开发流程如下。 设计包的结构一个包可以看做是一款软件。包=目录，模块=py文件，具体的功能如函数和类等都写在模块中。包内可以有子包。 每一个包下面必须有一个__init__.py模块，描述包自己。最简单的包就只有一个__init_">
-<meta name="keywords" content="Python">
+  <meta name="description" content="整理自喀兴林《高等量子力学》第三章。 自由空间Dirac方程\begin{equation} i\hbar\frac{\pd}{\pd t}|\Psi\ra=\left(c\bm{\alpha}\cdot\bm{P}+\beta mc^2\right)|\Psi\ra \end{equation}定态方程为 \begin{equation}\label{eqn:eqn} \left(c\bm{\a">
+<meta name="keywords" content="Quantum">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python轻量包开发流程">
-<meta property="og:url" content="https://www.liangye.site/2018/05/11/python-package-development/index.html">
+<meta property="og:title" content="Dirac方程与自由电子严格解">
+<meta property="og:url" content="https://www.liangye.site/2020/11/24/Dirac-free-electron/index.html">
 <meta property="og:site_name" content="Ye&#39;s Blog">
-<meta property="og:description" content="很多时候我们需要自己开发一些简易的python包来满足个人需要。轻量级python包可能只包含少数功能，并且通常我们希望能够像调用公共包一样调用自定义的包。这样的一个包的开发流程如下。 设计包的结构一个包可以看做是一款软件。包=目录，模块=py文件，具体的功能如函数和类等都写在模块中。包内可以有子包。 每一个包下面必须有一个__init__.py模块，描述包自己。最简单的包就只有一个__init_">
+<meta property="og:description" content="整理自喀兴林《高等量子力学》第三章。 自由空间Dirac方程\begin{equation} i\hbar\frac{\pd}{\pd t}|\Psi\ra=\left(c\bm{\alpha}\cdot\bm{P}+\beta mc^2\right)|\Psi\ra \end{equation}定态方程为 \begin{equation}\label{eqn:eqn} \left(c\bm{\a">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-21T23:18:17.114Z">
+<meta property="og:updated_time" content="2020-11-24T15:13:51.791Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python轻量包开发流程">
-<meta name="twitter:description" content="很多时候我们需要自己开发一些简易的python包来满足个人需要。轻量级python包可能只包含少数功能，并且通常我们希望能够像调用公共包一样调用自定义的包。这样的一个包的开发流程如下。 设计包的结构一个包可以看做是一款软件。包=目录，模块=py文件，具体的功能如函数和类等都写在模块中。包内可以有子包。 每一个包下面必须有一个__init__.py模块，描述包自己。最简单的包就只有一个__init_">
+<meta name="twitter:title" content="Dirac方程与自由电子严格解">
+<meta name="twitter:description" content="整理自喀兴林《高等量子力学》第三章。 自由空间Dirac方程\begin{equation} i\hbar\frac{\pd}{\pd t}|\Psi\ra=\left(c\bm{\alpha}\cdot\bm{P}+\beta mc^2\right)|\Psi\ra \end{equation}定态方程为 \begin{equation}\label{eqn:eqn} \left(c\bm{\a">
 
 
 
@@ -118,7 +118,7 @@
 
   
   
-  <link rel="canonical" href="https://www.liangye.site/2018/05/11/python-package-development/">
+  <link rel="canonical" href="https://www.liangye.site/2020/11/24/Dirac-free-electron/">
 
 
 
@@ -128,7 +128,7 @@
   };
 </script>
 
-  <title>Python轻量包开发流程 | Ye's Blog</title>
+  <title>Dirac方程与自由电子严格解 | Ye's Blog</title>
   
 
 
@@ -354,7 +354,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.liangye.site/2018/05/11/python-package-development/">
+    <link itemprop="mainEntityOfPage" href="https://www.liangye.site/2020/11/24/Dirac-free-electron/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ye Liang">
@@ -371,7 +371,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Python轻量包开发流程
+          <h2 class="post-title" itemprop="name headline">Dirac方程与自由电子严格解
 
               
             
@@ -399,24 +399,12 @@
                 
               
 
-              <time title="创建时间：2018-05-11 10:58:15" itemprop="dateCreated datePublished" datetime="2018-05-11T10:58:15+08:00">2018-05-11</time>
+              <time title="创建时间：2020-11-24 16:18:09 / 修改时间：23:13:51" itemprop="dateCreated datePublished" datetime="2020-11-24T16:18:09+08:00">2020-11-24</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-22 07:18:17" itemprop="dateModified" datetime="2019-05-22T07:18:17+08:00">2019-05-22</time>
               
             
           </span>
@@ -433,7 +421,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/quantum/" itemprop="url" rel="index"><span itemprop="name">quantum</span></a></span>
 
                 
                 
@@ -452,8 +440,8 @@
                 </span>
             
                 <span class="post-meta-item-text">评论数：</span>
-                <a href="/2018/05/11/python-package-development/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/11/python-package-development/" itemprop="commentCount"></span>
+                <a href="/2020/11/24/Dirac-free-electron/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/11/24/Dirac-free-electron/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -461,7 +449,7 @@
 
           
           
-            <span id="/2018/05/11/python-package-development/" class="leancloud_visitors" data-flag-title="Python轻量包开发流程">
+            <span id="/2020/11/24/Dirac-free-electron/" class="leancloud_visitors" data-flag-title="Dirac方程与自由电子严格解">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -492,34 +480,73 @@
       
 
       
-        <p>很多时候我们需要自己开发一些简易的python包来满足个人需要。轻量级python包可能只包含少数功能，并且通常我们希望能够像调用公共包一样调用自定义的包。这样的一个包的开发流程如下。</p>
-<h1 id="设计包的结构"><a href="#设计包的结构" class="headerlink" title="设计包的结构"></a>设计包的结构</h1><p>一个包可以看做是一款软件。<strong>包=目录</strong>，<strong>模块=py文件</strong>，具体的功能如函数和类等都写在模块中。包内可以有子包。</p>
-<p>每一个包下面必须有一个<code>__init__.py</code>模块，描述包自己。最简单的包就只有一个<code>__init__</code>模块，所有的功能功能都写在里面。如果功能被设计分散到不同的模块中，则<code>__init__.py</code>可以为空文件。</p>
-<h1 id="建立包的内容"><a href="#建立包的内容" class="headerlink" title="建立包的内容"></a>建立包的内容</h1><ul>
-<li>调用 需要注意调用自定义包的内部其他模块的功能时，最好使用相对路径调用。</li>
-<li>文档 在开头以’’’…’’’写入py文件。</li>
-</ul>
-<h1 id="本地使用包"><a href="#本地使用包" class="headerlink" title="本地使用包"></a>本地使用包</h1><h4 id="选择一-将包放到现有的python搜索路径中"><a href="#选择一-将包放到现有的python搜索路径中" class="headerlink" title="选择一 将包放到现有的python搜索路径中"></a>选择一 将包放到现有的python搜索路径中</h4><p>如果仅仅是自己使用，则可以将自定义包到python的搜索路径中。关于python搜索路径可以参考<a href="https://www.cnblogs.com/paomaliuju/p/5167434.html" target="_blank" rel="noopener">python的搜索路径与包（package）</a>。具体的选择可以是：</p>
-<ul>
-<li>直接将包放在需要调用它的py文件同一目录下；<br>适合临时包的调用</li>
-<li>本地用户的库中（注意使用正确的python版本号）：~/.local/lib/python3.6/site-packages<br>比较正式！自己的包与其他包一样，也是正式安装的包了！</li>
-</ul>
-<h4 id="选择二-修改python搜索路径"><a href="#选择二-修改python搜索路径" class="headerlink" title="选择二 修改python搜索路径"></a>选择二 修改python搜索路径</h4><p>修改环境变量PYTHONPATH，加上包所在的目录。</p>
-<h4 id="选择三-添加pth快捷方式"><a href="#选择三-添加pth快捷方式" class="headerlink" title="选择三 添加pth快捷方式"></a>选择三 添加pth快捷方式</h4><p>在site-packages添加一个路径文件，如mypkpath.pth，必须以.pth为后缀，写上你要加入的模块文件所在的目录名称就是了。注：pth文件名和包没有关系。</p>
-<h4 id="选择四-通过setup-py打包安装"><a href="#选择四-通过setup-py打包安装" class="headerlink" title="选择四 通过setup.py打包安装"></a>选择四 通过setup.py打包安装</h4><p>一个setup.py的基本内容：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> setuptools  <span class="keyword">import</span> setup</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name= <span class="string">'firsthirdpackage'</span>,</span><br><span class="line">    version= <span class="string">'0.0.1'</span>,</span><br><span class="line">    packages = [<span class="string">'firsthirdpackage'</span>],</span><br><span class="line">    author=<span class="string">'xieyanke'</span>,</span><br><span class="line">    author_email=<span class="string">'coderinfo@163.com'</span>,</span><br><span class="line">    license=<span class="string">'Apache'</span>，</span><br><span class="line">    url=<span class="string">'http://pycn.me'</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>将其放在自定义包同一目录下（注意不是在包内），选择一种打包格式打包：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> .tar.gz/.zip格式</span></span><br><span class="line"><span class="meta">$</span><span class="bash">  python setup.py sdist</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> .egg格式</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python setup.py bdist_egg</span></span><br></pre></td></tr></table></figure></p>
-<p>之后就可以安装：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python setup.py install</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="提交到pypi公共平台"><a href="#提交到pypi公共平台" class="headerlink" title="提交到pypi公共平台"></a>提交到pypi公共平台</h1><p>如果想将自己的包提交到 <a href="https://pypi.python.org" target="_blank" rel="noopener">https://pypi.python.org</a> 供大家通过<code>pip install xxx</code>使用：</p>
-<ol>
-<li>注册 pypi     </li>
-<li>提交自己的包<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python setup.py register bdist upload</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>之后选择1，输入用户名、密码即可完成提交。</p>
-<ol>
-<li>安装pypi中自己提交的包<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> pip install xxx</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+        <p>整理自喀兴林《高等量子力学》第三章。</p>
+<h1 id="自由空间Dirac方程"><a href="#自由空间Dirac方程" class="headerlink" title="自由空间Dirac方程"></a>自由空间Dirac方程</h1><script type="math/tex; mode=display">\begin{equation}
+i\hbar\frac{\pd}{\pd t}|\Psi\ra=\left(c\bm{\alpha}\cdot\bm{P}+\beta mc^2\right)|\Psi\ra
+\end{equation}</script><p>定态方程为</p>
+<script type="math/tex; mode=display">\begin{equation}\label{eqn:eqn}
+\left(c\bm{\alpha}\cdot\bm{P}+\beta mc^2\right)|\psi\ra = E|\psi\ra
+\end{equation}</script><p>其中$\bm{P}=-i\hbar\nabla$是动量算符；$\bm{\alpha}$是一个由三个“特殊的数”$\alpha_x,\alpha_y,\alpha_z$组成的三维矢量，$\beta$是另一个“特殊的数”，它们满足条件：平方为1，且两两反对易。显然它们不在复空间上，应该是矩阵。这些矩阵是一个新的空间上的算符，这个新的空间与时空空间正交，所以态在时空自由度$(x,y,z,t)$外多了一个自由度。（下面我们将看到这个正交空间将与自旋有关。）</p>
+<p>显然，哈密顿量$H$与动量$\bm{P}$是对易的，动量算符的本征态是哈密顿量的本征态。因此定态解的空间部分为$e^{i\bm{p}\cdot\bm{x}/\hbar}$。则哈密顿量的定态本征态可以写为</p>
+<script type="math/tex; mode=display">\begin{equation}\label{eqn:sol}
+\psi = \omega e^{i\bm{p}\cdot\bm{x}/\hbar}
+\end{equation}</script><p>其中$\omega$是哈密顿量在新的空间中的本征矢量，称为<strong>Dirac旋量</strong>。</p>
+<h1 id="负值能量的出现"><a href="#负值能量的出现" class="headerlink" title="负值能量的出现"></a>负值能量的出现</h1><p>由群表示论知，满足运算条件的$\alpha_x,\alpha_y,\alpha_z,\beta$至少为$4\times 4$矩阵（详细的推导是通过Dirac群导出的）。它们的一种矩阵表示为</p>
+<script type="math/tex; mode=display">\begin{equation}
+\bm{\alpha}=\begin{pmatrix}0&\bm{\sigma}\\\bm{\sigma}&0\end{pmatrix},\qquad\beta=\begin{pmatrix}\bm{1} & 0\\0&-\bm{1}\end{pmatrix}
+\end{equation}</script><p>这里$\bm{\sigma}$是<a href="https://zh.wikipedia.org/zh/%E6%B3%A1%E5%88%A9%E7%9F%A9%E9%99%A3" target="_blank" rel="noopener">Pauli矩阵</a>，$\bm{1}$是二维单位矩阵。这个表示称为Dirac-Pauli表象下的表示。因此这个新的正交空间是一个四维空间，式$\eqref{eqn:sol}$中的$\omega$是这个哈密顿量在这个四维空间中的一个本征矢量。考虑到$\bm{\alpha}$和$\beta$的分块形式，可以将$\omega$写成两个二维矢量的直积</p>
+<script type="math/tex; mode=display">\begin{equation}
+\omega=\begin{pmatrix}\phi_1\\\phi_2\end{pmatrix}
+\end{equation}</script><p>代入方程$\eqref{eqn:eqn}$，得到</p>
+<script type="math/tex; mode=display">\begin{equation}
+\begin{pmatrix}mc^2&\bm{\sigma}\cdot\bm{p}c\\\bm{\sigma}\cdot\bm{p}c&-mc^2\end{pmatrix}\begin{pmatrix}\phi_1\\\phi_2\end{pmatrix}=E\begin{pmatrix}\phi_1\\\phi_2\end{pmatrix}
+\end{equation}</script><p>解得</p>
+<script type="math/tex; mode=display">\begin{equation}
+\left\{\begin{aligned}
+\phi_1 = &\frac{\bm{\sigma}\cdot\bm{p} c}{E-mc^2}\phi_2\\
+\phi_2 = &\frac{\bm{\sigma}\cdot\bm{p} c}{E+mc^2}\phi_1
+\end{aligned}\right.
+\end{equation}</script><p>现在看二维矩阵</p>
+<script type="math/tex; mode=display">\begin{equation}\label{eqn:sp}
+\bm{\sigma}\cdot\bm{p}=\begin{pmatrix}p_z&p_x-ip_y\\p_x+ip_y&-p_z\end{pmatrix}
+\end{equation}</script><p>考虑其二维的本征态。很容易求出这个矩阵的本征值$\lambda=\pm p$，记对应的本征矢量分别为$\chi _ \pm$。设$\phi_1=a _ + \chi _ + + a _ - \chi _ -$，则</p>
+<script type="math/tex; mode=display">\begin{equation}
+\phi_2 = \frac{pc}{E+mc^2}(a _ +\chi _ +-a _ -\chi _ -)
+\end{equation}</script><p>从而</p>
+<script type="math/tex; mode=display">\begin{equation}
+\phi_1 = \frac{p^2c^2}{E^2-m^2c^4}\phi_1
+\end{equation}</script><p>得到能量的本征值</p>
+<script type="math/tex; mode=display">\begin{equation}
+E^2 = p^2c^2+m^2c^4
+\end{equation}</script><p>显然数值上$E$有正负两个解。能量为负的解可以丢弃吗？不可以。因为还要看对应的本征态有没有意义。现在得到能量本征态为</p>
+<script type="math/tex; mode=display">\begin{equation}
+\omega _ {\pm} = \begin{pmatrix}\phi_1\\\frac{\bm{\sigma}\cdot \bm{p}c}{\pm|E|+mc^2}\phi_1\end{pmatrix}
+\end{equation}</script><p>显然哈密顿量的本征态存在简并，我们再找一个与哈密顿量对易的算符，确定剩余的自由度。</p>
+<h1 id="螺旋度"><a href="#螺旋度" class="headerlink" title="螺旋度"></a>螺旋度</h1><p>从式$\eqref{eqn:sp}$出发，构造算符</p>
+<script type="math/tex; mode=display">\begin{equation}
+\hat{h}=\frac{\hbar}{2}\bm{\Sigma}\cdot\frac{\bm{P}}{P}
+\end{equation}</script><p>其中</p>
+<script type="math/tex; mode=display">\begin{equation}
+\bm{\Sigma} = \begin{pmatrix}\bm{\sigma}&0\\0&\bm{\sigma}\end{pmatrix}
+\end{equation}</script><p>此算符称为<strong>螺旋度</strong>算符。<strong>可以证明$\hat{h}$与哈密顿量$H$对易</strong>。对于动量本征态$\eqref{eqn:sol}$，本征方程为</p>
+<script type="math/tex; mode=display">\begin{equation}
+\frac{\hbar}2\frac1p\begin{pmatrix}\bm{\sigma}\cdot\bm{p}&0\\0&\bm{\sigma}\cdot\bm{p}\end{pmatrix}\omega =  C\omega
+\end{equation}</script><p>本征值和本征态为</p>
+<script type="math/tex; mode=display">\begin{align}
+C=+\frac{\hbar}2,&\qquad\omega = \begin{pmatrix}a\chi _ +\\b\chi _ +\end{pmatrix},\\
+C=-\frac{\hbar}2,&\qquad\omega = \begin{pmatrix}a\chi _ -\\b\chi _ -\end{pmatrix}
+\end{align}</script><p>各自有二重简并。</p>
+<p>实际上，$\bm{\Sigma}$由Dirac方程中的$\bm{\alpha}$得出</p>
+<script type="math/tex; mode=display">\begin{equation}
+\bm{\Sigma}=-\frac{i}{2}\bm{\alpha}\times\bm{\alpha}
+\end{equation}</script><p>而$\bm{S}=\frac{\hbar}2\bm{\Sigma}$就是自旋算符。因此<strong>螺旋度算符就是自旋在动量方向上的投影</strong>。自旋方向与动量方向一致，则螺旋度本征值为正；相反则为负。</p>
+<h1 id="反物质"><a href="#反物质" class="headerlink" title="反物质"></a>反物质</h1><p>哈密顿量和螺旋度在动量本征态$\bm{p}$的Dirac旋量空间的共同本征态为（此处记$E=\sqrt{p^2c^2+m^2c^4}$）</p>
+<script type="math/tex; mode=display">\begin{align}
+\omega(+E,\bm{p},+) = &\begin{pmatrix}\chi _ +\\\frac{pc}{E+mc^2}\chi _ +\end{pmatrix},\\ 
+\omega(+E,\bm{p},-) = &\begin{pmatrix}\chi _ -\\\frac{pc}{E+mc^2}\chi _ -\end{pmatrix},\\ 
+\omega(-E,\bm{p},+) = &\begin{pmatrix}\chi _ +\\\frac{pc}{-E+mc^2}\chi _ +\end{pmatrix},\\ 
+\omega(-E,\bm{p},-) = &\begin{pmatrix}\chi _ -\\\frac{pc}{-E+mc^2}\chi _ -\end{pmatrix}
+\end{align}</script><p>容易理解，$\omega(+E,\bm{p},+)$和$\omega(+E,\bm{p},-)$分别代表了能量为$E$、自旋与动量平行或反平行的粒子，即<strong>右手性</strong>和<strong>左手性</strong>粒子。而能量本征值为$-E$的态表示什么呢？ 在量子电动力学之前，似乎只能使用“Dirac海”的解释来处理“负能解”，并称“负能海平面”下的“空穴”为“反电子”，因为一个电子退回到“负能量能级”上去的时候，就像和一个“空穴”复合了一样。退回的过程中，放出两倍电子的能量，就像是和“反电子”湮灭了一样。所以严格地说，Dirac方程并没有直接预言反电子，而是让人们开始猜想反电子的存在。</p>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
       
     </div>
@@ -543,7 +570,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Python/" rel="tag"># Python</a>
+            <a href="/tags/Quantum/" rel="tag"># Quantum</a>
           
         </div>
       
@@ -556,8 +583,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/10/efficient-numpy/" rel="next" title="Numpy大规模矩阵运算优化加速技巧">
-                <i class="fa fa-chevron-left"></i> Numpy大规模矩阵运算优化加速技巧
+              <a href="/2020/07/10/pragmatic-statistics/" rel="next" title="实验科学的实用统计技术">
+                <i class="fa fa-chevron-left"></i> 实验科学的实用统计技术
               </a>
             
           </div>
@@ -565,10 +592,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/17/calculate-temperature-in-md/" rel="prev" title="在粒子的分子动力学模拟中计算温度">
-                在粒子的分子动力学模拟中计算温度 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -839,7 +862,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设计包的结构"><span class="nav-number">1.</span> <span class="nav-text">设计包的结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建立包的内容"><span class="nav-number">2.</span> <span class="nav-text">建立包的内容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本地使用包"><span class="nav-number">3.</span> <span class="nav-text">本地使用包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提交到pypi公共平台"><span class="nav-number">4.</span> <span class="nav-text">提交到pypi公共平台</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自由空间Dirac方程"><span class="nav-number">1.</span> <span class="nav-text">自由空间Dirac方程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#负值能量的出现"><span class="nav-number">2.</span> <span class="nav-text">负值能量的出现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#螺旋度"><span class="nav-number">3.</span> <span class="nav-text">螺旋度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反物质"><span class="nav-number">4.</span> <span class="nav-text">反物质</span></a></li></ol></div>
             
 
           </div>
@@ -1109,6 +1132,62 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: {
+          Macros: {
+            bm: ["\\boldsymbol{#1}",1],
+            brm: ["\\boldsymbol{\\mathrm{#1}}",1],
+            la: ["\\langle"],
+            ra: ["\\rangle"],
+            bx: ["\\brm{x}"],
+            br: ["\\brm{r}"],
+            pd: ["\\partial"],
+          }
+        }
+      });
+ </script>
+
+    
   
 
 
