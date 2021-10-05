@@ -13,7 +13,7 @@
 
 
 <html class="theme-next gemini" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -596,7 +596,12 @@ u(\rho)=0.23\%\times 1.639\text{g/cm}^3=0.004\text{g/cm}^3
 </ol>
 <h1 id="计数实验的统计结果汇报方法"><a href="#计数实验的统计结果汇报方法" class="headerlink" title="计数实验的统计结果汇报方法"></a>计数实验的统计结果汇报方法</h1><p>高能物理实验中经常遇到<strong>计数</strong>的问题，如使用放射性计数器、闪烁体探测器等测量高能粒子的通量。我们使用探测器测量一段时间，得到的是这段时间内事例的个数。这个结果该如何理解、汇报？测量的误差怎么估计？</p>
 <p>我们用一个模型来描述事例的探测：事例发生的频率是一个定值（更准确地说，是事例在一段时间内发生次数的期望是定值），每个事例的发生是相互独立的。这样的模型下，描述一段时间内事例发生次数的概率分布是<strong>泊松分布</strong>。</p>
-<div class="spoiler collapsed"><div class="spoiler-title">为什么是泊松分布？</div><div class="spoiler-content"><p>可以用二项分布的极限来导出泊松分布。如果试验次数$n$很大，二项分布的概率$p$很小，且乘积$\lambda= np$比较适中，则事件出现的次数的概率在$n\to\infty$时就是泊松分布。</p>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        为什么是泊松分布？
+    </div>
+    <div class="spoiler-content">
+        <p>可以用二项分布的极限来导出泊松分布。如果试验次数$n$很大，二项分布的概率$p$很小，且乘积$\lambda= np$比较适中，则事件出现的次数的概率在$n\to\infty$时就是泊松分布。</p>
 <p>证明如下。首先，回顾$e$的定义：</p>
 <script type="math/tex; mode=display">\begin{equation}
  \lim _ {n\to\infty}\left(1-{\lambda \over n}\right)^n=e^{-\lambda},
@@ -610,7 +615,9 @@ P(X=k)={n \choose k}p^{k}(1-p)^{n-k}
  &=\lim _ {n\to\infty} \underbrace{\left[\frac{n!}{n^k\left(n-k\right)!}\right]} _ F \left(\frac{\lambda^k}{k!}\right) \underbrace{\left(1-\frac{\lambda}{n}\right)^n} _ {\to\exp\left(-\lambda\right)} \underbrace{\left(1-\frac{\lambda}{n}\right)^{-k}} _ {\to 1} \nonumber\\
  &= \lim _ {n\to\infty} \underbrace{\left[ \left(1-\frac{1}{n}\right)\left(1-\frac{2}{n}\right) \ldots \left(1-\frac{k-1}{n}\right) \right]} _ {\to 1} \left(\frac{\lambda^k}{k!}\right) \underbrace{\left(1-\frac{\lambda}{n}\right)^n} _ {\to\exp\left(-\lambda\right)} \underbrace{\left(1-\frac{\lambda}{n}\right)^{-k}} _ {\to 1} \nonumber\\
  &= \left(\frac{\lambda^k}{k!}\right)\exp\left(-\lambda\right)
-\end{align}</script></div></div>
+\end{align}</script>
+    </div>
+</div>
 <p>由泊松分布，对于一段时间内<strong>发生次数</strong>期望为$\lambda$的事例，实际发生$k$次的概率表达为</p>
 <script type="math/tex; mode=display">\begin{equation}
   P(X=k)=\frac{e^{-\lambda}\lambda^k}{k!}
@@ -761,7 +768,7 @@ n\pm\dfrac{n}{\sqrt{N}}
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-count">34</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -794,7 +801,9 @@ n\pm\dfrac{n}{\sqrt{N}}
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -875,7 +884,9 @@ n\pm\dfrac{n}{\sqrt{N}}
                     
                       
                     
-                    <span class="site-state-item-count">32</span>
+                      
+                    
+                    <span class="site-state-item-count">33</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -978,7 +989,7 @@ n\pm\dfrac{n}{\sqrt{N}}
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

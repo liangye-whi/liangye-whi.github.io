@@ -13,7 +13,7 @@
 
 
 <html class="theme-next gemini" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -520,10 +520,17 @@
 <script type="math/tex; mode=display">\begin{equation}
 \nabla^2\psi+[k^2-V(r)]\psi=0
 \end{equation}</script><blockquote>
-<div class="spoiler collapsed"><div class="spoiler-title">导出过程</div><div class="spoiler-content"><p>由</p>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        导出过程
+    </div>
+    <div class="spoiler-content">
+        <p>由</p>
 <script type="math/tex; mode=display">-\frac{\hbar^2}{2\mu}\nabla^2\psi+U(r)\psi=E\psi</script><p>令$k^2=\frac{2\mu E}{\hbar^2}$，$V(r)=\frac{2\mu}{\hbar^2}U(r)$即可。这里$\frac{\hbar k}{\mu}$可以理解为粒子的相对速度。通常散射问题给定能量，也就是给定了初始动能，也就给定了粒子入射速度。这样，k就是方程中的一个常数。</p>
 <p>注意散射问题中的势通常为中心势。取球极坐标时，通常设粒子入射方向为极轴。</p>
-</div></div>
+
+    </div>
+</div>
 </blockquote>
 <p>该方程的通解在$r\to\infty$时的渐近形式为应为<strong>入射平面波</strong>与<a href="https://en.wikipedia.org/wiki/Wave_equation#Spherical_waves" target="_blank" rel="noopener"><strong>散射球面波</strong></a>的叠加，</p>
 <script type="math/tex; mode=display">\begin{equation}\label{eqn3}
@@ -532,9 +539,16 @@
 <script type="math/tex; mode=display">\begin{equation}
 \frac{d\sigma}{d\Omega}(\theta,\phi)=|f(\theta,\phi)|^2
 \end{equation}</script><blockquote>
-<div class="spoiler collapsed"><div class="spoiler-title">导出过程</div><div class="spoiler-content"><p>由式$\eqref{eqn3}$中入射与散射波函数可求得入射与散射流密度的径向分量分别为</p>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        导出过程
+    </div>
+    <div class="spoiler-content">
+        <p>由式$\eqref{eqn3}$中入射与散射波函数可求得入射与散射流密度的径向分量分别为</p>
 <script type="math/tex; mode=display">J_i=|A|^2\frac{\hbar k}{\mu},\qquad J_s=|A|^2\frac{\hbar k}{\mu}\frac{|f(\theta,\phi)|^2}{r^2}</script><p>由式$\eqref{eqn1}$即可得到微分散射截面。</p>
-</div></div>
+
+    </div>
+</div>
 </blockquote>
 <p>只要给定靶粒子势$V(r)$，通过解薛定谔方程并取$\psi(\bm{r})$在$r\to\infty$的渐近形式就可以得到$f(\theta,\phi)$。 因此$f(\theta,\phi)$是连接量子力学理论和实验数据的关键，因此量子散射理论的核心是寻找求解散射幅$f(\theta,\phi)$的各种方法。其中分波法和Born近似是两种常用方法。</p>
 <h1 id="分波法"><a href="#分波法" class="headerlink" title="分波法"></a>分波法</h1><p>分波法的核心思想是在球谐函数（或Legendre多项式）展开下求波函数的级数解。这一方法将求散射幅$f(\theta,\phi)$的问题归结为求分波的相移$\delta_l$，而$\delta_l$需要通过势函数$V(r)$的具体情况求解径向方程来获得。</p>
@@ -562,7 +576,12 @@
 <script type="math/tex; mode=display">\begin{equation}\label{eqn6}
 R_l(r)\sim\frac{A_l}{kr}\sin\left(kr-\frac\pi2l+\delta_l\right)
 \end{equation}</script><blockquote>
-<div class="spoiler collapsed"><div class="spoiler-title">导出过程</div><div class="spoiler-content"><p>将通解$\eqref{eqn5}$代入波动方程$\eqref{eqn1}$得到径向方程</p>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        导出过程
+    </div>
+    <div class="spoiler-content">
+        <p>将通解$\eqref{eqn5}$代入波动方程$\eqref{eqn1}$得到径向方程</p>
 <script type="math/tex; mode=display">
 \frac1{r^2}\frac{d}{dr}\left(r^2\frac{dR_l}{dr}\right)+\left[k^2-V(r)-\frac{l(l+1)}{r^2}\right]R_l(r)=0</script><p>令 $R_l(r)=\frac{u_l(r)}r$，得到</p>
 <script type="math/tex; mode=display">
@@ -572,7 +591,9 @@ R_l(r)\sim\frac{A_l}{kr}\sin\left(kr-\frac\pi2l+\delta_l\right)
 \frac{d^2u_l(r)}{dr^2}+k^2u_l(r)=0</script><p>得到渐近解（调整系数后）</p>
 <script type="math/tex; mode=display">
 u_l(r)=\frac{A_l}{k}\sin\left(kr+\delta_l-\frac{\pi}2l\right)</script><p>最终得到径向分布函数的渐近解$\eqref{eqn6}$。</p>
-</div></div>
+
+    </div>
+</div>
 </blockquote>
 <p>需要注意的是$A_l$和$\delta_l$的来源不一样。$A_l$可以看做通解中特解的系数，而$\delta_l$的未知来源于势函数$V(r)$性质的不明确，少了一个$r=a&lt;\infty$处的边界条件。所以我们应当将$\delta_l$先看做参数，通过$r\to\infty$处的边界条件求解$A_l$和$f(\theta)$。</p>
 <p>将正弦函数改写为幂函数和形式并代入$\eqref{eqn5}$，得到波函数的渐近解为</p>
@@ -583,25 +604,39 @@ u_l(r)=\frac{A_l}{k}\sin\left(kr+\delta_l-\frac{\pi}2l\right)</script><p>最终�
 <script type="math/tex; mode=display">\begin{equation}\label{eqn8}
 \psi(r,\theta)\sim f(\theta)\frac{e^{ikr}}r+\sum_l\frac{(2l+1)i^l}{2ikr}\left[e^{i(kr-\pi l/2)}-e^{-i(kr-\pi l/2)}\right]P_l(\cos\theta)
 \end{equation}</script><blockquote>
-<div class="spoiler collapsed"><div class="spoiler-title">导出过程</div><div class="spoiler-content"><p>将平面波$e^{ikz}$按球面波展开</p>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        导出过程
+    </div>
+    <div class="spoiler-content">
+        <p>将平面波$e^{ikz}$按球面波展开</p>
 <script type="math/tex; mode=display">
 e^{ikz}=e^{ikr\cos\theta}=\sum_l(2l+1)i^lj_l(kr)P_l(\cos\theta)</script><p>其中$j_l(kr)$是<a href="https://en.wikipedia.org/wiki/Bessel_function#Spherical_Bessel_functions" target="_blank" rel="noopener">球Bessel函数</a>，在$r\to\infty$下的渐近形式为</p>
 <script type="math/tex; mode=display">
 j_l(kr)\to\frac1{kr}\sin\left(kr-\frac{\pi}2l\right)=\frac1{2ikr}\left[e^{i(kr-\pi l/2)}-e^{-i(kr-\pi l/2)}\right]</script><p>代入式$\eqref{eqn3}$即可得到$\eqref{eqn8}$。</p>
-</div></div>
+
+    </div>
+</div>
 </blockquote>
 <p>利用$e^{ikr}$与$e^{-ikr}$的正交性以及Legendre多项式的正交性，得到</p>
 <script type="math/tex; mode=display">\begin{gather}
 A_l=(2l+1)\exp\left[i\left(\frac{\pi}2l+\delta_l\right)\right]\label{eqn9}\newline
 f(\theta)=\frac1k\sum_l(2l+1)e^{i\delta_l}\sin\delta_lP_l(\cos\theta)\label{eqn10}
 \end{gather}</script><blockquote>
-<div class="spoiler collapsed"><div class="spoiler-title">导出过程</div><div class="spoiler-content"><p>式$\eqref{eqn7}$和$\eqref{eqn8}$中$e^{ikr}$和$e^{-ikr}$系数分别相等，得到两个方程</p>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        导出过程
+    </div>
+    <div class="spoiler-content">
+        <p>式$\eqref{eqn7}$和$\eqref{eqn8}$中$e^{ikr}$和$e^{-ikr}$系数分别相等，得到两个方程</p>
 <script type="math/tex; mode=display">\begin{gather}\sum_lA_le^{(\delta_l-l\pi/2)}P_l(\cos\theta)=2ikf(\theta)+\sum_l(2l+1)i^le^{-il\pi/2}P_l(\cos\theta)\nonumber\newline
 \sum_lA_le^{-(\delta_l-l\pi/2)}P_l(\cos\theta)=\sum_l(2l+1)i^le^{il\pi/2}P_l(\cos\theta)\nonumber
 \end{gather}</script><p>第二式利用Legendre函数正交性，两边乘$P_{l’}(\cos\theta)$并积分就得到</p>
 <script type="math/tex; mode=display">
 A_le^{-i(\delta_l-\pi l/2)}=(2l+1)i^le^{i\pi l/2}</script><p>即式$\eqref{eqn9}$。</p>
-</div></div>
+
+    </div>
+</div>
 </blockquote>
 <p>最终，得到微分散射截面</p>
 <script type="math/tex; mode=display">\begin{equation}
@@ -767,7 +802,7 @@ A_le^{-i(\delta_l-\pi l/2)}=(2l+1)i^le^{i\pi l/2}</script><p>即式$\eqref{eqn9}
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-count">34</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -800,7 +835,9 @@ A_le^{-i(\delta_l-\pi l/2)}=(2l+1)i^le^{i\pi l/2}</script><p>即式$\eqref{eqn9}
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -881,7 +918,9 @@ A_le^{-i(\delta_l-\pi l/2)}=(2l+1)i^le^{i\pi l/2}</script><p>即式$\eqref{eqn9}
                     
                       
                     
-                    <span class="site-state-item-count">32</span>
+                      
+                    
+                    <span class="site-state-item-count">33</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -984,7 +1023,7 @@ A_le^{-i(\delta_l-\pi l/2)}=(2l+1)i^le^{i\pi l/2}</script><p>即式$\eqref{eqn9}
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
