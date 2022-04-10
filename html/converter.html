@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>光的能量单位换算</title>
+    <style>
+
+    </style>
+</head>
+<body>
+  <div style="font-size:25px">光的能量单位换算</div></br>
+  <input type="text" id="data" value="0">
+  <input type="button" id="btn" value="转换">
+  <input type="text" id="out" value="0" readonly="readonly">
+  <br/>
+  <br/>
+  <div id="fromdiv" style="width:260px;float:left">
+    From 
+    <div>
+      <input type="radio" id="wvlen" name="from" value="wvlen"
+             checked>
+      <label for="wvlen">nm</label>
+    </div>
+    <div>
+      <input type="radio" id="wvnum" name="from" value="wvnum">
+      <label for="wvnum">cm<sup>-1</sup></label>
+    </div>
+    <div>
+      <input type="radio" id="wvfrq" name="from" value="wvfrq">
+      <label for="wvfrq">10<sup>14</sup> Hz</label>
+    </div>
+    <div>
+      <input type="radio" id="elev" name="from" value="elev">
+      <label for="elev">eV</label>
+    </div>
+    <div>
+      <input type="radio" id="ener" name="from" value="ener">
+      <label for="ener">J</label>
+    </div>
+  </div>
+  <div id="todiv" style="margin-left:100px">
+    To 
+    <div>
+      <input type="radio" id="wvlen" name="to" value="wvlen"
+             checked>
+      <label for="wvlen">nm</label>
+    </div>
+
+    <div>
+      <input type="radio" id="wvnum" name="to" value="wvnum">
+      <label for="wvnum">cm<sup>-1</sup></label>
+    </div>
+    <div>
+      <input type="radio" id="wvfrq" name="to" value="wvfrq">
+      <label for="wvfrq">10<sup>14</sup> Hz</label>
+    </div>
+    <div>
+      <input type="radio" id="elev" name="to" value="elev">
+      <label for="elev">eV</label>
+    </div>
+    <div>
+      <input type="radio" id="ener" name="to" value="ener">
+      <label for="ener">J</label>
+    </div>
+  </div>
+</body>
+<script>
+    var data = document.getElementById("data");
+    var from = document.getElementsByName("from");
+    var to = document.getElementsByName("to");
+    var obtn = document.getElementById("btn");
+    var out = document.getElementById("out");
+    var num = 0;
+
+    obtn.onclick=function(){
+        //2.点击按钮触发事件
+      num = parseFloat(data.value);
+        if (from[0].checked) {
+
+        }else if(from[1].checked){
+          num = 10000000.0 / num;
+        }else if(from[2].checked){
+          num = 2.99792458e3 / num;
+        }else if(from[3].checked){
+          num = 1239.841875 / num;
+        }else if(from[4].checked){
+          num = 1.9864455e-16 / num;
+        }
+
+        if (to[0].checked) {
+
+        }else if(to[1].checked){
+          num = 10000000.0 / num;
+        }else if(to[2].checked){
+          num = 2.99792458e3 / num;
+        }else if(to[3].checked){
+          num = 1239.841875 / num;
+        }else if(to[4].checked){
+          num = 1.9864455e-16 / num;
+        }
+        out.value=num;
+    }
+
+
+
+
+
+// 初始倒计时的实现
+
+//     var obtn=document.getElementById("btn");
+//     var num=10;//初始化计数器
+//     document.getElementById("div1").innerHTML=num+"秒";//   在页面中显示10秒
+//     var tim=setInterval(function (){//定义匿名函数，
+//         num--; //函数每调用一次num减一
+//         document.getElementById("div1").innerHTML=num+"秒";       //在页面中显示减一后的秒数
+//         if(num==1){ //当num变为1的时候，通过 clearInterval()结束倒计时
+//               clearInterval(tim);
+//         }
+//     },1000);
+//     obtn.onclick=function(){
+//         clearInterval(tim);
+
+
+//     }
+
+
+
+</script>
+
+
+</html>
