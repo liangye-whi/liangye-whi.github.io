@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next gemini" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="eIrqMncbRU">
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="当前版本为Geant4 11.0.1，操作系统Linux Ubuntu 20.04.4">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Geant4示例B1：基本框架">
+<meta property="og:url" content="https://www.liangye.site/2022/04/27/geant4-exampleB1/index.html">
+<meta property="og:site_name" content="Ye&#39;s Blog">
+<meta property="og:description" content="当前版本为Geant4 11.0.1，操作系统Linux Ubuntu 20.04.4">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2022-04-27T09:19:56.216Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Geant4示例B1：基本框架">
+<meta name="twitter:description" content="当前版本为Geant4 11.0.1，操作系统Linux Ubuntu 20.04.4">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://www.liangye.site/2022/04/27/geant4-exampleB1/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Geant4示例B1：基本框架 | Ye's Blog</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4944b02c2f142cc6651487bf1307d2f7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ye's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.liangye.site/2022/04/27/geant4-exampleB1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ye Liang">
+      <meta itemprop="description" content="So beautiful is the world.">
+      <meta itemprop="image" content="/images/avatar-ly.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ye's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Geant4示例B1：基本框架
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2022-04-27 13:09:29 / 修改时间：17:19:56" itemprop="dateCreated datePublished" datetime="2022-04-27T13:09:29+08:00">2022-04-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/geant4/" itemprop="url" rel="index"><span itemprop="name">geant4</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2022/04/27/geant4-exampleB1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2022/04/27/geant4-exampleB1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2022/04/27/geant4-exampleB1/" class="leancloud_visitors" data-flag-title="Geant4示例B1：基本框架">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+            <div class="post-description">当前版本为Geant4 11.0.1，操作系统Linux Ubuntu 20.04.4</div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Geant4入门文档：<a href="https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/gettingStarted.html" target="_blank" rel="noopener">https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/gettingStarted.html</a><br>Example B1是Geant4最简单的示例，描述了粒子在生物体液、骨骼、组织环境中的运动。<br>Example B1文档：<a href="https://geant4-userdoc.web.cern.ch/Doxygen/examples_doc/html/ExampleB1.html" target="_blank" rel="noopener">https://geant4-userdoc.web.cern.ch/Doxygen/examples_doc/html/ExampleB1.html</a><br>Example B1位置：<code>/path/to/geant4-v11.0.1-install/share/Geant4-11.0.1/examples</code></p>
+<h1 id="main"><a href="#main" class="headerlink" title="main()"></a>main()</h1><p>main()函数结构介绍：<a href="https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/mainProgram.html" target="_blank" rel="noopener">https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/mainProgram.html</a><br>示例B1的<code>main()</code>函数在<code>exampleB1.cc</code>中。<br>在<code>main()</code>函数中，首先建立一个G4RunManager，需要引入头文件<code>G4RunManagerFactory.hh</code>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span>* runManager =</span><br><span class="line">  G4RunManagerFactory::CreateRunManager(G4RunManagerType::Default);</span><br></pre></td></tr></table></figure></p>
+<p>接下来在runManager中加入<strong>探测器几何</strong>、<strong>物理过程</strong>和<strong>Action初始化</strong>，其中探测器几何是自定义的，写在<code>src/DetectorConstruction.cc</code>中，头文件是<code>include/DetectorConstruction.hh</code>，Action初始化也是自定义的，代码也在对应的位置。物理过程选择QBBC，头文件是Geant4的<code>QBBC.h</code>，包含强和电磁相互作用，比较适合描述1GeV以下薄层靶实验。这里创建了QBBC的physicsList，还设置了参数。这三部分是必要的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Set mandatory initialization classes</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Detector construction</span></span><br><span class="line">runManager-&gt;SetUserInitialization(<span class="keyword">new</span> DetectorConstruction());</span><br><span class="line"></span><br><span class="line"><span class="comment">// Physics list</span></span><br><span class="line">G4VModularPhysicsList* physicsList = <span class="keyword">new</span> QBBC;</span><br><span class="line">physicsList-&gt;SetVerboseLevel(<span class="number">1</span>);</span><br><span class="line">runManager-&gt;SetUserInitialization(physicsList);</span><br><span class="line"></span><br><span class="line"><span class="comment">// User action initialization</span></span><br><span class="line">runManager-&gt;SetUserInitialization(<span class="keyword">new</span> ActionInitialization());</span><br></pre></td></tr></table></figure>
+<p>开启可视化。如果没有这部分，通过后面UImanager运行<code>init_vis.mac</code>打开的窗口是没有探测器和事例显示的。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Initialize visualization</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">G4VisManager* visManager = <span class="keyword">new</span> G4VisExecutive;</span><br><span class="line"><span class="comment">// G4VisExecutive can take a verbosity argument - see /vis/verbose guidance.</span></span><br><span class="line"><span class="comment">// G4VisManager* visManager = new G4VisExecutive("Quiet");</span></span><br><span class="line">visManager-&gt;Initialize();</span><br></pre></td></tr></table></figure></p>
+<p>设置用户接口G4UImanager，用来接受并运行用户对程序的指令。需要引入头文件<code>G4UImanager.hh</code>。在交互模式下开启一个session，如果没有<code>SessionStart()</code>，程序不会等待用户输入指令，也不会显示可视化窗口。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get the pointer to the User Interface manager</span></span><br><span class="line">G4UImanager* UImanager = G4UImanager::GetUIpointer();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Process macro or start UI session</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="keyword">if</span> ( ! ui ) &#123;</span><br><span class="line">  <span class="comment">// batch mode</span></span><br><span class="line">  G4String command = <span class="string">"/control/execute "</span>;</span><br><span class="line">  G4String fileName = argv[<span class="number">1</span>];</span><br><span class="line">  UImanager-&gt;ApplyCommand(command+fileName);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// interactive mode</span></span><br><span class="line">  UImanager-&gt;ApplyCommand(<span class="string">"/control/execute init_vis.mac"</span>);</span><br><span class="line">  ui-&gt;SessionStart();</span><br><span class="line">  <span class="keyword">delete</span> ui;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个地方用到了<code>main()</code>开头我们跳过部分的前两行，用来根据运行参数确定是交互模式（无参数）还是批处理模式（参数为宏文件），如果是交互模式，新建一个G4UIExecutive，用到了头文件<code>G4UIExecutive.hh</code>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Detect interactive mode (if no arguments) and define UI session</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">G4UIExecutive* ui = <span class="literal">nullptr</span>;</span><br><span class="line"><span class="keyword">if</span> ( argc == <span class="number">1</span> ) &#123; ui = <span class="keyword">new</span> G4UIExecutive(argc, argv); &#125;</span><br></pre></td></tr></table></figure></p>
+<p>此外，交互模式需要一个<code>init_vis.mac</code>宏文件，以及这个文件调用的<code>vis.mac</code>文件。这两个文件结构比较简单，在多数情况下可以直接调用，也可以在此基础上修改。</p>
+<p>最后，批处理或者交互模式结束后，删除visManager和runManager。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Job termination</span></span><br><span class="line"><span class="comment">// Free the store: user actions, physics_list and detector_description are</span></span><br><span class="line"><span class="comment">// owned and deleted by the run manager, so they should not be deleted</span></span><br><span class="line"><span class="comment">// in the main() program !</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> visManager;</span><br><span class="line"><span class="keyword">delete</span> runManager;</span><br></pre></td></tr></table></figure></p>
+<h1 id="探测器构造概述"><a href="#探测器构造概述" class="headerlink" title="探测器构造概述"></a>探测器构造概述</h1><p>探测器几何的说明：<a href="https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/geometryDef.html" target="_blank" rel="noopener">https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/geometryDef.html</a><br>探测器材料的说明：<a href="https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/materialDef.html" target="_blank" rel="noopener">https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/materialDef.html</a></p>
+<h2 id="Geant4的物体层级"><a href="#Geant4的物体层级" class="headerlink" title="Geant4的物体层级"></a>Geant4的物体层级</h2><p>Geant4中，探测器的几何是由各种<strong>volume</strong>组成的。最大的volume称为<strong>World</strong>，容纳所有其他容器，容器中还可以容纳其他容器。</p>
+<p>构造容器：首先构造<strong>solid</strong>，指定外形；然后构造<strong>logical volume</strong>，指定其材质，添加其物理属性如磁场，添加传感器；最后构造<strong>physical volume</strong>，指定其旋转、位置坐标和父logical volume。</p>
+<p>对于World，也需要构造physical volume，但是其位置需要在全局坐标系原点，不可旋转，且父logical volume为空指针。</p>
+<p>在可视化窗口中观察各个物体的几何，可以通过窗口左侧的Scene Tree面板。物体在可视化窗口中的颜色和透明度可以通过用户指令设置，可以放在宏文件中。</p>
+<h2 id="DetectorConstruction类"><a href="#DetectorConstruction类" class="headerlink" title="DetectorConstruction类"></a>DetectorConstruction类</h2><p>ExampleB1的探测器构造在<code>src/DetectorConstruction.cc</code>中，显示了一个最简单的探测器几何构造案例。</p>
+<p>ExampleB1的DetectorConstruction继承自Geant4的G4VUserDetectorConstruction类，需要头文件<code>G4VUserDetectorConstruction.hh</code>。构建探测器，需要做的是填写其<code>Construct()</code>函数。</p>
+<p>开工之前，获取一个NIST材料数据库：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get nist material manager</span></span><br><span class="line">G4NistManager* nist = G4NistManager::Instance();</span><br></pre></td></tr></table></figure></p>
+<p>提前设定下Envelope的参数，方便引用：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Envelope parameters</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">G4double env_sizeXY = <span class="number">20</span>*cm, env_sizeZ = <span class="number">30</span>*cm;</span><br><span class="line">G4Material* env_mat = nist-&gt;FindOrBuildMaterial(<span class="string">"G4_WATER"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>打开Geant4的volume覆盖错误检查，在每次构造physical volume的时候用到，防止同一层次的volume在空间上形成覆盖导致程序错误：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Option to switch on/off checking of volumes overlaps</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">G4bool checkOverlaps = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure></p>
+<p>开工！首先构造World：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// World</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">G4double world_sizeXY = <span class="number">1.2</span>*env_sizeXY;</span><br><span class="line">G4double world_sizeZ  = <span class="number">1.2</span>*env_sizeZ;</span><br><span class="line">G4Material* world_mat = nist-&gt;FindOrBuildMaterial(<span class="string">"G4_AIR"</span>);</span><br><span class="line"></span><br><span class="line">G4Box* solidWorld =</span><br><span class="line">  <span class="keyword">new</span> G4Box(<span class="string">"World"</span>,                       <span class="comment">//its name</span></span><br><span class="line">     <span class="number">0.5</span>*world_sizeXY, <span class="number">0.5</span>*world_sizeXY, <span class="number">0.5</span>*world_sizeZ);     <span class="comment">//its size</span></span><br><span class="line"></span><br><span class="line">G4LogicalVolume* logicWorld =</span><br><span class="line">  <span class="keyword">new</span> G4LogicalVolume(solidWorld,          <span class="comment">//its solid</span></span><br><span class="line">                      world_mat,           <span class="comment">//its material</span></span><br><span class="line">                      <span class="string">"World"</span>);            <span class="comment">//its name</span></span><br><span class="line"></span><br><span class="line">G4VPhysicalVolume* physWorld =</span><br><span class="line">  <span class="keyword">new</span> G4PVPlacement(<span class="number">0</span>,                     <span class="comment">//no rotation</span></span><br><span class="line">                    G4ThreeVector(),       <span class="comment">//at (0,0,0)</span></span><br><span class="line">                    logicWorld,            <span class="comment">//its logical volume</span></span><br><span class="line">                    <span class="string">"World"</span>,               <span class="comment">//its name</span></span><br><span class="line">                    <span class="number">0</span>,                     <span class="comment">//its mother  volume</span></span><br><span class="line">                    <span class="literal">false</span>,                 <span class="comment">//no boolean operation</span></span><br><span class="line">                    <span class="number">0</span>,                     <span class="comment">//copy number</span></span><br><span class="line">                    checkOverlaps);        <span class="comment">//overlaps checking</span></span><br></pre></td></tr></table></figure></p>
+<p>如上，先构造了World的solid，是一个G4Box，然后构造其logical volume，材料是NIST数据库中的<code>G4_AIR</code>，最后将其放置在原点。注意：在<code>vis.mac</code>中，World被设为不可见：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/vis/geometry/<span class="built_in">set</span>/visibility World 0 <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p>然后构造Envelope，是一个水质的长方体，比World略小：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Envelope</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">G4Box* solidEnv =</span><br><span class="line">  <span class="keyword">new</span> G4Box(<span class="string">"Envelope"</span>,                    <span class="comment">//its name</span></span><br><span class="line">      <span class="number">0.5</span>*env_sizeXY, <span class="number">0.5</span>*env_sizeXY, <span class="number">0.5</span>*env_sizeZ); <span class="comment">//its size</span></span><br><span class="line"></span><br><span class="line">G4LogicalVolume* logicEnv =</span><br><span class="line">  <span class="keyword">new</span> G4LogicalVolume(solidEnv,            <span class="comment">//its solid</span></span><br><span class="line">                      env_mat,             <span class="comment">//its material</span></span><br><span class="line">                      <span class="string">"Envelope"</span>);         <span class="comment">//its name</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> G4PVPlacement(<span class="number">0</span>,                       <span class="comment">//no rotation</span></span><br><span class="line">                  G4ThreeVector(),         <span class="comment">//at (0,0,0)</span></span><br><span class="line">                  logicEnv,                <span class="comment">//its logical volume</span></span><br><span class="line">                  <span class="string">"Envelope"</span>,              <span class="comment">//its name</span></span><br><span class="line">                  logicWorld,              <span class="comment">//its mother  volume</span></span><br><span class="line">                  <span class="literal">false</span>,                   <span class="comment">//no boolean operation</span></span><br><span class="line">                  <span class="number">0</span>,                       <span class="comment">//copy number</span></span><br><span class="line">                  checkOverlaps);          <span class="comment">//overlaps checking</span></span><br></pre></td></tr></table></figure></p>
+<p>然后构造Shape 1，几何为一个圆台，材质为生物组织：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Shape 1</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">G4Material* shape1_mat = nist-&gt;FindOrBuildMaterial(<span class="string">"G4_A-150_TISSUE"</span>);</span><br><span class="line">G4ThreeVector pos1 = G4ThreeVector(<span class="number">0</span>, <span class="number">2</span>*cm, <span class="number">-7</span>*cm);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Conical section shape</span></span><br><span class="line">G4double shape1_rmina =  <span class="number">0.</span>*cm, shape1_rmaxa = <span class="number">2.</span>*cm;</span><br><span class="line">G4double shape1_rminb =  <span class="number">0.</span>*cm, shape1_rmaxb = <span class="number">4.</span>*cm;</span><br><span class="line">G4double shape1_hz = <span class="number">3.</span>*cm;</span><br><span class="line">G4double shape1_phimin = <span class="number">0.</span>*deg, shape1_phimax = <span class="number">360.</span>*deg;</span><br><span class="line">G4Cons* solidShape1 =</span><br><span class="line">  <span class="keyword">new</span> G4Cons(<span class="string">"Shape1"</span>,</span><br><span class="line">  shape1_rmina, shape1_rmaxa, shape1_rminb, shape1_rmaxb, shape1_hz,</span><br><span class="line">  shape1_phimin, shape1_phimax);</span><br><span class="line"></span><br><span class="line">G4LogicalVolume* logicShape1 =</span><br><span class="line">  <span class="keyword">new</span> G4LogicalVolume(solidShape1,         <span class="comment">//its solid</span></span><br><span class="line">                      shape1_mat,          <span class="comment">//its material</span></span><br><span class="line">                      <span class="string">"Shape1"</span>);           <span class="comment">//its name</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> G4PVPlacement(<span class="number">0</span>,                       <span class="comment">//no rotation</span></span><br><span class="line">                  pos1,                    <span class="comment">//at position</span></span><br><span class="line">                  logicShape1,             <span class="comment">//its logical volume</span></span><br><span class="line">                  <span class="string">"Shape1"</span>,                <span class="comment">//its name</span></span><br><span class="line">                  logicEnv,                <span class="comment">//its mother  volume</span></span><br><span class="line">                  <span class="literal">false</span>,                   <span class="comment">//no boolean operation</span></span><br><span class="line">                  <span class="number">0</span>,                       <span class="comment">//copy number</span></span><br><span class="line">                  checkOverlaps);          <span class="comment">//overlaps checking</span></span><br></pre></td></tr></table></figure></p>
+<p>然后构造Shape 2，几何为一个四棱台，材质为骨骼：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Shape 2</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">G4Material* shape2_mat = nist-&gt;FindOrBuildMaterial(<span class="string">"G4_BONE_COMPACT_ICRU"</span>);</span><br><span class="line">G4ThreeVector pos2 = G4ThreeVector(<span class="number">0</span>, <span class="number">-1</span>*cm, <span class="number">7</span>*cm);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Trapezoid shape</span></span><br><span class="line">G4double shape2_dxa = <span class="number">12</span>*cm, shape2_dxb = <span class="number">12</span>*cm;</span><br><span class="line">G4double shape2_dya = <span class="number">10</span>*cm, shape2_dyb = <span class="number">16</span>*cm;</span><br><span class="line">G4double shape2_dz  = <span class="number">6</span>*cm;</span><br><span class="line">G4Trd* solidShape2 =</span><br><span class="line">  <span class="keyword">new</span> G4Trd(<span class="string">"Shape2"</span>,                      <span class="comment">//its name</span></span><br><span class="line">            <span class="number">0.5</span>*shape2_dxa, <span class="number">0.5</span>*shape2_dxb,</span><br><span class="line">            <span class="number">0.5</span>*shape2_dya, <span class="number">0.5</span>*shape2_dyb, <span class="number">0.5</span>*shape2_dz); <span class="comment">//its size</span></span><br><span class="line"></span><br><span class="line">G4LogicalVolume* logicShape2 =</span><br><span class="line">  <span class="keyword">new</span> G4LogicalVolume(solidShape2,         <span class="comment">//its solid</span></span><br><span class="line">                      shape2_mat,          <span class="comment">//its material</span></span><br><span class="line">                      <span class="string">"Shape2"</span>);           <span class="comment">//its name</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> G4PVPlacement(<span class="number">0</span>,                       <span class="comment">//no rotation</span></span><br><span class="line">                  pos2,                    <span class="comment">//at position</span></span><br><span class="line">                  logicShape2,             <span class="comment">//its logical volume</span></span><br><span class="line">                  <span class="string">"Shape2"</span>,                <span class="comment">//its name</span></span><br><span class="line">                  logicEnv,                <span class="comment">//its mother  volume</span></span><br><span class="line">                  <span class="literal">false</span>,                   <span class="comment">//no boolean operation</span></span><br><span class="line">                  <span class="number">0</span>,                       <span class="comment">//copy number</span></span><br><span class="line">                  checkOverlaps);          <span class="comment">//overlaps checking</span></span><br></pre></td></tr></table></figure></p>
+<p>将<code>fScoringVolume</code>设为Shape 2的logical volume，将来用于判定入射粒子是否在Shape 2上沉积能量：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Set Shape2 as scoring volume</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">fScoringVolume = logicShape2;</span><br></pre></td></tr></table></figure></p>
+<p>最后返回World的physical volume，是<code>Construct()</code>函数的要求：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//always return the physical World</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="keyword">return</span> physWorld;</span><br></pre></td></tr></table></figure></p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/04/26/geant4-installation/" rel="next" title="Geant4安装和第一个程序">
+                <i class="fa fa-chevron-left"></i> Geant4安装和第一个程序
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar-ly.jpg" alt="Ye Liang">
+            
+              <p class="site-author-name" itemprop="name">Ye Liang</p>
+              <div class="site-description motion-element" itemprop="description">So beautiful is the world.</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/liangye-whi" title="GitHub &rarr; https://github.com/liangye-whi" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:liangye@hotmail.com" title="E-Mail &rarr; mailto:liangye@hotmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links of Likes
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://reuixiy.github.io/" title="https://reuixiy.github.io/" rel="noopener" target="_blank">Reuixiy's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.raychase.net/" title="http://www.raychase.net/" rel="noopener" target="_blank">四火的唠叨</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#main"><span class="nav-number">1.</span> <span class="nav-text">main()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#探测器构造概述"><span class="nav-number">2.</span> <span class="nav-text">探测器构造概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Geant4的物体层级"><span class="nav-number">2.1.</span> <span class="nav-text">Geant4的物体层级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DetectorConstruction类"><span class="nav-number">2.2.</span> <span class="nav-text">DetectorConstruction类</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2022</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ye Liang</span>
+
+  
+
+  
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+
+  
+    <span class="site-uv" title="总访客量">
+       &nbsp; <i class="fa fa-mouse-pointer"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>&nbsp;hits.
+    </span>
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Ok4C3rcmRwMgcOSk22nDDedw-gzGzoHsz',
+    appKey: 'zCaDpvj6GSOvR84lJ0b7iM83',
+    placeholder: 'Leave a comment?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '0LqLqPGW53nbdmfQYMwdaTbl-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '0LqLqPGW53nbdmfQYMwdaTbl-gzGzoHsz',
+                'X-LC-Key': 'vvGIT8AoBabby809gGAcVFBA',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
