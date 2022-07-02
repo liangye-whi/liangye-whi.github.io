@@ -101,14 +101,14 @@
 
   <meta name="description" content="当前版本为Geant4 11.0.1，操作系统Linux Ubuntu 20.04.4">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Geant4示例B1：基本框架">
+<meta property="og:title" content="Geant4模拟程序基本框架">
 <meta property="og:url" content="https://www.liangye.site/2022/04/27/geant4-exampleB1/index.html">
 <meta property="og:site_name" content="Ye&#39;s Blog">
 <meta property="og:description" content="当前版本为Geant4 11.0.1，操作系统Linux Ubuntu 20.04.4">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-05-01T11:44:46.805Z">
+<meta property="og:updated_time" content="2022-05-27T02:31:45.464Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Geant4示例B1：基本框架">
+<meta name="twitter:title" content="Geant4模拟程序基本框架">
 <meta name="twitter:description" content="当前版本为Geant4 11.0.1，操作系统Linux Ubuntu 20.04.4">
 
 
@@ -127,7 +127,7 @@
   };
 </script>
 
-  <title>Geant4示例B1：基本框架 | Ye's Blog</title>
+  <title>Geant4模拟程序基本框架 | Ye's Blog</title>
   
 
 
@@ -370,7 +370,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Geant4示例B1：基本框架
+          <h2 class="post-title" itemprop="name headline">Geant4模拟程序基本框架
 
               
             
@@ -415,7 +415,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-05-01 19:44:46" itemprop="dateModified" datetime="2022-05-01T19:44:46+08:00">2022-05-01</time>
+                <time title="修改时间：2022-05-27 10:31:45" itemprop="dateModified" datetime="2022-05-27T10:31:45+08:00">2022-05-27</time>
               
             
           </span>
@@ -460,7 +460,7 @@
 
           
           
-            <span id="/2022/04/27/geant4-exampleB1/" class="leancloud_visitors" data-flag-title="Geant4示例B1：基本框架">
+            <span id="/2022/04/27/geant4-exampleB1/" class="leancloud_visitors" data-flag-title="Geant4模拟程序基本框架">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -493,11 +493,56 @@
       
 
       
-        <p>Geant4入门文档：<a href="https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/gettingStarted.html" target="_blank" rel="noopener">https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/gettingStarted.html</a><br>Example B1是Geant4最简单的示例，描述了粒子在生物体液、骨骼、组织环境中的运动。<br>Example B1文档：<a href="https://geant4-userdoc.web.cern.ch/Doxygen/examples_doc/html/ExampleB1.html" target="_blank" rel="noopener">https://geant4-userdoc.web.cern.ch/Doxygen/examples_doc/html/ExampleB1.html</a><br>Example B1位置：<code>/path/to/geant4-v11.0.1-install/share/Geant4-11.0.1/examples</code></p>
+        <p>Geant4入门文档：<a href="https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/gettingStarted.html" target="_blank" rel="noopener">https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/gettingStarted.html</a><br>Example B1是Geant4最简单的示例，描述了粒子在生物体液、骨骼、组织环境中的运动。<br>Example B1文档：<a href="https://geant4-userdoc.web.cern.ch/Doxygen/examples_doc/html/ExampleB1.html" target="_blank" rel="noopener">https://geant4-userdoc.web.cern.ch/Doxygen/examples_doc/html/ExampleB1.html</a><br>Example B1位置：<code>/path/to/geant4-v11.0.1-install/share/Geant4-11.0.1/examples/basic/B1</code></p>
+<p>本文通过梳理ExampleB1的代码逻辑，快速介绍一个基本的Geant4模拟程序的各部分组成。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Example B1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Description</td>
+<td>Simple application for accounting dose in a selected volume</td>
+</tr>
+<tr>
+<td>Geometry</td>
+<td>solids: box, cons, trd, simple placements with translation</td>
+</tr>
+<tr>
+<td>Physics</td>
+<td>Geant4 physics list: QBBC</td>
+</tr>
+<tr>
+<td>Primary generator</td>
+<td>Particle gun</td>
+</tr>
+<tr>
+<td>Scoring</td>
+<td>User action classes</td>
+</tr>
+<tr>
+<td>Vis/GUI</td>
+<td>Detector &amp; trajectory drawing</td>
+</tr>
+<tr>
+<td>Stacking</td>
+<td></td>
+</tr>
+<tr>
+<td>Analysis</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
 <h1 id="main"><a href="#main" class="headerlink" title="main()"></a>main()</h1><p>main()函数结构介绍：<a href="https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/mainProgram.html" target="_blank" rel="noopener">https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/mainProgram.html</a><br>示例B1的<code>main()</code>函数在<code>exampleB1.cc</code>中。<br>在<code>main()</code>函数中，首先建立一个G4RunManager，需要引入头文件<code>G4RunManagerFactory.hh</code>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span>* runManager =</span><br><span class="line">  G4RunManagerFactory::CreateRunManager(G4RunManagerType::Default);</span><br></pre></td></tr></table></figure></p>
-<p>接下来在runManager中加入<strong>探测器几何</strong>、<strong>物理过程</strong>和<strong>Action初始化</strong>，其中探测器几何是自定义的，写在<code>src/DetectorConstruction.cc</code>中，头文件是<code>include/DetectorConstruction.hh</code>，Action初始化也是自定义的，代码也在对应的位置。物理过程选择QBBC，头文件是Geant4的<code>QBBC.h</code>，包含强和电磁相互作用，比较适合描述1GeV以下薄层靶实验。这里创建了QBBC的physicsList，还设置了参数。这三部分是必要的。</p>
+<p>接下来在runManager中加入(1) <strong>DetectorConstruction</strong>、(2) <strong>PhysicsList</strong>和(3) <strong>ActionInitialization</strong>，其中DetectorConstruction是自定义的，写在<code>src/DetectorConstruction.cc</code>中，头文件是<code>include/DetectorConstruction.hh</code>，ActionInitialization也是自定义的，代码也在对应的位置。PhysicsList选择QBBC，头文件是Geant4的<code>QBBC.h</code>，包含强和电磁相互作用，比较适合描述1GeV以下薄层靶实验。这里创建了QBBC的physicsList，还设置了参数。这三部分是必要的。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Set mandatory initialization classes</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Detector construction</span></span><br><span class="line">runManager-&gt;SetUserInitialization(<span class="keyword">new</span> DetectorConstruction());</span><br><span class="line"></span><br><span class="line"><span class="comment">// Physics list</span></span><br><span class="line">G4VModularPhysicsList* physicsList = <span class="keyword">new</span> QBBC;</span><br><span class="line">physicsList-&gt;SetVerboseLevel(<span class="number">1</span>);</span><br><span class="line">runManager-&gt;SetUserInitialization(physicsList);</span><br><span class="line"></span><br><span class="line"><span class="comment">// User action initialization</span></span><br><span class="line">runManager-&gt;SetUserInitialization(<span class="keyword">new</span> ActionInitialization());</span><br></pre></td></tr></table></figure>
-<p>开启可视化。如果没有这部分，通过后面UImanager运行<code>init_vis.mac</code>打开的窗口是没有探测器和事例显示的。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Initialize visualization</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">G4VisManager* visManager = <span class="keyword">new</span> G4VisExecutive;</span><br><span class="line"><span class="comment">// G4VisExecutive can take a verbosity argument - see /vis/verbose guidance.</span></span><br><span class="line"><span class="comment">// G4VisManager* visManager = new G4VisExecutive("Quiet");</span></span><br><span class="line">visManager-&gt;Initialize();</span><br></pre></td></tr></table></figure></p>
+<p>接下来开启可视化。如果没有这部分，通过后面UImanager运行<code>init_vis.mac</code>打开的窗口是没有探测器和事例显示的。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Initialize visualization</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">G4VisManager* visManager = <span class="keyword">new</span> G4VisExecutive;</span><br><span class="line"><span class="comment">// G4VisExecutive can take a verbosity argument - see /vis/verbose guidance.</span></span><br><span class="line"><span class="comment">// G4VisManager* visManager = new G4VisExecutive("Quiet");</span></span><br><span class="line">visManager-&gt;Initialize();</span><br></pre></td></tr></table></figure></p>
 <p>设置用户接口G4UImanager，用来接受并运行用户对程序的指令。需要引入头文件<code>G4UImanager.hh</code>。在交互模式下开启一个session，如果没有<code>SessionStart()</code>，程序不会等待用户输入指令，也不会显示可视化窗口。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get the pointer to the User Interface manager</span></span><br><span class="line">G4UImanager* UImanager = G4UImanager::GetUIpointer();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Process macro or start UI session</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="keyword">if</span> ( ! ui ) &#123;</span><br><span class="line">  <span class="comment">// batch mode</span></span><br><span class="line">  G4String command = <span class="string">"/control/execute "</span>;</span><br><span class="line">  G4String fileName = argv[<span class="number">1</span>];</span><br><span class="line">  UImanager-&gt;ApplyCommand(command+fileName);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// interactive mode</span></span><br><span class="line">  UImanager-&gt;ApplyCommand(<span class="string">"/control/execute init_vis.mac"</span>);</span><br><span class="line">  ui-&gt;SessionStart();</span><br><span class="line">  <span class="keyword">delete</span> ui;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这个地方用到了<code>main()</code>开头我们跳过部分的前两行，用来根据运行参数确定是交互模式（无参数）还是批处理模式（参数为宏文件），如果是交互模式，新建一个G4UIExecutive，用到了头文件<code>G4UIExecutive.hh</code>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Detect interactive mode (if no arguments) and define UI session</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">G4UIExecutive* ui = <span class="literal">nullptr</span>;</span><br><span class="line"><span class="keyword">if</span> ( argc == <span class="number">1</span> ) &#123; ui = <span class="keyword">new</span> G4UIExecutive(argc, argv); &#125;</span><br></pre></td></tr></table></figure></p>
 <p>此外，交互模式需要一个<code>init_vis.mac</code>宏文件，以及这个文件调用的<code>vis.mac</code>文件。这两个文件结构比较简单，在多数情况下可以直接调用，也可以在此基础上修改。</p>
@@ -651,7 +696,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-count">40</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
