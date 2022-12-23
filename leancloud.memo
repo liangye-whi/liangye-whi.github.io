@@ -1,6 +1,7 @@
 [
 {"title":"LaTeX Beamer数理报告设计精通","url":"/2018/04/25/latex-beamer-advanced-tutorial/"},
 {"title":"LaTeX Beamer数理报告设计精通：基本元素","url":"/2018/04/25/latex-beamer-advanced-tutorial/"},
+{"title":"LaTeX Beamer数理报告中的常用元素","url":"/2018/04/25/latex-beamer-advanced-tutorial/"},
 {"title":"量子散射理论","url":"/2018/04/27/quantum-scattering/"},
 {"title":"手动计算Clebsch-Gordan系数","url":"/2018/05/03/clebsch-gordan-calculation/"},
 {"title":"随机行走模拟求二维点阵气体模型的扩散系数","url":"/2018/05/06/lattice-gas-diffusivity/"},
@@ -20,6 +21,7 @@
 {"title":"基于AWS云计算创建个人高性能计算集群","url":"/2018/08/16/aws-cluster/"},
 {"title":"Introduction to Modern Statistical Mechanics by Chandler讨论、纠错及习题解答","url":"/2018/12/26/chandler-keys/"},
 {"title":"Monte Carlo算法发展史","url":"/2018/12/26/monte-carlo-history/"},
+{"title":"Metropolis算法","url":"/2018/12/26/monte-carlo-metropolis/"},
 {"title":"使用Python-Matplotlib制作动画","url":"/2019/01/22/python-animation/"},
 {"title":"计算统计物理Cluster算法原理","url":"/2019/01/23/cluster-algorithm/"},
 {"title":"Histogram Algorithm是什么","url":"/2019/02/06/histogram-algorithm/"},
@@ -38,6 +40,7 @@
 {"title":"光的能量换算工具","url":"/2022/04/10/converter/"},
 {"title":"光的能量单位换算工具","url":"/2022/04/10/converter/"},
 {"title":"Geant4安装和第一个程序","url":"/2022/04/26/geant4-installation/"},
+{"title":"Geant4安装和测试运行","url":"/2022/04/26/geant4-installation/"},
 {"title":"Geant4示例B1：基本框架","url":"/2022/04/27/geant4-exampleB1/"},
 {"title":"Geant4模拟程序基本框架","url":"/2022/04/27/geant4-exampleB1/"},
 {"title":"Geant4光学过程教程","url":"/2022/05/12/geant4-optical/"},
