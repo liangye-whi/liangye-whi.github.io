@@ -99,20 +99,18 @@
 
 
 
-  <meta name="description" content="量子散射理论用于解决粒子碰撞等量子力学过程，主要解法有分波法和Born近似方法。本文介绍这两种计算方法，并且展示其基本原理。 基本概念 散射中心 靶粒子所在的位置成为散射中心。采用质心系研究散射问题时，散射中心为坐标原点；在质心系中入射粒子的质量以约化质量$\mu$表示。 散射角 $(\theta,\phi)$ 入射粒子受靶粒子势场作用，其运动方向偏离入射方向的角度。 弹性散射 指散射过程中，入射">
-<meta name="keywords" content="Quantum">
+  <meta name="description" content="现代Monte Carlo算法的起源：Metropolis算法Monte Carlo算法的思想起源很早，一个很著名的例子是18世纪的布丰投针实验。人们很早就发现Monte Carlo算法能够用于求数值积分。 统计物理中的Monte Carlo算法始于20世纪40年代，由波兰数学家斯塔尼斯拉夫·乌拉姆（Stanisław Marcin Ulam）提出，用来数值求解曼哈顿计划中中子散射问题的微分方程。">
+<meta name="keywords" content="Monte Carlo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="量子散射理论">
-<meta property="og:url" content="https://www.liangye.site/2018/04/27/quantum-scattering/index.html">
+<meta property="og:title" content="Metropolis算法">
+<meta property="og:url" content="https://www.liangye.site/2018/12/26/monte-carlo-metropolis/index.html">
 <meta property="og:site_name" content="Ye&#39;s Blog">
-<meta property="og:description" content="量子散射理论用于解决粒子碰撞等量子力学过程，主要解法有分波法和Born近似方法。本文介绍这两种计算方法，并且展示其基本原理。 基本概念 散射中心 靶粒子所在的位置成为散射中心。采用质心系研究散射问题时，散射中心为坐标原点；在质心系中入射粒子的质量以约化质量$\mu$表示。 散射角 $(\theta,\phi)$ 入射粒子受靶粒子势场作用，其运动方向偏离入射方向的角度。 弹性散射 指散射过程中，入射">
+<meta property="og:description" content="现代Monte Carlo算法的起源：Metropolis算法Monte Carlo算法的思想起源很早，一个很著名的例子是18世纪的布丰投针实验。人们很早就发现Monte Carlo算法能够用于求数值积分。 统计物理中的Monte Carlo算法始于20世纪40年代，由波兰数学家斯塔尼斯拉夫·乌拉姆（Stanisław Marcin Ulam）提出，用来数值求解曼哈顿计划中中子散射问题的微分方程。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.liangye.site/img/quantum-scattering/jlkr.png">
-<meta property="og:updated_time" content="2020-10-08T08:19:13.355Z">
+<meta property="og:updated_time" content="2022-12-23T03:00:18.971Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="量子散射理论">
-<meta name="twitter:description" content="量子散射理论用于解决粒子碰撞等量子力学过程，主要解法有分波法和Born近似方法。本文介绍这两种计算方法，并且展示其基本原理。 基本概念 散射中心 靶粒子所在的位置成为散射中心。采用质心系研究散射问题时，散射中心为坐标原点；在质心系中入射粒子的质量以约化质量$\mu$表示。 散射角 $(\theta,\phi)$ 入射粒子受靶粒子势场作用，其运动方向偏离入射方向的角度。 弹性散射 指散射过程中，入射">
-<meta name="twitter:image" content="https://www.liangye.site/img/quantum-scattering/jlkr.png">
+<meta name="twitter:title" content="Metropolis算法">
+<meta name="twitter:description" content="现代Monte Carlo算法的起源：Metropolis算法Monte Carlo算法的思想起源很早，一个很著名的例子是18世纪的布丰投针实验。人们很早就发现Monte Carlo算法能够用于求数值积分。 统计物理中的Monte Carlo算法始于20世纪40年代，由波兰数学家斯塔尼斯拉夫·乌拉姆（Stanisław Marcin Ulam）提出，用来数值求解曼哈顿计划中中子散射问题的微分方程。">
 
 
 
@@ -120,7 +118,7 @@
 
   
   
-  <link rel="canonical" href="https://www.liangye.site/2018/04/27/quantum-scattering/">
+  <link rel="canonical" href="https://www.liangye.site/2018/12/26/monte-carlo-metropolis/">
 
 
 
@@ -130,7 +128,7 @@
   };
 </script>
 
-  <title>量子散射理论 | Ye's Blog</title>
+  <title>Metropolis算法 | Ye's Blog</title>
   
 
 
@@ -356,7 +354,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.liangye.site/2018/04/27/quantum-scattering/">
+    <link itemprop="mainEntityOfPage" href="https://www.liangye.site/2018/12/26/monte-carlo-metropolis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ye Liang">
@@ -373,7 +371,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">量子散射理论
+          <h2 class="post-title" itemprop="name headline">Metropolis算法
 
               
             
@@ -401,7 +399,7 @@
                 
               
 
-              <time title="创建时间：2018-04-27 11:32:28" itemprop="dateCreated datePublished" datetime="2018-04-27T11:32:28+08:00">2018-04-27</time>
+              <time title="创建时间：2018-12-26 14:17:19" itemprop="dateCreated datePublished" datetime="2018-12-26T14:17:19+08:00">2018-12-26</time>
             
 
             
@@ -418,7 +416,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-10-08 16:19:13" itemprop="dateModified" datetime="2020-10-08T16:19:13+08:00">2020-10-08</time>
+                <time title="修改时间：2022-12-23 11:00:18" itemprop="dateModified" datetime="2022-12-23T11:00:18+08:00">2022-12-23</time>
               
             
           </span>
@@ -435,7 +433,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/quantum/" itemprop="url" rel="index"><span itemprop="name">quantum</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/statistics/" itemprop="url" rel="index"><span itemprop="name">statistics</span></a></span>
 
                 
                 
@@ -454,8 +452,8 @@
                 </span>
             
                 <span class="post-meta-item-text">评论数：</span>
-                <a href="/2018/04/27/quantum-scattering/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/04/27/quantum-scattering/" itemprop="commentCount"></span>
+                <a href="/2018/12/26/monte-carlo-metropolis/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/26/monte-carlo-metropolis/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -463,7 +461,7 @@
 
           
           
-            <span id="/2018/04/27/quantum-scattering/" class="leancloud_visitors" data-flag-title="量子散射理论">
+            <span id="/2018/12/26/monte-carlo-metropolis/" class="leancloud_visitors" data-flag-title="Metropolis算法">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -494,190 +492,58 @@
       
 
       
-        <p>量子散射理论用于解决粒子碰撞等量子力学过程，主要解法有分波法和Born近似方法。本文介绍这两种计算方法，并且展示其基本原理。</p>
-<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><ul>
-<li><strong>散射中心</strong> 靶粒子所在的位置成为散射中心。采用质心系研究散射问题时，散射中心为坐标原点；在质心系中入射粒子的质量以约化质量$\mu$表示。</li>
-<li><strong>散射角</strong> $(\theta,\phi)$ 入射粒子受靶粒子势场作用，其运动方向偏离入射方向的角度。</li>
-<li><strong>弹性散射</strong> 指散射过程中，入射粒子和靶粒子内部状态都不发生变化。</li>
-<li><strong>粒子流密度</strong> $\bm{J}$ 单位时间内垂直通过单位面积的粒子数。用于描述入射粒子流的强度。</li>
-</ul>
-<p>量子力学中，粒子流密度的计算公式为</p>
-<script type="math/tex; mode=display">\bm{J}=\frac{\hbar}{\mu}\mathrm{Im}(\psi^+\nabla\psi)</script><a id="more"></a>
-<h2 id="散射截面"><a href="#散射截面" class="headerlink" title="散射截面"></a>散射截面</h2><ul>
-<li><strong>微分散射截面</strong> $\dfrac{d\sigma}{d\Omega}(\theta,\phi)$ 粒子散射到$(\theta,\phi)$方向的概率。</li>
-</ul>
-<p>若已知入射流密度$\bm{J}_i$和散射流密度$\bm{J}_s(\theta,\phi)$，则</p>
-<script type="math/tex; mode=display">\begin{equation}\label{eqn1}
-\frac{d\sigma}{d\Omega}(\theta,\phi)=\frac{r^2J_s(\theta,\phi)}{J_i}
-\end{equation}</script><ul>
-<li><strong>（总）散射截面</strong> $\sigma=\int\dfrac{d\sigma}{d\Omega}(\theta,\phi)d\Omega$ </li>
-</ul>
-<blockquote>
-<p>散射截面具有面积的量纲。</p>
-</blockquote>
-<p>量子力学的任务是从理论上计算微分散射截面$\frac{d\sigma}{d\Omega}(\theta,\phi)$。散射截面与粒子间相互作用（即靶粒子势场）有直接关系。</p>
-<h2 id="散射幅：量子力学求散射截面"><a href="#散射幅：量子力学求散射截面" class="headerlink" title="散射幅：量子力学求散射截面"></a>散射幅：量子力学求散射截面</h2><p>通常将散射问题的定态Schrödinger方程写为</p>
+        <h1 id="现代Monte-Carlo算法的起源：Metropolis算法"><a href="#现代Monte-Carlo算法的起源：Metropolis算法" class="headerlink" title="现代Monte Carlo算法的起源：Metropolis算法"></a>现代Monte Carlo算法的起源：Metropolis算法</h1><p>Monte Carlo算法的思想起源很早，一个很著名的例子是18世纪的布丰投针实验。人们很早就发现Monte Carlo算法能够用于求数值积分。</p>
+<p>统计物理中的Monte Carlo算法始于20世纪40年代，由波兰数学家斯塔尼斯拉夫·乌拉姆（Stanisław Marcin Ulam）提出，用来数值求解曼哈顿计划中中子散射问题的微分方程。1945年10月，第一台通用电子计算机ENIAC诞生，乌拉姆将这一思想告知冯·诺依曼（John von Neumann），随后冯·诺依曼将Monte Carlo算法编写成程序，利用计算机求解。而Monte Carlo这个名字，则由尼古拉斯·梅特罗波利斯（Nicholas Metropolis）提出，来源与乌拉姆的叔叔经常去赌博的摩纳哥蒙特卡罗赌场。</p>
+<p>1953年，梅特罗波利斯与罗森布卢特（Rosenbluth）夫妇、泰勒（Teller）夫妇共同发表论文Equation of State Calculations by Fast Computing Machines[1]，提出了一种利用计算机求解强关联多体系统的统计性质的随机算法。在这篇文章中，他们计算了二维硬球（rigid sphere）模型。文章核心思路是将正则系综的相空间看做概率空间。如果给定N个粒子的坐标，那么可以求这一构型的能量（势能）。因为势能只与位置有关，与速度无关，于是相空间积分当中的对动量自由度积分便可约去，所以系统的统计性质只与势能部分有关</p>
 <script type="math/tex; mode=display">\begin{equation}
-\nabla^2\psi+[k^2-V(r)]\psi=0
-\end{equation}</script><blockquote>
-<div class="spoiler collapsed">
-    <div class="spoiler-title">
-        导出过程
-    </div>
-    <div class="spoiler-content">
-        <p>由</p>
-<script type="math/tex; mode=display">-\frac{\hbar^2}{2\mu}\nabla^2\psi+U(r)\psi=E\psi</script><p>令$k^2=\frac{2\mu E}{\hbar^2}$，$V(r)=\frac{2\mu}{\hbar^2}U(r)$即可。这里$\frac{\hbar k}{\mu}$可以理解为粒子的相对速度。通常散射问题给定能量，也就是给定了初始动能，也就给定了粒子入射速度。这样，k就是方程中的一个常数。</p>
-<p>注意散射问题中的势通常为中心势。取球极坐标时，通常设粒子入射方向为极轴。</p>
-
-    </div>
-</div>
-</blockquote>
-<p>该方程的通解在$r\to\infty$时的渐近形式为应为<strong>入射平面波</strong>与<a href="https://en.wikipedia.org/wiki/Wave_equation#Spherical_waves" target="_blank" rel="noopener"><strong>散射球面波</strong></a>的叠加，</p>
-<script type="math/tex; mode=display">\begin{equation}\label{eqn3}
-\psi(\bm{r})\sim Ae^{i\bm{k}\cdot\bm{r}} + Af(\theta,\phi)\frac{e^{ikr}}{r}
-\end{equation}</script><p>式中 $f(\theta,\phi)$ 可以看做球面波的角向概率分布，称为<strong>散射幅</strong>。散射幅与散射截面有直接的联系： </p>
-<script type="math/tex; mode=display">\begin{equation}
-\frac{d\sigma}{d\Omega}(\theta,\phi)=|f(\theta,\phi)|^2
-\end{equation}</script><blockquote>
-<div class="spoiler collapsed">
-    <div class="spoiler-title">
-        导出过程
-    </div>
-    <div class="spoiler-content">
-        <p>由式$\eqref{eqn3}$中入射与散射波函数可求得入射与散射流密度的径向分量分别为</p>
-<script type="math/tex; mode=display">J_i=|A|^2\frac{\hbar k}{\mu},\qquad J_s=|A|^2\frac{\hbar k}{\mu}\frac{|f(\theta,\phi)|^2}{r^2}</script><p>由式$\eqref{eqn1}$即可得到微分散射截面。</p>
-
-    </div>
-</div>
-</blockquote>
-<p>只要给定靶粒子势$V(r)$，通过解薛定谔方程并取$\psi(\bm{r})$在$r\to\infty$的渐近形式就可以得到$f(\theta,\phi)$。 因此$f(\theta,\phi)$是连接量子力学理论和实验数据的关键，因此量子散射理论的核心是寻找求解散射幅$f(\theta,\phi)$的各种方法。其中分波法和Born近似是两种常用方法。</p>
-<h1 id="分波法"><a href="#分波法" class="headerlink" title="分波法"></a>分波法</h1><p>分波法的核心思想是在球谐函数（或Legendre多项式）展开下求波函数的级数解。这一方法将求散射幅$f(\theta,\phi)$的问题归结为求分波的相移$\delta_l$，而$\delta_l$需要通过势函数$V(r)$的具体情况求解径向方程来获得。</p>
-<h2 id="分波法计算方法"><a href="#分波法计算方法" class="headerlink" title="分波法计算方法"></a>分波法计算方法</h2><ol>
-<li><p><strong>确定精确到前多少个分波</strong><br>粒子波数为$k=\sqrt{\frac{2\mu E}{\hbar^2}}$，势场作用范围为$r=a$，则可以精确到$0\leqslant l&lt; ka$。在极慢速近似也可以只计算s分波（$l=0$)。</p>
-</li>
-<li><p><strong>解径向方程</strong></p>
-<script type="math/tex; mode=display">
-\frac{d^2u_l}{dr^2}+\left[k^2-V(r)-\frac{l(l+1)}{r^2}\right]u_l(r)=0</script><p>其中$V(r)=\frac{2\mu U(r)}{\hbar^2}$，$U(r)$为势能。<br>解得$u_l$为正弦函数或者Bessel函数等，后者取$r\to\infty$渐进形式得到正弦函数。</p>
-</li>
-<li><p><strong>求相移</strong><br>将渐进解的相写为$\left(kr-\frac\pi2l+\delta_l\right)$的形式，得到相移$\delta_l$。</p>
-</li>
-<li><p><strong>求散射截面</strong><br>微分散射截面</p>
-<script type="math/tex; mode=display">
-\frac{d\sigma}{d\Omega}(\theta)=|f(\theta)|^2=\left|\frac1k\sum_l(2l+1)P_l(\cos\theta)e^{i\delta_l}\sin\delta_l\right|^2</script><p>第$l$个分波的散射截面为 </p>
-<script type="math/tex; mode=display">
-\sigma_l=\frac{4\pi}{k^2}(2l+1)\sin^2\delta_l</script><p>总散射截面为$\sigma=\sum_l\sigma_l$</p>
-</li>
+\la A\ra=\frac{\int A e^{-E/k _ BT}d^{dN}q}{\int e^{-E/k _ BT}d^{dN}q}
+\end{equation}</script><p>上式中d表示维度，N表示粒子数量，q表示（广义）坐标，A为待求物理量，$\la A \ra$表示对对物理量A的统计平均。</p>
+<p>一个直观的思路是随机给定粒子坐标，求这一构型的物理量A及能量E，然后给定其统计权重为$e^{-E/K_BT}$，最后求物理量A的加权平均。这一方法对稀疏系统可行，但是对稠密系统而言，由于绝大多数构型的权重极小（由于重叠而使得能量极大），而权重大的构型难以被采样，算法效率会极其低下。作者提出了修正方法，即举世闻名的<strong>Metropolis算法</strong>：与其随机均匀地抽取构型再赋以权重$e^{-E/k_BT}$，不如抽取概率为$e^{-E/k_BT}$的构型再按照平均。具体地，</p>
+<ol>
+<li>随机地初始化N个粒子的坐标，求其能量。</li>
+<li>随机选择一个粒子，将其移动$q_i\to q_i+\alpha\xi_i$，这里$\alpha$是步长，可以人为设定，$xi_i$是一个$[-1,1]范围内均匀分布的随机数。为了减小界面效应，作者采用了周期性边界条件。</li>
+<li>求新构型与原构型的能量差（$\Delta E$）。如果新构型能量更低，则新构型被“接受”（Accepted）。如果新构型能量更高，那么取$[0,1]$均匀分布的随机数$\varepsilon$，若其小于$e^{-\Delta E/k_BT}$，则新构型被“接受”；否则被“拒绝”（rejected），即恢复到本次移动之前的构型。</li>
+<li><strong>【重要！】</strong>无论新构型是否被接受，经过2、3两步之后的构型被视为一个抽样构型。</li>
+<li>重复步骤2-4多次，直到抽样构型足够多以控制统计误差到接受范围内。样本容量记为$M$。</li>
+<li>对待求物理量做无权重的样本平均，平均值就是一次“试验”的结果。有时会需要求物理量的高阶矩，同样这个高阶矩是一次“试验”的结果。</li>
 </ol>
-<h2 id="分波法原理"><a href="#分波法原理" class="headerlink" title="分波法原理"></a>分波法原理</h2><p>由于波动方程$\eqref{eqn1}$在球极坐标下有通解</p>
-<script type="math/tex; mode=display">\begin{equation}\label{eqn5}
-\psi(r,\theta)=\sum_lR_l(r)P_l(\cos\theta)
-\end{equation}</script><p>其中$R(r)$为待求的径向波函数。通解中每个特解称为一个<strong>分波</strong>，$R_l(r)P_l(\cos\theta)$称为第$l$个分波，通常称$l=0,1,2,3,…$的分波分别为s,p,d,f,…分波。</p>
-<p>径向波函数$R_l(r)$的$r\to\infty$的渐进解为</p>
-<script type="math/tex; mode=display">\begin{equation}\label{eqn6}
-R_l(r)\sim\frac{A_l}{kr}\sin\left(kr-\frac\pi2l+\delta_l\right)
-\end{equation}</script><blockquote>
-<div class="spoiler collapsed">
-    <div class="spoiler-title">
-        导出过程
-    </div>
-    <div class="spoiler-content">
-        <p>将通解$\eqref{eqn5}$代入波动方程$\eqref{eqn1}$得到径向方程</p>
-<script type="math/tex; mode=display">
-\frac1{r^2}\frac{d}{dr}\left(r^2\frac{dR_l}{dr}\right)+\left[k^2-V(r)-\frac{l(l+1)}{r^2}\right]R_l(r)=0</script><p>令 $R_l(r)=\frac{u_l(r)}r$，得到</p>
-<script type="math/tex; mode=display">
-\frac{d^2u_l}{dr^2}+\left[k^2-V(r)-\frac{l(l+1)}{r^2}\right]u_l(r)=0</script><p>若已知$V(r)$，则可求解此方程得到最终解。此处我们讨论一般情况。</p>
-<p>考虑方程在$r\to\infty$下的渐近形式，要求$V(r)\to 0$，</p>
-<script type="math/tex; mode=display">
-\frac{d^2u_l(r)}{dr^2}+k^2u_l(r)=0</script><p>得到渐近解（调整系数后）</p>
-<script type="math/tex; mode=display">
-u_l(r)=\frac{A_l}{k}\sin\left(kr+\delta_l-\frac{\pi}2l\right)</script><p>最终得到径向分布函数的渐近解$\eqref{eqn6}$。</p>
-
-    </div>
-</div>
-</blockquote>
-<p>需要注意的是$A_l$和$\delta_l$的来源不一样。$A_l$可以看做通解中特解的系数，而$\delta_l$的未知来源于势函数$V(r)$性质的不明确，少了一个$r=a&lt;\infty$处的边界条件。所以我们应当将$\delta_l$先看做参数，通过$r\to\infty$处的边界条件求解$A_l$和$f(\theta)$。</p>
-<p>将正弦函数改写为幂函数和形式并代入$\eqref{eqn5}$，得到波函数的渐近解为</p>
-<script type="math/tex; mode=display">\begin{equation}\label{eqn7}
-\psi(r,\theta)\sim\sum_l\frac{A_l}{2ikr}\left[e^{i(kr-\pi l/2+\delta_l)}-e^{-i(kr-\pi l/2+\delta_l)}\right]P_l(\cos\theta)
-\end{equation}</script><p>其中，$P_l(\cos\theta)$为<a href="https://en.wikipedia.org/wiki/Legendre_polynomials" target="_blank" rel="noopener">Legendre多项式</a>；而$A_l$与$\delta_l$需要根据边界条件$\eqref{eqn3}$求。</p>
-<p>边界条件$\eqref{eqn3}$中平面波按球面波展开，最终得到</p>
-<script type="math/tex; mode=display">\begin{equation}\label{eqn8}
-\psi(r,\theta)\sim f(\theta)\frac{e^{ikr}}r+\sum_l\frac{(2l+1)i^l}{2ikr}\left[e^{i(kr-\pi l/2)}-e^{-i(kr-\pi l/2)}\right]P_l(\cos\theta)
-\end{equation}</script><blockquote>
-<div class="spoiler collapsed">
-    <div class="spoiler-title">
-        导出过程
-    </div>
-    <div class="spoiler-content">
-        <p>将平面波$e^{ikz}$按球面波展开</p>
-<script type="math/tex; mode=display">
-e^{ikz}=e^{ikr\cos\theta}=\sum_l(2l+1)i^lj_l(kr)P_l(\cos\theta)</script><p>其中$j_l(kr)$是<a href="https://en.wikipedia.org/wiki/Bessel_function#Spherical_Bessel_functions" target="_blank" rel="noopener">球Bessel函数</a>，在$r\to\infty$下的渐近形式为</p>
-<script type="math/tex; mode=display">
-j_l(kr)\to\frac1{kr}\sin\left(kr-\frac{\pi}2l\right)=\frac1{2ikr}\left[e^{i(kr-\pi l/2)}-e^{-i(kr-\pi l/2)}\right]</script><p>代入式$\eqref{eqn3}$即可得到$\eqref{eqn8}$。</p>
-
-    </div>
-</div>
-</blockquote>
-<p>利用$e^{ikr}$与$e^{-ikr}$的正交性以及Legendre多项式的正交性，得到</p>
-<script type="math/tex; mode=display">\begin{gather}
-A_l=(2l+1)\exp\left[i\left(\frac{\pi}2l+\delta_l\right)\right]\label{eqn9}\newline
-f(\theta)=\frac1k\sum_l(2l+1)e^{i\delta_l}\sin\delta_lP_l(\cos\theta)\label{eqn10}
-\end{gather}</script><blockquote>
-<div class="spoiler collapsed">
-    <div class="spoiler-title">
-        导出过程
-    </div>
-    <div class="spoiler-content">
-        <p>式$\eqref{eqn7}$和$\eqref{eqn8}$中$e^{ikr}$和$e^{-ikr}$系数分别相等，得到两个方程</p>
-<script type="math/tex; mode=display">\begin{gather}\sum_lA_le^{(\delta_l-l\pi/2)}P_l(\cos\theta)=2ikf(\theta)+\sum_l(2l+1)i^le^{-il\pi/2}P_l(\cos\theta)\nonumber\newline
-\sum_lA_le^{-(\delta_l-l\pi/2)}P_l(\cos\theta)=\sum_l(2l+1)i^le^{il\pi/2}P_l(\cos\theta)\nonumber
-\end{gather}</script><p>第二式利用Legendre函数正交性，两边乘$P_{l’}(\cos\theta)$并积分就得到</p>
-<script type="math/tex; mode=display">
-A_le^{-i(\delta_l-\pi l/2)}=(2l+1)i^le^{i\pi l/2}</script><p>即式$\eqref{eqn9}$。</p>
-
-    </div>
-</div>
-</blockquote>
-<p>最终，得到微分散射截面</p>
+<p>以上就是Metropolis算法，其中第4步是其核心。显然，这是一个Markov过程，每一次转移（步骤2-4）得到一个状态，从第$n$个状态得到第$n+1$个状态的转移概率$P(X_{n+1}=x|X_{n}=x_n)$与$n$无关。</p>
+<p>我们可以进行多次“试验”，得到多次“试验”的结果，再取平均得到物理量的计算结果；对多次“试验”结果求样本标准差得到物理量的计算误差。这是一个完整的计算过程。</p>
+<p>对Metropolis算法采得的构型权重都正比于$e^{-E/k_BT}$，即</p>
 <script type="math/tex; mode=display">\begin{equation}
-\frac{d\sigma}{d\Omega}(\theta)=|f(\theta)|^2=\left|\frac1k\sum_l(2l+1)P_l(\cos\theta)e^{i\delta_l}\sin\delta_l\right|^2
-\end{equation}</script><p>以及总散射截面</p>
-<script type="math/tex; mode=display">\begin{equation}
-\sigma=2\pi\int\frac{d\sigma}{d\Omega}(\theta)\sin\theta d\theta=\frac{4\pi}k^2\sum_l(2l+1)\sin^2\delta_l
-\end{equation}</script><p>若将散射截面写为$\sigma=\sum_l\sigma_l$，则</p>
-<script type="math/tex; mode=display">\begin{equation}
-\sigma_l=\frac{4\pi}{k^2}(2l+1)\sin^2\delta_l
-\end{equation}</script><p>为第$l$个分波的散射截面。</p>
-<p><strong>关于相移</strong></p>
-<p>由入射波和散射波的形式可知，</p>
+\frac{\nu_s}{\nu_r}=\frac{e^{-E_s/k_BT}}{e^{-E_r/k_BT}}
+\end{equation}</script><h1 id="对构型权重的证明"><a href="#对构型权重的证明" class="headerlink" title="对构型权重的证明"></a>对构型权重的证明</h1><p>首先，一个粒子允许在整个空间中移动，只要步数足够多，那么这个粒子一定能够到达空间的任意位置。这就是说，算法满足遍历性（ergocity）。当然，这只是申明算法能够充分采样，并不需要在实际计算过程中遍历整个空间。</p>
+<p>其次，需要证明如果样本容量足够大，样本池中状态为r的样本数量$\nu_r$应当正比于$e^{-E_r/k_BT}$。关于这点，首先明确这个过程中涉及到</p>
 <ul>
-<li>$\left(kr-\frac\pi2l\right)$是入射波第$l$个分波的相</li>
-<li>$\left(kr-\frac\pi2l+\delta_l\right)$是散射波第$l$个分波的相<br>所以$\delta_l$是入射波经散射后第$l$个分波的<strong>相移</strong>。</li>
+<li>先验（<em>a priori</em>）概率$P_{rs}$：当构型为s时，选择下一个构型为r的（条件）概率。显然$P_{rs}=P_{sr}$，因为粒子从位置1能够移动到位置2，那么单纯的看空间位置，当然也能从位置2移动到位置1，而且在步骤2中，选择移动位置是均匀随机的。</li>
+<li>接受（acceptance）概率$\alpha_{rs}$：即从状态r到状态s能够被“接受”的概率。若$E_r&gt;E_s$，那么$\alpha_{rs}=1$，$\alpha_{sr}=e^{-(E_r-E_s)/k_BT}$。</li>
 </ul>
-<p>求相移$\delta_l$需要知道一个$r=a&lt;\infty$处的边界条件。由于靠近原点（靶粒子），需要知道具体的势函数。</p>
-<h2 id="分波法的适用性"><a href="#分波法的适用性" class="headerlink" title="分波法的适用性"></a>分波法的适用性</h2><p><img src="/img/quantum-scattering/jlkr.png" alt="球Bessel函数" title="球Bessel函数"></p>
-<p>由于入射波的第$l$个分波的径向函数$j_l(kr)$第一极大值位于$r=\frac{l}k$附近，并随$r$增大衰减到0，若$j_l(kr)$的第一极大值位于$r=\frac{l}k&gt;a$（这里$a$表示势函数的作用范围），那么在势函数作用范围内$j_l(kr)$的值就很小，意味着第$l$个分波受势场的影响可以忽略。所以可以忽略的$l$为$l&gt;ka$，这里$k$是能量的函数。粒子能量越低，影响显著的分波数量就越少。<strong>所以分波法非常适用于低能（长波）极限下</strong>，截取的分波只要$l&lt; ka$即可，极慢速粒子甚至可以只考虑s分波。</p>
-<h1 id="Born近似"><a href="#Born近似" class="headerlink" title="Born近似"></a>Born近似</h1><p>Born近似的核心思想是微扰论。当入射粒子能量较高时，不宜使用分波法；此时势能可以看作自由粒子Hamilton量的微扰。</p>
-<h2 id="Born近似计算方法"><a href="#Born近似计算方法" class="headerlink" title="Born近似计算方法"></a>Born近似计算方法</h2><p>Born近似表达式为</p>
+<p>这样，Markov链的转移矩阵为</p>
 <script type="math/tex; mode=display">\begin{equation}
-\frac{d\sigma}{d\Omega}(\theta,\phi)=\frac{4\mu^2}{K^2\hbar^4}\left|\int_0^\infty rU(r)\sin(Kr)dr\right|^2
-\end{equation}</script><p>其中 $ K=2k\sin\frac{\theta}2$，$\theta$为散射角。</p>
-<p><strong>常见复杂作用势能$U(r)$及对应积分$\int_0^\infty rU(r)\sin(Kr)dr$</strong></p>
-<ul>
-<li><p>$e^{-ar}\to$ $\int_0^\infty re^{-ar}sin(Kr)dr=\frac{2aK}{(a^2+K^2)^2}$</p>
-</li>
-<li><p>$e^{-a^2r^2}\to$ $\int_0^\infty re^{-a^2r^2}\sin(Kr)dr=\frac{\sqrt{\pi}Ke^{-K^2}{4a^2}}{4a^3}$</p>
-</li>
-<li><p>$\frac{e^{-ar}}r\to$ $\int_0^\infty e^{-ar}\sin(Kr)dr=\frac{K}{a^2+K^2}$</p>
-</li>
-<li><p>$\frac1{r^2}\to$ $\int_0^\infty\frac{\sin Kr}rdr=\frac{\pi}2$</p>
-</li>
-</ul>
-<h2 id="Born近似原理"><a href="#Born近似原理" class="headerlink" title="Born近似原理"></a>Born近似原理</h2><h2 id="Born近似适用性"><a href="#Born近似适用性" class="headerlink" title="Born近似适用性"></a>Born近似适用性</h2><p><strong>Born近似只适用于高能（短波）极限下。</strong></p>
+p_{r\to s}=P_{rs}\alpha_{rs}=P_{rs}\times\min[1,e^{-(E_s-E_r)/k_BT}], \qquad s\neq r
+\end{equation}</script><p>由随机过程理论可知，当Markov过程达到平稳时，即采样充分时，满足细致平衡条件（detailed balance）</p>
+<script type="math/tex; mode=display">\begin{equation}
+\nu_sp_{s\to r}=\nu_rp_{r\to s}
+\end{equation}</script><p>即</p>
+<script type="math/tex; mode=display">\begin{equation}
+\frac{\nu_s}{\nu_r}=\frac{p_{r\to s}}{p_{s\to r}}=\frac{P_{rs}\min[1,e^{-(E_s-E_r)/k_BT}]}{P_{sr}\min[1,e^{-(E_r-E_s)/k_BT}]}=\frac{\min[1,e^{-(E_s-E_r)/k_BT}]}{\min[1,e^{-(E_r-E_s)/k_BT}]}=\frac{e^{-E_s/k_BT}}{e^{-E_r/k_BT}}
+\end{equation}</script><p>证毕。</p>
+<p>这里特别说明：之所以步骤4非常重要，即必须在移动被拒绝的时候将原构型加入样本，可以通过计算$p_{r\to r}$看出：由于转移矩阵的性质$\sum_s p_{r\to s}=1$，</p>
+<script type="math/tex; mode=display">\begin{align}
+p_{r\to r}=&1-\sum_{s\neq r}p_{r\to s}=1-\sum_{s\neq r}P_{rs}\min[1,e^{-(E_s-E_r)/k_BT}]\nonumber\newline
+=&1-\sum_{s\neq r|E_s\leqslant E_r}P_{rs}-\sum_{s\neq r|E_s>E_r}P_{rs}+\sum_{s\neq r|E_s>E_r}P_{rs}(1-e^{-(E_s-E_r)/k_BT})\nonumber\newline
+=&P_{rr}+\sum_{s\neq r|E_s>E_r}P_{rs}(1-e^{-(E_s-E_r)/k_BT})
+\end{align}</script><p>即：状态r回到自身，不仅可以通过直接在第2步选择自身并直接移回（$e^{-\Delta E/k_BT}=1$），还能够通过第2步选择其他状态但是被拒绝之后移回。</p>
+<h1 id="Metropolis算法的局限性"><a href="#Metropolis算法的局限性" class="headerlink" title="Metropolis算法的局限性"></a>Metropolis算法的局限性</h1><p>Metropolis算法能够保证在<strong>足够多</strong>的Monte Carlo采样下得到足够精确的物理量，但是也有重要的不足：</p>
+<ol>
+<li>一般地，这个算法不能控制达到足够精度的步数，或者说不能告诉我们样本容量需要达到多大才能满足精度要求。达到足够的精度又称为“收敛”（converge）。Markov过程需要达到平稳才能保证抽样的正确分布，也就是说通常需要弃掉一开始的多个构型使得系统达到“平衡”，再进行采样。但是系统需要多久才能达到“平衡”并非已知。有的时候（例如在临界相变点附近），会发生<strong>临界降速</strong>（critical slowing-down），达到平衡的时间变为无穷长。</li>
+<li>对于连续空间的Metropolis算法，步长$\alpha$取值尚未确定。显然，$\alpha$与收敛速度有关，如何调节$\alpha$值以使Monte Carlo算法最有效率，是一个很重要的问题。</li>
+</ol>
+<p>经过维尔弗雷德·哈斯廷（Wilfred Keith Hastings）的总结推广[2]，Metropolis算法中接受概率可以不由波尔兹曼分布得出，而可以是任意要求的概率。这样推广的Metropolis算法成为一种通用的计算数学方法，称为Metropolis-Hastings算法。哈斯廷在总结中还讨论了Metropolis算法的误差估计等。</p>
+<p>Metropolis算法是Markov Chain Monte Carlo（MCMC）算法的一种，也是重要性采样（Importance Sampling）方法的一例。除了Metropolis-Hastings算法外，由Metropolis算法还可以导出处理高维采样、计算联合分布的Gibbs抽样法。这些方法在计算统计学、机器学习等领域中有很重要的应用。关于这些算法，可以参考：<br><a href="https://blog.csdn.net/pipisorry/article/details/51373090" target="_blank" rel="noopener">随机采样和随机模拟：吉布斯采样Gibbs Sampling</a><br><a href="https://www.cnblogs.com/pinard/p/6645766.html" target="_blank" rel="noopener">Gibbs采样</a></p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
-<li><a href="https://wenku.baidu.com/view/a83d1873312b3169a551a412.html" target="_blank" rel="noopener">中科大量子力学教程-散射</a></li>
-<li>Ballentine L., Quantum mechanics - a modern development (1998)</li>
-<li>Sakurai &amp; Napolitano, Modern quantum mechanics (1994)</li>
+<li>Equation of State Calculations by Fast Computing Machines, Metropolis N., Rosenbluth A. W., Rosenbluth M. N., Teller A. H. and Teller E., Journal of Chemical Physics, 21, 1087-1092 (1953) </li>
+<li>Hastings, W. Keith. “Monte Carlo sampling methods using Markov chains and their applications.” (1970): 97-109. </li>
 </ol>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
       
@@ -702,7 +568,7 @@ A_le^{-i(\delta_l-\pi l/2)}=(2l+1)i^le^{i\pi l/2}</script><p>即式$\eqref{eqn9}
       
         <div class="post-tags">
           
-            <a href="/tags/Quantum/" rel="tag"># Quantum</a>
+            <a href="/tags/Monte-Carlo/" rel="tag"># Monte Carlo</a>
           
         </div>
       
@@ -715,8 +581,8 @@ A_le^{-i(\delta_l-\pi l/2)}=(2l+1)i^le^{i\pi l/2}</script><p>即式$\eqref{eqn9}
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/25/latex-beamer-advanced-tutorial/" rel="next" title="LaTeX Beamer数理报告中的常用元素">
-                <i class="fa fa-chevron-left"></i> LaTeX Beamer数理报告中的常用元素
+              <a href="/2018/12/26/chandler-keys/" rel="next" title="Introduction to Modern Statistical Mechanics by Chandler讨论、纠错及习题解答">
+                <i class="fa fa-chevron-left"></i> Introduction to Modern Statistical Mechanics by Chandler讨论、纠错及习题解答
               </a>
             
           </div>
@@ -725,8 +591,8 @@ A_le^{-i(\delta_l-\pi l/2)}=(2l+1)i^le^{i\pi l/2}</script><p>即式$\eqref{eqn9}
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/03/clebsch-gordan-calculation/" rel="prev" title="手动计算Clebsch-Gordan系数">
-                手动计算Clebsch-Gordan系数 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/22/python-animation/" rel="prev" title="使用Python-Matplotlib制作动画">
+                使用Python-Matplotlib制作动画 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1008,7 +874,7 @@ A_le^{-i(\delta_l-\pi l/2)}=(2l+1)i^le^{i\pi l/2}</script><p>即式$\eqref{eqn9}
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#散射截面"><span class="nav-number">1.1.</span> <span class="nav-text">散射截面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#散射幅：量子力学求散射截面"><span class="nav-number">1.2.</span> <span class="nav-text">散射幅：量子力学求散射截面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分波法"><span class="nav-number">2.</span> <span class="nav-text">分波法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分波法计算方法"><span class="nav-number">2.1.</span> <span class="nav-text">分波法计算方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分波法原理"><span class="nav-number">2.2.</span> <span class="nav-text">分波法原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分波法的适用性"><span class="nav-number">2.3.</span> <span class="nav-text">分波法的适用性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Born近似"><span class="nav-number">3.</span> <span class="nav-text">Born近似</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Born近似计算方法"><span class="nav-number">3.1.</span> <span class="nav-text">Born近似计算方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Born近似原理"><span class="nav-number">3.2.</span> <span class="nav-text">Born近似原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Born近似适用性"><span class="nav-number">3.3.</span> <span class="nav-text">Born近似适用性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#现代Monte-Carlo算法的起源：Metropolis算法"><span class="nav-number">1.</span> <span class="nav-text">现代Monte Carlo算法的起源：Metropolis算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对构型权重的证明"><span class="nav-number">2.</span> <span class="nav-text">对构型权重的证明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Metropolis算法的局限性"><span class="nav-number">3.</span> <span class="nav-text">Metropolis算法的局限性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>

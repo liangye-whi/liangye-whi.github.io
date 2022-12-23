@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Ye&#39;s Blog">
 <meta property="og:description" content="当前版本为Geant4 11.0.1，操作系统Linux Ubuntu 20.04.4">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-05-27T02:31:45.464Z">
+<meta property="og:updated_time" content="2022-10-27T06:18:00.746Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Geant4模拟程序基本框架">
 <meta name="twitter:description" content="当前版本为Geant4 11.0.1，操作系统Linux Ubuntu 20.04.4">
@@ -415,7 +415,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-05-27 10:31:45" itemprop="dateModified" datetime="2022-05-27T10:31:45+08:00">2022-05-27</time>
+                <time title="修改时间：2022-10-27 14:18:00" itemprop="dateModified" datetime="2022-10-27T14:18:00+08:00">2022-10-27</time>
               
             
           </span>
@@ -495,50 +495,7 @@
       
         <p>Geant4入门文档：<a href="https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/gettingStarted.html" target="_blank" rel="noopener">https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/gettingStarted.html</a><br>Example B1是Geant4最简单的示例，描述了粒子在生物体液、骨骼、组织环境中的运动。<br>Example B1文档：<a href="https://geant4-userdoc.web.cern.ch/Doxygen/examples_doc/html/ExampleB1.html" target="_blank" rel="noopener">https://geant4-userdoc.web.cern.ch/Doxygen/examples_doc/html/ExampleB1.html</a><br>Example B1位置：<code>/path/to/geant4-v11.0.1-install/share/Geant4-11.0.1/examples/basic/B1</code></p>
 <p>本文通过梳理ExampleB1的代码逻辑，快速介绍一个基本的Geant4模拟程序的各部分组成。</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Example B1</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Description</td>
-<td>Simple application for accounting dose in a selected volume</td>
-</tr>
-<tr>
-<td>Geometry</td>
-<td>solids: box, cons, trd, simple placements with translation</td>
-</tr>
-<tr>
-<td>Physics</td>
-<td>Geant4 physics list: QBBC</td>
-</tr>
-<tr>
-<td>Primary generator</td>
-<td>Particle gun</td>
-</tr>
-<tr>
-<td>Scoring</td>
-<td>User action classes</td>
-</tr>
-<tr>
-<td>Vis/GUI</td>
-<td>Detector &amp; trajectory drawing</td>
-</tr>
-<tr>
-<td>Stacking</td>
-<td></td>
-</tr>
-<tr>
-<td>Analysis</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
+<p>ExampleB1程序清单：<br>|                | Example B1 |<br>|————————|——————|<br>|Description   |Simple application for accounting dose in a selected volume|<br>|Geometry      |    solids: box, cons, trd, simple placements with translation|<br>|Physics       | Geant4 physics list: QBBC|<br>|Primary generator| Particle gun|<br>|Scoring       | User action classes|<br>|Vis/GUI       |显示探测器和粒子轨迹|<br>|Stacking      |无|<br>|Analysis      |无||</p>
 <h1 id="main"><a href="#main" class="headerlink" title="main()"></a>main()</h1><p>main()函数结构介绍：<a href="https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/mainProgram.html" target="_blank" rel="noopener">https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/GettingStarted/mainProgram.html</a><br>示例B1的<code>main()</code>函数在<code>exampleB1.cc</code>中。<br>在<code>main()</code>函数中，首先建立一个G4RunManager，需要引入头文件<code>G4RunManagerFactory.hh</code>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span>* runManager =</span><br><span class="line">  G4RunManagerFactory::CreateRunManager(G4RunManagerType::Default);</span><br></pre></td></tr></table></figure></p>
 <p>接下来在runManager中加入(1) <strong>DetectorConstruction</strong>、(2) <strong>PhysicsList</strong>和(3) <strong>ActionInitialization</strong>，其中DetectorConstruction是自定义的，写在<code>src/DetectorConstruction.cc</code>中，头文件是<code>include/DetectorConstruction.hh</code>，ActionInitialization也是自定义的，代码也在对应的位置。PhysicsList选择QBBC，头文件是Geant4的<code>QBBC.h</code>，包含强和电磁相互作用，比较适合描述1GeV以下薄层靶实验。这里创建了QBBC的physicsList，还设置了参数。这三部分是必要的。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Set mandatory initialization classes</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Detector construction</span></span><br><span class="line">runManager-&gt;SetUserInitialization(<span class="keyword">new</span> DetectorConstruction());</span><br><span class="line"></span><br><span class="line"><span class="comment">// Physics list</span></span><br><span class="line">G4VModularPhysicsList* physicsList = <span class="keyword">new</span> QBBC;</span><br><span class="line">physicsList-&gt;SetVerboseLevel(<span class="number">1</span>);</span><br><span class="line">runManager-&gt;SetUserInitialization(physicsList);</span><br><span class="line"></span><br><span class="line"><span class="comment">// User action initialization</span></span><br><span class="line">runManager-&gt;SetUserInitialization(<span class="keyword">new</span> ActionInitialization());</span><br></pre></td></tr></table></figure>
@@ -609,8 +566,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/04/26/geant4-installation/" rel="next" title="Geant4安装和第一个程序">
-                <i class="fa fa-chevron-left"></i> Geant4安装和第一个程序
+              <a href="/2022/04/26/geant4-installation/" rel="next" title="Geant4安装和测试运行">
+                <i class="fa fa-chevron-left"></i> Geant4安装和测试运行
               </a>
             
           </div>
@@ -696,7 +653,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">38</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -712,6 +669,8 @@
                     
                   
                     
+                    
+                      
                     
                       
                     
@@ -749,6 +708,8 @@
                     
                   
                     
+                    
+                      
                     
                       
                     
