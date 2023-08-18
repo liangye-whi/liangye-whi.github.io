@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-  <div style="font-size:25px">光的能量单位换算</div></br>
+  <div style="font-size:25px">光的能量单位换算</div><br/>
   <input type="text" id="data" value="0">
   <input type="button" id="btn" value="转换">
   <input type="text" id="out" value="0" readonly="readonly">
@@ -65,6 +65,9 @@
       <label for="ener">J</label>
     </div>
   </div>
+  <br/>
+  <div>常用换算公式：</div> <br/>
+  <div>E / MeV = 1239.84 / (λ / nm)</div>
 </body>
 <script>
     var data = document.getElementById("data");
@@ -102,30 +105,6 @@
         }
         out.value=num;
     }
-
-
-
-
-
-// 初始倒计时的实现
-
-//     var obtn=document.getElementById("btn");
-//     var num=10;//初始化计数器
-//     document.getElementById("div1").innerHTML=num+"秒";//   在页面中显示10秒
-//     var tim=setInterval(function (){//定义匿名函数，
-//         num--; //函数每调用一次num减一
-//         document.getElementById("div1").innerHTML=num+"秒";       //在页面中显示减一后的秒数
-//         if(num==1){ //当num变为1的时候，通过 clearInterval()结束倒计时
-//               clearInterval(tim);
-//         }
-//     },1000);
-//     obtn.onclick=function(){
-//         clearInterval(tim);
-
-
-//     }
-
-
 
 </script>
 
