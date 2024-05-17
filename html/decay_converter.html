@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>天然放射性同位素活度单位换算</title>
+    <style>
+
+    </style>
+</head>
+<body>
+  <div style="font-size:25px">天然放射性同位素活度单位换算</div><br/>
+  <table width="480px">
+    <tr>
+      <td>
+      <input type="radio" id="u238" name="isotope" value="u238" checked>
+      <label for="u238"><sup>238</sup>U</label>
+      </td>
+      <td> <div id="u238_m"></div></td>
+      <td> <div id="u238_hl"></div></td>
+    </tr>
+    <tr>
+      <td>
+      <input type="radio" id="th232" name="isotope" value="th232">
+      <label for="th232"><sup>232</sup>Th</label>
+      </td>
+      <td><div id="th232_m"></div></td>
+      <td><div id="th232_hl"></div></td>
+    </tr>
+    <tr>
+      <td>
+      <input type="radio" id="k40" name="isotope" value="k40">
+      <label for="k40"><sup>40</sup>K</label>
+      </td>
+      <td><div id="k40_m"></div></td>
+      <td><div id="k40_hl"></div></td>
+  </table>
+  <br>
+  <input type="text" id="data" value="0">
+  <input type="button" id="btn" value="转换">
+  <input type="text" id="out" value="0" readonly="readonly">
+  <br>
+  <br>
+  <div id="fromdiv" style="width:225px;float:left">
+    From 
+    <div>
+      <input type="radio" id="conc" name="from" value="conc"
+             checked>
+      <label for="conc">g/g</label>
+    </div>
+    <div>
+      <input type="radio" id="actv" name="from" value="actv">
+      <label for="actv">mBq/kg</sup></label>
+    </div>
+    <div>
+      <input type="radio" id="evrt" name="from" value="evrt">
+      <label for="evrt">events/(100 ton·year)</label>
+    </div>
+  </div>
+  <div id="todiv" style="margin-left:100px">
+    To 
+    <div>
+      <input type="radio" id="conc" name="to" value="conc">
+      <label for="conc">g/g</label>
+    </div>
+
+    <div>
+      <input type="radio" id="actv" name="to" value="actv">
+      <label for="actv">mBq/kg</sup></label>
+    </div>
+    <div>
+      <input type="radio" id="evrt" name="to" value="evrt" checked>
+      <label for="evrt">events/(100 ton·year)</label>
+    </div>
+  </div>
+  <br>
+  <div id="na"></div>
+  <div id="yr"></div>
+</body>
+<script>
+    var isotope = document.getElementsByName("isotope");
+    var data = document.getElementById("data");
+    var from = document.getElementsByName("from");
+    var to = document.getElementsByName("to");
+    var obtn = document.getElementById("btn");
+    var out = document.getElementById("out");
+    var num = 0;
+    var m = 0;
+    var hl = 0;
+
+  // atomic mass 
+    var m_u238 = 238.05078826;
+    var m_th232 = 232.0380536;
+    var m_k40 = 39.96399848;
+  // half-life data, unit = year
+    var hl_u238 = 4.458e9;
+    var hl_th232 = 1.405e10;
+    var hl_k40 = 1.248e9;
+    var ln2 = 0.6931471805599453;
+    var yr2s = 31536000;
+    var NA = 6.02214076e23;
+
+    document.getElementById("u238_m").innerHTML = "原子量："+m_u238;
+    document.getElementById("th232_m").innerHTML = "原子量："+m_th232;
+    document.getElementById("k40_m").innerHTML = "原子量："+m_k40;
+    document.getElementById("u238_hl").innerHTML = "半衰期："+hl_u238.toExponential()+" 年";
+    document.getElementById("th232_hl").innerHTML = "半衰期："+hl_th232.toExponential()+" 年";
+    document.getElementById("k40_hl").innerHTML = "半衰期："+hl_k40.toExponential()+" 年";
+    document.getElementById("yr").innerHTML = "1年=365天="+yr2s+"秒";
+  document.getElementById("na").innerHTML = "<i>N</i><sub>A</sub>="+NA.toExponential();
+
+    obtn.onclick=function(){
+        //2.点击按钮触发事件
+      num = parseFloat(data.value);
+        if (isotope[0].checked){
+            m = m_u238;
+            hl = hl_u238;
+        }else if(isotope[1].checked){
+            m = m_th232;
+            hl = hl_th232;
+        }else if(isotope[2].checked){
+            m = m_k40;
+            hl = hl_k40;
+        }
+
+        if (from[0].checked && to[1].checked) {
+            num = num * 1e6 * NA * ln2 / m / (hl*yr2s);
+        }else if(from[0].checked && to[2].checked){
+            num = num * 1e8 * NA * ln2 / m / hl;
+        }else if(from[1].checked && to[0].checked){
+            num = num / 1e6 / NA / ln2 * m * (hl*yr2s);
+        }else if(from[1].checked && to[2].checked){
+            num = num * 1e2 * yr2s
+        }else if(from[2].checked && to[0].checked){
+            num = num / 1e8 / NA / ln2 * m * hl;
+        }else if(from[2].checked && to[1].checked){
+            num = num / 1e2 / yr2s
+        }
+        out.value=num;
+    }
+
+</script>
+
+
+</html>
