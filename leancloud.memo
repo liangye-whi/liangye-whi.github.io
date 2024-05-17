@@ -47,4 +47,5 @@
 {"title":"Geant4光学过程教程","url":"/2022/05/12/geant4-optical/"},
 {"title":"Geant4传感器使用方法","url":"/2022/05/27/geant4-sensitive-detector/"},
 {"title":"Linux下Qt5支持fcitx输入法","url":"/2022/07/02/qt5-fcitx/"},
+{"title":"放射性活度单位换算工具","url":"/2024/05/17/decay_converter/"},
 ]

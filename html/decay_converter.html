@@ -42,38 +42,41 @@
   <input type="text" id="out" value="0" readonly="readonly">
   <br>
   <br>
-  <div id="fromdiv" style="width:225px;float:left">
-    From 
-    <div>
-      <input type="radio" id="conc" name="from" value="conc"
-             checked>
+  <table width="480px">
+    <tr>
+      <td>From</td>
+      <td>To</td>
+    </tr>
+      <td>
+      <input type="radio" id="conc" name="from" value="conc" checked>
       <label for="conc">g/g</label>
-    </div>
-    <div>
-      <input type="radio" id="actv" name="from" value="actv">
-      <label for="actv">mBq/kg</sup></label>
-    </div>
-    <div>
-      <input type="radio" id="evrt" name="from" value="evrt">
-      <label for="evrt">events/(100 ton·year)</label>
-    </div>
-  </div>
-  <div id="todiv" style="margin-left:100px">
-    To 
-    <div>
+      </td>
+      <td>
       <input type="radio" id="conc" name="to" value="conc">
       <label for="conc">g/g</label>
-    </div>
-
-    <div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <input type="radio" id="actv" name="from" value="actv">
+      <label for="actv">mBq/kg</sup></label>
+      </td>
+      <td>
       <input type="radio" id="actv" name="to" value="actv">
       <label for="actv">mBq/kg</sup></label>
-    </div>
-    <div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <input type="radio" id="evrt" name="from" value="evrt">
+      <label for="evrt">events/(100 ton·year)</label>
+      </td>
+      <td>
       <input type="radio" id="evrt" name="to" value="evrt" checked>
       <label for="evrt">events/(100 ton·year)</label>
-    </div>
-  </div>
+      </td>
+    </tr>
+  </table>
   <br>
   <div id="na"></div>
   <div id="yr"></div>
